@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings;
+namespace TaylorNetwork\LaravelSettings\Casters;
 
 use Illuminate\Database\Eloquent\Concerns\HasAttributes;
 use Illuminate\Support\Traits\ForwardsCalls;

@@ -1,10 +1,10 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Providers;
+namespace TaylorNetwork\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelSettingsServiceProvider extends ServiceProvider
+class LaravelSettingsProvider extends ServiceProvider
 {
     public function register()
     {
@@ -22,6 +22,6 @@ class LaravelSettingsServiceProvider extends ServiceProvider
 
     private function packagePath(?string $path = null): string
     {
-        return __DIR__.'/../..'.($path ? '/'.$path : '');
+        return __DIR__.'/..'.($path ? '/'.$path : '');
     }
 }

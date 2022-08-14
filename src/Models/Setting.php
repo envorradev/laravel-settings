@@ -4,13 +4,13 @@ namespace TaylorNetwork\LaravelSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
 use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
 use TaylorNetwork\LaravelSettings\Contracts\ModelOwnership;
 use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
 use TaylorNetwork\LaravelSettings\Traits\HasOwner;
-use TaylorNetwork\LaravelSettings\DynamicTypeCaster;
 
 /**
  * @property SettingType setting_type

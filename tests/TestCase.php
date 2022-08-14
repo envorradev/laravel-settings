@@ -4,7 +4,7 @@ namespace TaylorNetwork\LaravelSettings\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use TaylorNetwork\LaravelSettings\Providers\LaravelSettingsServiceProvider;
+use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
 use TaylorNetwork\LaravelSettings\Tests\Environment\database\seeders\TestingSeeder;
 
 class TestCase extends OrchestraTestCase
@@ -24,7 +24,7 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelSettingsServiceProvider::class,
+            LaravelSettingsProvider::class,
         ];
     }
 

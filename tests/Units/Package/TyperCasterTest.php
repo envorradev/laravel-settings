@@ -1,12 +1,12 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units;
+namespace TaylorNetwork\LaravelSettings\Tests\Units\Package;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use stdClass;
+use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
 use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
-use TaylorNetwork\LaravelSettings\DynamicTypeCaster;
 use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;

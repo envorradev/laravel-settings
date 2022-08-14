@@ -38,7 +38,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "TaylorNetwork\\LaravelSettings\\Providers\\LaravelSettingsServiceProvider"
+                "TaylorNetwork\\LaravelSettings\\LaravelSettingsProvider"
             ]
         },
         "ramsey/composer-repl": {
