@@ -5,6 +5,7 @@ namespace TaylorNetwork\LaravelSettings\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
 use TaylorNetwork\LaravelSettings\Contracts\ModelOwnership;
 use TaylorNetwork\LaravelSettings\Enums\DataType;
@@ -71,5 +72,10 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public function hasOwner(): bool
     {
         return $this->isModelSetting() && $this->owner;
+    }
+
+    public function newCollection(array $models = []): SettingsCollection
+    {
+        return new SettingsCollection($models);
     }
 }

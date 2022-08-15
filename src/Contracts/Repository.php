@@ -2,8 +2,9 @@
 
 namespace TaylorNetwork\LaravelSettings\Contracts;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
+
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
@@ -19,7 +20,7 @@ interface Repository
 
     public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder;
 
-    public function queryBuilder(): Builder;
+    public function query(): Builder;
 
     public function all(): SettingsCollection;
 

@@ -2,24 +2,17 @@
 
 namespace TaylorNetwork\LaravelSettings\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Contracts\Repository;
 use TaylorNetwork\LaravelSettings\Contracts\SettingOwner;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
-abstract class SettingsRepository implements Repository
+class SettingsRepository implements Repository
 {
-    protected static SettingType $repositorySettingType;
-
-    protected SettingsCollection $collection;
-
-    public function __construct()
-    {
-        $this->collection = new SettingsCollection();
-    }
+    protected static string $model = Setting::class;
 
     public function findOrFail(string $key): Setting
     {
@@ -43,17 +36,22 @@ abstract class SettingsRepository implements Repository
 
     public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder
     {
-        // TODO: Implement where() method.
+        return $this->query()->where($field, $operatorOrValue, $valueOrNull);
     }
 
-    public function queryBuilder(): Builder
+    public function model(): Setting
     {
-        // TODO: Implement queryBuilder() method.
+        return new (static::$model)();
+    }
+
+    public function query(): Builder
+    {
+        return $this->model()::query();
     }
 
     public function all(): SettingsCollection
     {
-        // TODO: Implement all() method.
+        return $this->model()->all();
     }
 
     public function allOfType(SettingType $type): SettingsCollection
