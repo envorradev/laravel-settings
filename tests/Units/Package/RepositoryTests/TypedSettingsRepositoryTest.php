@@ -21,7 +21,7 @@ class TypedSettingsRepositoryTest extends TestCase
         $seederTypeString = $repository::repositorySettingType()?->value.'Settings';
 
         $this->assertInstanceOf(SettingsCollection::class, $settings);
-        $this->assertSameSize(TestingSeeder::$$seederTypeString, $settings);
+        $this->assertSameSize(TestingSeeder::$seederTypeString(), $settings);
         $this->assertAllOfSettingType($repository::repositorySettingType(), $settings);
     }
 

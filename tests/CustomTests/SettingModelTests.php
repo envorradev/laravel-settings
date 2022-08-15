@@ -7,8 +7,6 @@ use TaylorNetwork\LaravelSettings\Models\Setting;
 
 trait SettingModelTests
 {
-    use DataTypeTests;
-
     protected function assertSettingIsValid(Setting $setting): void
     {
         $this->assertIsDataType($setting->getDataType(), $setting->value);

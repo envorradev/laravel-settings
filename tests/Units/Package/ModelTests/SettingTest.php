@@ -2,7 +2,10 @@
 
 namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\ModelTests;
 
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 use TaylorNetwork\LaravelSettings\Tests\Environment\database\seeders\TestingSeeder;
@@ -23,6 +26,46 @@ class SettingTest extends TestCase
     {
         $settings = Setting::where('setting_type', SettingType::GLOBAL)->get();
         $this->assertInstanceOf(SettingsCollection::class, $settings);
-        $this->assertSameSize(TestingSeeder::$globalSettings, $settings);
+        $this->assertSameSize(TestingSeeder::globalSettings(), $settings);
+    }
+
+    /** @test */
+    public function it_correctly_casts_to_and_from_collection(): void
+    {
+        $setting = Setting::where('data_type', DataType::COLLECTION)->first();
+        $this->assertModelExists($setting);
+        $this->assertInstanceOf(Setting::class, $setting);
+        $this->assertInstanceOf(Collection::class, $setting->value);
+        $this->assertIsDataType(DataType::COLLECTION, $setting->value);
+    }
+
+    /** @test */
+    public function it_correctly_casts_to_and_from_date(): void
+    {
+        $setting = Setting::where('data_type', DataType::DATE)->first();
+        $this->assertModelExists($setting);
+        $this->assertInstanceOf(Setting::class, $setting);
+        $this->assertInstanceOf(Carbon::class, $setting->value);
+        $this->assertIsDataType(DataType::DATE, $setting->value);
+    }
+
+    /** @test */
+    public function it_correctly_casts_to_and_from_datetime(): void
+    {
+        $setting = Setting::where('data_type', DataType::DATETIME)->first();
+        $this->assertModelExists($setting);
+        $this->assertInstanceOf(Setting::class, $setting);
+        $this->assertInstanceOf(Carbon::class, $setting->value);
+        $this->assertIsDataType(DataType::DATETIME, $setting->value);
+    }
+
+    /** @test */
+    public function it_correctly_casts_to_and_from_timestamp(): void
+    {
+        $setting = Setting::where('data_type', DataType::TIMESTAMP)->first();
+        $this->assertModelExists($setting);
+        $this->assertInstanceOf(Setting::class, $setting);
+        $this->assertIsInt($setting->value);
+        $this->assertIsDataType(DataType::TIMESTAMP, $setting->value);
     }
 }

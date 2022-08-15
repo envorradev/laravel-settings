@@ -29,7 +29,7 @@ class SettingsRepositoryTest extends TestCase
     {
         $settings = $this->repository()->allOfType(SettingType::APP);
         $this->assertInstanceOf(SettingsCollection::class, $settings);
-        $this->assertSameSize(TestingSeeder::$appSettings, $settings);
+        $this->assertSameSize(TestingSeeder::appSettings(), $settings);
     }
 
     /** @test */
