@@ -113,10 +113,10 @@ interface Repository
     /**
      * Get a repository by scope.
      *
-     * @param string $scope
+     * @param ?string $scope
      * @return Repository
      */
-    public static function scope(string $scope): Repository;
+    public static function scope(?string $scope = null): Repository;
 
     /**
      * Get global scoped repository.

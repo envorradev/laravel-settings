@@ -3,7 +3,6 @@
 namespace TaylorNetwork\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
-use TaylorNetwork\LaravelSettings\Facades\Setting;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 
 class LaravelSettingsProvider extends ServiceProvider
@@ -24,6 +23,8 @@ class LaravelSettingsProvider extends ServiceProvider
         $this->publishes([
             $this->packagePath('config/laravel_settings.php') => config_path('laravel_settings.php'),
         ]);
+
+        include_once $this->packagePath('src/Helpers/setting.php');
     }
 
     private function packagePath(?string $path = null): string

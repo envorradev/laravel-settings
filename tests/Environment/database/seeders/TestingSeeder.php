@@ -93,8 +93,8 @@ class TestingSeeder extends Seeder
                 'owner_id' => 3,
                 'data_type' => DataType::COLLECTION,
                 'value' => new Collection([
-                    'item' => 'key 1',
-                    'value' => 'value 1',
+                    'someKey' => 'key 1',
+                    'someValue' => 'value 1',
                 ]),
             ],
         ];

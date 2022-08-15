@@ -171,12 +171,18 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public static function scope(string $scope): SettingsRepository
+    public static function scope(?string $scope = null): SettingsRepository
     {
+        if(!$scope) {
+            return static::instance();
+        }
+
         $scope = Str::singular(Str::camel($scope));
+
         if(in_array($scope, ['global', 'app', 'model', 'user'])) {
             return static::$scope();
         }
+
         return static::instance();
     }
 
