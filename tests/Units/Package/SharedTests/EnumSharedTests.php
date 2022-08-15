@@ -1,9 +1,9 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\EnumTests\SharedTests;
+namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\SharedTests;
 
 
-trait TestValuesMethod
+trait EnumSharedTests
 {
     protected function assertValuesMethodWorks(string $enum): void
     {

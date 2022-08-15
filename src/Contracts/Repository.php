@@ -4,7 +4,7 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
@@ -26,7 +26,11 @@ interface Repository
 
     public function allOfType(SettingType $type): SettingsCollection;
 
-    public function allOwnedBy(SettingOwner $owner, SettingType|array $filterTypes = []): SettingsCollection;
-
     public function allRelatedToModel(Model $model, SettingType|array $filterTypes = []): SettingsCollection;
+
+    public function normalizeCollection(iterable $iterable): SettingsCollection;
+
+    public static function instance(): static;
+
+    public static function repositorySettingType(): ?SettingType;
 }

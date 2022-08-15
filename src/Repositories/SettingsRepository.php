@@ -4,15 +4,17 @@ namespace TaylorNetwork\LaravelSettings\Repositories;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Contracts\Repository;
-use TaylorNetwork\LaravelSettings\Contracts\SettingOwner;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
 class SettingsRepository implements Repository
 {
     protected static string $model = Setting::class;
+
+    protected static ?SettingType $settingType = null;
 
     public function findOrFail(string $key): Setting
     {
@@ -46,27 +48,64 @@ class SettingsRepository implements Repository
 
     public function query(): Builder
     {
-        return $this->model()::query();
+        $query = $this->model()::query();
+
+        if(static::$settingType) {
+            $query->where('setting_type', static::$settingType);
+        }
+
+        return $query;
     }
 
     public function all(): SettingsCollection
     {
-        return $this->model()->all();
+        return $this->normalizeCollection(($this->query())->get());
     }
 
     public function allOfType(SettingType $type): SettingsCollection
     {
-        // TODO: Implement allOfType() method.
-    }
-
-    public function allOwnedBy(SettingOwner $owner, array|SettingType $filterTypes = []): SettingsCollection
-    {
-        // TODO: Implement allOwnedBy() method.
+        return $this->normalizeCollection($this->query()->where('setting_type', $type)->get());
     }
 
     public function allRelatedToModel(Model $model, array|SettingType $filterTypes = []): SettingsCollection
     {
-        // TODO: Implement allRelatedToModel() method.
+        return $this->normalizeCollection(
+                    $this->filterQuery(
+                        query: $this->query()->whereMorphedTo('owner', $model),
+                        filterTypes: $filterTypes
+                    )->get()
+        );
     }
 
+    protected function filterQuery(Builder $query, array|SettingType $filterTypes = []): Builder
+    {
+        if(count($filterTypes)) {
+            $query->where(function($subQuery) use ($filterTypes) {
+                $wheres = 1;
+                 foreach(Arr::wrap($filterTypes) as $type) {
+                     $type = SettingType::make($type);
+                     $whereMethod = $wheres === 1 ? 'where' : 'orWhere';
+                     $subQuery->$whereMethod('setting_type', $type);
+                     $wheres++;
+                 }
+            });
+        }
+
+        return $query;
+    }
+
+    public function normalizeCollection(iterable $iterable): SettingsCollection
+    {
+        return SettingsCollection::from($iterable);
+    }
+
+    public static function instance(): static
+    {
+        return new static();
+    }
+
+    public static function repositorySettingType(): ?SettingType
+    {
+        return static::$settingType;
+    }
 }

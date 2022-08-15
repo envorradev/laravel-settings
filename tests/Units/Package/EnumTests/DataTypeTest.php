@@ -4,11 +4,11 @@ namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\EnumTests;
 
 use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Tests\Units\Package\EnumTests\SharedTests\TestValuesMethod;
+use TaylorNetwork\LaravelSettings\Tests\Units\Package\SharedTests\EnumSharedTests;
 
 class DataTypeTest extends TestCase
 {
-    use TestValuesMethod;
+    use EnumSharedTests;
 
     /** @test */
     public function it_has_values_method()
