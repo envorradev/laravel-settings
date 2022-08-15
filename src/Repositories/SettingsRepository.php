@@ -18,17 +18,17 @@ class SettingsRepository implements Repository
 
     public function findOrFail(string $key): Setting
     {
-        // TODO: Implement findOrFail() method.
+        return $this->normalizeCollection($this->where('key', $key)->take(1)->get())->firstOrFail();
     }
 
     public function find(string $key): ?Setting
     {
-        // TODO: Implement find() method.
+        return $this->normalizeCollection($this->where('key', $key)->take(1)->get())->first();
     }
 
     public function get(string $key, mixed $default = null): mixed
     {
-        // TODO: Implement get() method.
+        return $this->find($key) ?? $default;
     }
 
     public function set(string $key, mixed $value, ?SettingType $settingType = null): Setting

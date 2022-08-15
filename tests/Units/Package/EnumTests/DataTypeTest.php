@@ -15,4 +15,6 @@ class DataTypeTest extends TestCase
     {
         $this->assertValuesMethodWorks(DataType::class);
     }
+
+    // @todo more tests
 }

@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
 use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
 
+/**
+ * @template TKey of array-key
+ * @template TModel of \TaylorNetwork\LaravelSettings\Models\Setting
+ *
+ * @extends SettingsCollection<TKey, TModel>
+ */
 class SettingsCollection extends Collection implements CastsCollections
 {
     public static function from(iterable $iterable): static
