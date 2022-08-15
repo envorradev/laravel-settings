@@ -5,6 +5,7 @@ namespace TaylorNetwork\LaravelSettings\Repositories;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Contracts\Repository;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
@@ -47,7 +48,7 @@ class SettingsRepository implements Repository
      */
     public function get(string $key, mixed $default = null): mixed
     {
-        return $this->find($key) ?? $default;
+        return $this->find($key)?->value ?? $default;
     }
 
     /**
@@ -67,9 +68,11 @@ class SettingsRepository implements Repository
     }
 
     /**
-     * @inheritDoc
+     * Get the model.
+     *
+     * @return Setting
      */
-    public function model(): Setting
+    public function getModel(): Setting
     {
         return new (static::$model)();
     }
@@ -79,7 +82,7 @@ class SettingsRepository implements Repository
      */
     public function query(): Builder
     {
-        $query = $this->model()::query();
+        $query = $this->getModel()::query();
 
         if(static::$settingType) {
             $query->where('setting_type', static::$settingType);
@@ -164,4 +167,51 @@ class SettingsRepository implements Repository
     {
         return static::$settingType;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function scope(string $scope): SettingsRepository
+    {
+        $scope = Str::singular(Str::camel($scope));
+        if(in_array($scope, ['global', 'app', 'model', 'user'])) {
+            return static::$scope();
+        }
+        return static::instance();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public static function global(): GlobalSettingsRepository
+    {
+        return GlobalSettingsRepository::instance();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function app(): AppSettingsRepository
+    {
+        return AppSettingsRepository::instance();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function model(): ModelSettingsRepository
+    {
+        return ModelSettingsRepository::instance();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function user(): UserSettingsRepository
+    {
+        return UserSettingsRepository::instance();
+    }
+
+
 }

@@ -31,7 +31,7 @@ class TestingSeeder extends Seeder
             'owner_type' => UserUsingTrait::class,
             'owner_id' => 1,
             'data_type' => DataType::INT,
-            'value' => '4',
+            'value' => 4,
         ],
         [
             'key' => 'user.test.int2',
@@ -39,7 +39,7 @@ class TestingSeeder extends Seeder
             'owner_type' => UserUsingTrait::class,
             'owner_id' => 2,
             'data_type' => DataType::INT,
-            'value' => '7',
+            'value' => 7,
         ],
     ];
 
@@ -59,13 +59,7 @@ class TestingSeeder extends Seeder
             'key' => 'app.test.float1',
             'setting_type' => SettingType::APP,
             'data_type' => DataType::FLOAT,
-            'value' => '7.5',
-        ],
-        [
-            'key' => 'app.test.collection1',
-            'setting_type' => SettingType::APP,
-            'data_type' => DataType::COLLECTION,
-            'value' => '[{"name":"item1","description":"the number one item"},{"name":"item2","description":"the number two item"}]',
+            'value' => 7.5,
         ],
     ];
 
@@ -74,19 +68,25 @@ class TestingSeeder extends Seeder
             'key' => 'global.test.array1',
             'setting_type' => SettingType::GLOBAL,
             'data_type' => DataType::ARRAY,
-            'value' => '["one","two","three"]',
+            'value' => ['one', 'two', 'three'],
         ],
         [
             'key' => 'global.test.assoc_array1',
             'setting_type' => SettingType::GLOBAL,
             'data_type' => DataType::ARRAY,
-            'value' => '{"name":"item1","description":"the number one item"}',
+            'value' => [
+                'name' => 'item1',
+                'description' => 'the number one item'
+            ],
         ],
         [
             'key' => 'global.test.multi_dimensional_array1',
             'setting_type' => SettingType::GLOBAL,
             'data_type' => DataType::ARRAY,
-            'value' => '{"name":"item1","listing":["list1","list2","list3"]}',
+            'value' => [
+                'name' => 'item1',
+                'listing' => ['list1', 'list2', 'list3']
+            ],
         ],
     ];
 

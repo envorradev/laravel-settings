@@ -109,4 +109,40 @@ interface Repository
      * @return ?SettingType
      */
     public static function repositorySettingType(): ?SettingType;
+
+    /**
+     * Get a repository by scope.
+     *
+     * @param string $scope
+     * @return Repository
+     */
+    public static function scope(string $scope): Repository;
+
+    /**
+     * Get global scoped repository.
+     *
+     * @return Repository
+     */
+    public static function global(): Repository;
+
+    /**
+     * Get app scoped repository.
+     *
+     * @return Repository
+     */
+    public static function app(): Repository;
+
+    /**
+     * Get model scoped repository.
+     *
+     * @return Repository
+     */
+    public static function model(): Repository;
+
+    /**
+     * Get user scoped repository.
+     *
+     * @return Repository
+     */
+    public static function user(): Repository;
 }

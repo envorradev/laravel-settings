@@ -3,7 +3,6 @@
 namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\RepositoryTests;
 
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;

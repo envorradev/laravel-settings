@@ -3,6 +3,8 @@
 namespace TaylorNetwork\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
+use TaylorNetwork\LaravelSettings\Facades\Setting;
+use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 
 class LaravelSettingsProvider extends ServiceProvider
 {
@@ -12,6 +14,7 @@ class LaravelSettingsProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom($this->packagePath('config/laravel_settings.php'), 'laravel_settings');
+        $this->app->bind('Setting', SettingsRepository::class);
     }
 
     public function boot()
