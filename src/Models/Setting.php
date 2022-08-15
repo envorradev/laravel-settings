@@ -22,6 +22,9 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     use HasOwner;
     use AliasesSnakeCaseAttributes;
 
+    /**
+     * @inheritDoc
+     */
     protected $fillable = [
         'key',
         'description',
@@ -29,33 +32,58 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
         'value',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $casts = [
         'data_type' => DataType::class,
         'setting_type' => SettingType::class,
         'value' => DynamicTypeCaster::class,
     ];
 
-
+    /**
+     * @inheritDoc
+     */
     public function getDataType(): DataType
     {
         return $this->data_type ?? DataType::STRING;
     }
 
+    /**
+     * Is this a Global setting?
+     *
+     * @return bool
+     */
     public function isGlobalSetting(): bool
     {
         return $this->isSettingType(SettingType::GLOBAL);
     }
 
+    /**
+     * Is this an App setting?
+     *
+     * @return bool
+     */
     public function isAppSetting(): bool
     {
         return $this->isSettingType(SettingType::APP);
     }
 
+    /**
+     * Is this a User setting?
+     *
+     * @return bool
+     */
     public function isUserSetting(): bool
     {
         return $this->isSettingType(SettingType::USER);
     }
 
+    /**
+     * Is this a Model setting?
+     *
+     * @return bool
+     */
     public function isModelSetting(): bool
     {
         return $this->isSettingType([
@@ -64,16 +92,30 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
         ]);
     }
 
+    /**
+     * Check if this is the same SettingType as given.
+     *
+     * @param SettingType|string|array $type
+     * @return bool
+     */
     public function isSettingType(SettingType|string|array $type): bool
     {
         return $this->setting_type?->isIn(Arr::wrap($type)) ?? false;
     }
 
+    /**
+     * Does this Model have an owner?
+     *
+     * @return bool
+     */
     public function hasOwner(): bool
     {
         return $this->isModelSetting() && $this->owner;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function newCollection(array $models = []): SettingsCollection
     {
         return new SettingsCollection($models);

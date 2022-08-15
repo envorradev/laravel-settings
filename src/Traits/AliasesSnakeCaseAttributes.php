@@ -6,11 +6,17 @@ use Illuminate\Support\Str;
 
 trait AliasesSnakeCaseAttributes
 {
+    /**
+     * @inheritDoc
+     */
     public function getAttribute($key)
     {
         return parent::getAttribute($key) ?? parent::getAttribute(Str::snake($key));
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setAttribute($key, $value)
     {
         $snakeKey = Str::snake($key);

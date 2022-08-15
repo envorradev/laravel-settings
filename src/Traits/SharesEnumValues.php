@@ -4,6 +4,9 @@ namespace TaylorNetwork\LaravelSettings\Traits;
 
 trait SharesEnumValues
 {
+    /**
+     * @inheritDoc
+     */
     public static function values(): array
     {
         $values = [];

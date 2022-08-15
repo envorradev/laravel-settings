@@ -16,8 +16,15 @@ class DynamicTypeCaster
     use HasAttributes;
     use ForwardsCalls;
 
-    protected mixed $castedValue;
-
+    /**
+     * DynamicTypeCaster.
+     *
+     * @param ?DynamicallyCastsTypes $model
+     * @param ?string $key
+     * @param mixed $value
+     * @param array $modelAttributes
+     * @param ?DataType $dataType
+     */
     public function __construct(
         protected ?DynamicallyCastsTypes $model = null,
         protected ?string $key = null,
@@ -30,6 +37,15 @@ class DynamicTypeCaster
         }
     }
 
+    /**
+     * New @DynamicTypeCaster instance.
+     *
+     * @param DynamicallyCastsTypes $model
+     * @param string $key
+     * @param mixed $value
+     * @param array $attributes
+     * @return static
+     */
     public function newInstance(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes): static
     {
         return new static(
@@ -40,11 +56,21 @@ class DynamicTypeCaster
         );
     }
 
+    /**
+     * Is this instance valid?
+     *
+     * @return bool
+     */
     public function validateInstance(): bool
     {
         return $this->model && $this->key && array_key_exists($this->key, $this->casts);
     }
 
+    /**
+     * Cast attribute from string to @DataType.
+     *
+     * @return mixed
+     */
     public function getCastedAttribute(): mixed
     {
         if($this->validateInstance()) {
@@ -53,6 +79,11 @@ class DynamicTypeCaster
         return null;
     }
 
+    /**
+     * Cast attribute from @DataType to string.
+     *
+     * @return ?string
+     */
     public function setCastedAttribute(): ?string
     {
         if($this->validateInstance()) {
@@ -61,47 +92,96 @@ class DynamicTypeCaster
         return null;
     }
 
+    /**
+     * Set the model.
+     *
+     * @param DynamicallyCastsTypes $model
+     * @return $this
+     */
     public function setModel(DynamicallyCastsTypes $model): static
     {
         $this->model = $model;
         return $this;
     }
 
+    /**
+     * Set the key.
+     *
+     * @param string $key
+     * @return $this
+     */
     public function setKey(string $key): static
     {
         $this->key = $key;
         return $this;
     }
 
+    /**
+     * Update the casts array.
+     *
+     * @param ?string $key
+     * @param ?DataType $dataType
+     * @return $this
+     */
     public function updateCasts(?string $key = null, ?DataType $dataType = null): static
     {
         $this->casts[$key ?? $this->key] = $dataType?->value ?? $this->model->getDataType()->value;
         return $this;
     }
 
+    /**
+     * Set the value to be cast.
+     *
+     * @param mixed $value
+     * @return $this
+     */
     public function setValue(mixed $value): static
     {
         $this->value = $value;
         return $this;
     }
 
+    /**
+     * Set the model attributes.
+     *
+     * @param array $attributes
+     * @return $this
+     */
     public function setModelAttributes(array $attributes): static
     {
         $this->modelAttributes = $attributes;
         return $this;
     }
 
+    /**
+     * Set the @DataType.
+     *
+     * @param DataType $dataType
+     * @return $this
+     */
     public function setDataType(DataType $dataType): static
     {
         $this->dataType = $dataType;
         return $this;
     }
 
+    /**
+     * Prevents HasAttributes trait from checking for incrementing attribute on this class.
+     *
+     * @return false
+     */
     public function getIncrementing(): bool
     {
         return false;
     }
 
+    /**
+     * Forwards calls to Model, handles get and set methods from HasAttributes.
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     */
     public function __call(string $name, array $arguments): mixed
     {
         if($name === 'get' || $name === 'set') {

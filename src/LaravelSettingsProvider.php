@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelSettingsProvider extends ServiceProvider
 {
+    /**
+     * @inheritDoc
+     */
     public function register()
     {
         $this->mergeConfigFrom($this->packagePath('config/laravel_settings.php'), 'laravel_settings');
