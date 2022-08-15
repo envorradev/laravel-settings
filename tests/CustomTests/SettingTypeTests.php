@@ -1,11 +1,11 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\SharedTests;
+namespace TaylorNetwork\LaravelSettings\Tests\CustomTests;
 
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 
-trait RepositorySharedTests
+trait SettingTypeTests
 {
     protected function assertAllOfSettingType(SettingType $settingType, SettingsCollection $collection): void
     {

@@ -3,13 +3,19 @@
 namespace TaylorNetwork\LaravelSettings\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
+use TaylorNetwork\LaravelSettings\Models\Setting;
+use TaylorNetwork\LaravelSettings\Tests\CustomTests\SharedTests;
 use TaylorNetwork\LaravelSettings\Tests\Environment\database\seeders\TestingSeeder;
 
 class TestCase extends OrchestraTestCase
 {
     use RefreshDatabase;
+    use SharedTests;
 
     public function ignorePackageDiscoveriesFrom(): array
     {
@@ -48,17 +54,6 @@ class TestCase extends OrchestraTestCase
         $this->loadMigrationsFrom(__DIR__.'/Environment/database/migrations');
     }
 
-    protected function assertIsArrayOfStrings(array $array): void
-    {
-        foreach($array as $item) {
-            $this->assertIsString($item);
-        }
-    }
-
-    protected function assertMethodExists($class, string $method): void
-    {
-        $this->assertTrue(method_exists($class, $method));
-    }
 
     /** @test */
     public function test_environment_is_working()

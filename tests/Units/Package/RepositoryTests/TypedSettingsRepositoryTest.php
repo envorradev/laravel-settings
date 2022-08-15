@@ -11,11 +11,9 @@ use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 use TaylorNetwork\LaravelSettings\Repositories\UserSettingsRepository;
 use TaylorNetwork\LaravelSettings\Tests\Environment\database\seeders\TestingSeeder;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Tests\Units\Package\SharedTests\RepositorySharedTests;
 
 class TypedSettingsRepositoryTest extends TestCase
 {
-    use RepositorySharedTests;
 
     protected function assertRepositoryGetsScopedSettings(SettingsRepository $repository): void
     {

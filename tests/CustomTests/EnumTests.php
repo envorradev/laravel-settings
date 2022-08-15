@@ -1,15 +1,15 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\SharedTests;
+namespace TaylorNetwork\LaravelSettings\Tests\CustomTests;
 
 
-trait EnumSharedTests
+trait EnumTests
 {
     protected function assertValuesMethodWorks(string $enum): void
     {
         $this->assertMethodExists($enum, 'values');
         $this->assertIsArray($enum::values());
         $this->assertSameSize($enum::cases(), $enum::values());
-        $this->assertIsArrayOfStrings($enum::values());
+        $this->assertAllStrings($enum::values());
     }
 }
