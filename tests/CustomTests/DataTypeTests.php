@@ -15,6 +15,12 @@ trait DataTypeTests
 
     protected function assertIsDataType(DataType $type, mixed $value): void
     {
-        $this->assertTrue($type->valueIsType($value));
+        $valueType = is_string($value) ? DataType::tryFrom($value) : null;
+
+        if($valueType || $value instanceof DataType) {
+            $this->assertTrue($type->is($valueType ?? $value));
+        } else {
+            $this->assertTrue($type->valueIsType($value));
+        }
     }
 }

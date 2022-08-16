@@ -5,8 +5,8 @@ namespace TaylorNetwork\LaravelSettings\Enums;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\ArrayShape;
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
+use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
 use TaylorNetwork\LaravelSettings\Traits\SharesEnumValues;
 
 enum DataType: string implements ProvidesArrayOfValues
@@ -97,8 +97,8 @@ enum DataType: string implements ProvidesArrayOfValues
                 self::COLLECTION,
             ],
             Carbon::class => [
-                self::DATE,
                 self::DATETIME,
+                self::DATE,
             ],
         ];
     }
@@ -125,7 +125,16 @@ enum DataType: string implements ProvidesArrayOfValues
      */
     public static function fromValue(mixed $value): self
     {
-        return self::from(gettype($value));
+        $primitive = self::from(gettype($value));
+
+        if($primitive->is(self::OBJECT)) {
+            $valueClass = get_class($value);
+            if(array_key_exists($valueClass, self::classMap())) {
+                return Arr::first(self::classMap()[$valueClass]);
+            }
+        }
+
+        return $primitive;
     }
 
     /**
@@ -158,6 +167,46 @@ enum DataType: string implements ProvidesArrayOfValues
     }
 
     /**
+     * Are all given data types the same type?
+     *
+     * @param DataType $dataType
+     * @param array<DataType> $typesToCheck
+     * @return bool
+     */
+    public static function areAllOfType(DataType $dataType, array $typesToCheck): bool
+    {
+        foreach($typesToCheck as $type) {
+            if(!$type->is($dataType)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Are all given data types the same primitive type?
+     *
+     * @param DataType $primitiveDataType
+     * @param array<DataType> $typesToCheck
+     * @return bool
+     * @throws DataTypeException
+     */
+    public static function areAllOfPrimitiveType(DataType $primitiveDataType, array $typesToCheck): bool
+    {
+       if(!$primitiveDataType->isPrimitive()) {
+           throw new DataTypeException('$primitiveDataType should be a primitive data type.');
+       }
+
+       foreach($typesToCheck as $type) {
+           if(!$type->toPrimitive()->is($primitiveDataType)) {
+               return false;
+           }
+       }
+
+       return true;
+    }
+
+    /**
      * The data type's aliases.
      *
      * @return array<DataType>
@@ -177,12 +226,13 @@ enum DataType: string implements ProvidesArrayOfValues
      *
      * @param mixed $value
      * @return bool
+     * @throws DataTypeException
      */
     public function valueIsType(mixed $value): bool
     {
         $type = self::fromValue($value);
 
-        if($this->isPrimitive()) {
+        if($this->isPrimitive() && $type->isPrimitive()) {
             return $this->is($type);
         }
 
@@ -195,7 +245,7 @@ enum DataType: string implements ProvidesArrayOfValues
                 return self::stringIsValidJson($value);
             }
 
-            if($this->toPrimitive()->is(self::OBJECT) && $type->is(self::OBJECT)) {
+            if(self::areAllOfPrimitiveType(DataType::OBJECT, [$this, $type])) {
                 $class = $this->resolveObjectClass();
                 return $value instanceof $class;
             }

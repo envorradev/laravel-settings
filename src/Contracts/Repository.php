@@ -6,11 +6,27 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ItemNotFoundException;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
 interface Repository
 {
+    /**
+     * Repository Constructor.
+     *
+     * @param ?SettingType $scopeSettingType
+     * @param ?Model $scopeOwner
+     * @param ?DataType $scopeDataType
+     * @param ?Builder $query
+     */
+    public function __construct(
+        ?SettingType $scopeSettingType = null,
+        ?Model $scopeOwner = null,
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    );
+
     /**
      * Find a Setting, or fail.
      *
@@ -42,10 +58,20 @@ interface Repository
      *
      * @param string $key
      * @param mixed $value
+     * @param ?string $description
      * @param ?SettingType $settingType
+     * @param ?DataType $dataType
+     * @param ?SettingOwner $owner
      * @return Setting
      */
-    public function set(string $key, mixed $value, ?SettingType $settingType = null): Setting;
+    public function set(
+        string $key,
+        mixed $value,
+        ?string $description,
+        ?SettingType $settingType = null,
+        ?DataType $dataType = null,
+        ?SettingOwner $owner = null,
+    ): Setting;
 
     /**
      * Where query.
@@ -58,11 +84,26 @@ interface Repository
     public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder;
 
     /**
-     * New query.
+     * Where the owner is.
+     *
+     * @param Model $owner
+     * @return Builder
+     */
+    public function whereOwner(Model $owner): Builder;
+
+    /**
+     * Get the current query.
      *
      * @return Builder
      */
     public function query(): Builder;
+
+    /**
+     * New query.
+     *
+     * @return Builder
+     */
+    public function newQuery(): Builder;
 
     /**
      * Get all the Settings.
@@ -99,50 +140,66 @@ interface Repository
     /**
      * New repository instance.
      *
+     * @param ?SettingType $scopeSettingType
+     * @param ?Model $scopeOwner
+     * @param ?DataType $scopeDataType
+     * @param ?Builder $query
      * @return static
      */
-    public static function instance(): static;
-
-    /**
-     * Get this repository's Setting Type.
-     *
-     * @return ?SettingType
-     */
-    public static function repositorySettingType(): ?SettingType;
-
-    /**
-     * Get a repository by scope.
-     *
-     * @param ?string $scope
-     * @return Repository
-     */
-    public static function scope(?string $scope = null): Repository;
+    public static function instance(
+        ?SettingType $scopeSettingType = null,
+        ?Model $scopeOwner = null,
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): static;
 
     /**
      * Get global scoped repository.
      *
+     * @param ?DataType $scopeDataType
+     * @param ?Builder $query
      * @return Repository
      */
-    public static function global(): Repository;
+    public static function global(
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): Repository;
 
     /**
      * Get app scoped repository.
      *
+     * @param ?DataType $scopeDataType
+     * @param ?Builder $query
      * @return Repository
      */
-    public static function app(): Repository;
+    public static function app(
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): Repository;
 
     /**
      * Get model scoped repository.
      *
+     * @param Model $scopeOwner
+     * @param ?DataType $scopeDataType
+     * @param ?Builder $query
      * @return Repository
      */
-    public static function model(): Repository;
+    public static function model(
+        Model $scopeOwner,
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): Repository;
 
     /**
      * Get user scoped repository.
      *
+     * @param ?DataType $scopeDataType
+     * @param ?Builder $query
      * @return Repository
      */
-    public static function user(): Repository;
+    public static function user(
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): Repository;
 }

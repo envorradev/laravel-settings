@@ -10,7 +10,12 @@ trait SettingTypeTests
     protected function assertAllOfSettingType(SettingType $settingType, SettingsCollection $collection): void
     {
         foreach($collection as $setting) {
-            $this->assertTrue($settingType->is($setting->setting_type));
+            $this->assertIsSettingType($settingType, $setting->setting_type);
         }
+    }
+
+    protected function assertIsSettingType(SettingType $settingType, mixed $value): void
+    {
+        $this->assertTrue($settingType->is($value));
     }
 }

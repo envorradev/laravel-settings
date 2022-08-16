@@ -5,27 +5,26 @@ namespace TaylorNetwork\LaravelSettings\Repositories;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Contracts\Repository;
+use TaylorNetwork\LaravelSettings\Contracts\SettingOwner;
+use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
 class SettingsRepository implements Repository
 {
     /**
-     * Setting Model.
-     *
-     * @var class-string<Model>
+     * @inheritDoc
      */
-    protected static string $model = Setting::class;
-
-    /**
-     * Repository's SettingType.
-     *
-     * @var ?SettingType
-     */
-    protected static ?SettingType $settingType = null;
+    public function __construct(
+        protected ?SettingType $scopeSettingType = null,
+        protected ?Model $scopeOwner = null,
+        protected ?DataType $scopeDataType = null,
+        protected ?Builder $query = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -54,9 +53,15 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function set(string $key, mixed $value, ?SettingType $settingType = null): Setting
-    {
-        // TODO: Implement set() method.
+    public function set(
+        string $key,
+        mixed $value,
+        ?string $description,
+        ?SettingType $settingType = null,
+        ?DataType $dataType = null,
+        ?SettingOwner $owner = null
+    ): Setting {
+        //
     }
 
     /**
@@ -68,13 +73,23 @@ class SettingsRepository implements Repository
     }
 
     /**
+     * @inheritDoc
+     */
+    public function whereOwner(Model $owner): Builder
+    {
+        return $this->query()->whereMorphedTo('owner', $owner);
+    }
+
+
+    /**
      * Get the model.
      *
      * @return Setting
      */
     public function getModel(): Setting
     {
-        return new (static::$model)();
+        $settingsModel = config('laravel_settings.settings_model', Setting::class);
+        return new $settingsModel();
     }
 
     /**
@@ -82,21 +97,42 @@ class SettingsRepository implements Repository
      */
     public function query(): Builder
     {
-        $query = $this->getModel()::query();
-
-        if(static::$settingType) {
-            $query->where('setting_type', static::$settingType);
+        if(!$this->query) {
+            $this->newQuery();
         }
 
-        return $query;
+        return $this->query;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function newQuery(): Builder
+    {
+        $this->query = $this->getModel()::query();
+
+        if($this->scopeSettingType) {
+            $this->query->where('setting_type', $this->scopeSettingType);
+        }
+
+        if($this->scopeOwner) {
+            $this->query->whereMorphedTo('owner', $this->scopeOwner);
+        }
+
+        if($this->scopeDataType) {
+            $this->query->where('data_type', $this->scopeDataType);
+        }
+
+        return $this->query;
+    }
+
 
     /**
      * @inheritDoc
      */
     public function all(): SettingsCollection
     {
-        return $this->normalizeCollection(($this->query())->get());
+        return $this->normalizeCollection($this->query()->get());
     }
 
     /**
@@ -155,68 +191,73 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public static function instance(): static
-    {
-        return new static();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function repositorySettingType(): ?SettingType
-    {
-        return static::$settingType;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function scope(?string $scope = null): SettingsRepository
-    {
-        if(!$scope) {
-            return static::instance();
-        }
-
-        $scope = Str::singular(Str::camel($scope));
-
-        if(in_array($scope, ['global', 'app', 'model', 'user'])) {
-            return static::$scope();
-        }
-
-        return static::instance();
+    public static function instance(
+        ?SettingType $scopeSettingType = null,
+        ?Model $scopeOwner = null,
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): static {
+        return new static($scopeSettingType, $scopeOwner, $scopeDataType, $query);
     }
 
 
     /**
      * @inheritDoc
      */
-    public static function global(): GlobalSettingsRepository
-    {
-        return GlobalSettingsRepository::instance();
+    public static function global(
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null
+    ): static {
+        return static::instance(
+            scopeSettingType: SettingType::GLOBAL,
+            scopeDataType: $scopeDataType,
+            query: $query
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public static function app(): AppSettingsRepository
-    {
-        return AppSettingsRepository::instance();
+    public static function app(
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null
+    ): static {
+        return static::instance(
+            scopeSettingType: SettingType::APP,
+            scopeDataType: $scopeDataType,
+            query: $query
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public static function model(): ModelSettingsRepository
-    {
-        return ModelSettingsRepository::instance();
+    public static function model(
+        Model $scopeOwner,
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null
+    ): static {
+        return static::instance(
+            scopeSettingType: SettingType::MODEL,
+            scopeOwner: $scopeOwner,
+            scopeDataType: $scopeDataType,
+            query: $query
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public static function user(): UserSettingsRepository
-    {
-        return UserSettingsRepository::instance();
+    public static function user(
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null
+    ): static {
+        return static::instance(
+            scopeSettingType: SettingType::USER,
+            scopeOwner: Auth::user(),
+            scopeDataType: $scopeDataType,
+            query: $query
+        );
     }
 
 
