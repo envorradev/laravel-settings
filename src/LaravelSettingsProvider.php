@@ -27,6 +27,11 @@ class LaravelSettingsProvider extends ServiceProvider
         include_once $this->packagePath('src/Helpers/setting.php');
     }
 
+    /**
+     * @internal
+     * @param string|null $path
+     * @return string
+     */
     private function packagePath(?string $path = null): string
     {
         return __DIR__.'/..'.($path ? '/'.$path : '');

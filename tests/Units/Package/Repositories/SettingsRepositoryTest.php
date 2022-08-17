@@ -180,7 +180,7 @@ class SettingsRepositoryTest extends TestCase
     }
 
     /**
-     * @test-skip
+     * @test
      * @covers ::set
      */
     public function it_can_set_settings(): void

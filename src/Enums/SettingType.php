@@ -3,16 +3,25 @@
 namespace TaylorNetwork\LaravelSettings\Enums;
 
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
-use TaylorNetwork\LaravelSettings\Traits\SharesEnumValues;
 
 enum SettingType: string implements ProvidesArrayOfValues
 {
-    use SharesEnumValues;
-
     case GLOBAL = 'global';
     case APP = 'app';
     case MODEL = 'model';
     case USER = 'user';
+
+    /**
+     * @inheritDoc
+     */
+    public static function values(): array
+    {
+        $values = [];
+        foreach(self::cases() as $case) {
+            $values[] = $case->value;
+        }
+        return $values;
+    }
 
     /**
      * Check if this type is same as given type.

@@ -7,12 +7,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
-use TaylorNetwork\LaravelSettings\Traits\SharesEnumValues;
 
 enum DataType: string implements ProvidesArrayOfValues
 {
-    use SharesEnumValues;
-
     case ARRAY = 'array';
     case BOOL = 'bool';
     case BOOLEAN = 'boolean';
@@ -29,6 +26,18 @@ enum DataType: string implements ProvidesArrayOfValues
     case REAL = 'real';
     case STRING = 'string';
     case TIMESTAMP = 'timestamp';
+
+    /**
+     * @inheritDoc
+     */
+    public static function values(): array
+    {
+        $values = [];
+        foreach(self::cases() as $case) {
+            $values[] = $case->value;
+        }
+        return $values;
+    }
 
     /**
      * PHP primitive data types.
