@@ -10,7 +10,7 @@ use TaylorNetwork\LaravelSettings\Enums\DataType;
 /**
  * Class DynamicTypeCaster
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  *
  * @method mixed get(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes)
  * @method mixed set(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes)

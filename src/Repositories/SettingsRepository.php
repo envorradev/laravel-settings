@@ -17,7 +17,7 @@ use TaylorNetwork\LaravelSettings\Models\Setting;
 /**
  * Class SettingsRepository
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 class SettingsRepository implements Repository
 {

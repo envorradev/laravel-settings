@@ -12,7 +12,7 @@ use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
 /**
  * Class Setting
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  *
  * @method SettingModel findOrFail(string $key)
  * @method SettingModel|null find(string $key)

@@ -7,7 +7,7 @@ use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 /**
  * Class SettingType
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 enum SettingType: string implements ProvidesArrayOfValues
 {

@@ -13,7 +13,7 @@ use TaylorNetwork\LaravelSettings\Models\Setting;
 /**
  * Contract Repository
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 interface Repository
 {

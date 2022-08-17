@@ -8,7 +8,7 @@ use TaylorNetwork\LaravelSettings\Models\Setting;
 /**
  * Trait HasSettings
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 trait HasSettings
 {

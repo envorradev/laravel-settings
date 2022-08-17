@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 /**
  * Trait AliasesSnakeCaseAttributes
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 trait AliasesSnakeCaseAttributes
 {

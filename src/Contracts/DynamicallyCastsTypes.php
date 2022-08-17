@@ -8,7 +8,7 @@ use TaylorNetwork\LaravelSettings\Enums\DataType;
 /**
  * Contract DynamicallyCastsTypes
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 interface DynamicallyCastsTypes
 {

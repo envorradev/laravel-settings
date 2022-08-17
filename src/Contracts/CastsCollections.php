@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 /**
  * Contract CastsCollections
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 interface CastsCollections
 {

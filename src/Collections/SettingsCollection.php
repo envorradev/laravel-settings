@@ -9,7 +9,7 @@ use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
 /**
  * Class SettingsCollection
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  *
  * @template TKey of array-key
  * @template TModel of \TaylorNetwork\LaravelSettings\Models\Setting

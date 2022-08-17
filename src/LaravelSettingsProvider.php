@@ -8,7 +8,7 @@ use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 /**
  * Class LaravelSettingsProvider
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 class LaravelSettingsProvider extends ServiceProvider
 {

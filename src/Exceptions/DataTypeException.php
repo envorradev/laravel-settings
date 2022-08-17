@@ -7,7 +7,7 @@ use Exception;
 /**
  * Class DataTypeException
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 class DataTypeException extends Exception
 {

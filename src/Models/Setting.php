@@ -17,7 +17,7 @@ use TaylorNetwork\LaravelSettings\Traits\HasOwner;
 /**
  * Class Setting
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  *
  * @property SettingType setting_type
  * @property DataType data_type

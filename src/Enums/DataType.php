@@ -11,7 +11,7 @@ use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
 /**
  * Class DataType
  *
- * @package LaravelSettings
+ * @package TaylorNetwork\LaravelSettings
  */
 enum DataType: string implements ProvidesArrayOfValues
 {
