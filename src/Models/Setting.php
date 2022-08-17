@@ -19,8 +19,11 @@ use TaylorNetwork\LaravelSettings\Traits\HasOwner;
  *
  * @package TaylorNetwork\LaravelSettings
  *
- * @property SettingType setting_type
- * @property DataType data_type
+ * @property ?SettingType $settingType
+ * @property ?SettingType $setting_type
+ * @property ?DataType    $dataType
+ * @property ?DataType    $data_type
+ * @property mixed        $owner
  */
 class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
 {
@@ -51,7 +54,7 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
      */
     public function getDataType(): DataType
     {
-        return $this->data_type ?? DataType::STRING;
+        return $this->dataType ?? DataType::STRING;
     }
 
     /**
@@ -105,7 +108,7 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
      */
     public function isSettingType(SettingType|string|array $type): bool
     {
-        return $this->setting_type?->isIn(Arr::wrap($type)) ?? false;
+        return $this->settingType?->isIn(Arr::wrap($type)) ?? false;
     }
 
     /**

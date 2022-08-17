@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpStanGlobal */
+
+/** @noinspection PhpStanGlobal */
 
 namespace TaylorNetwork\LaravelSettings\Enums;
 
@@ -261,7 +263,7 @@ enum DataType: string implements ProvidesArrayOfValues
 
             if(self::areAllOfPrimitiveType(DataType::OBJECT, [$this, $type])) {
                 $class = $this->resolveObjectClass();
-                return $value instanceof $class;
+                return $class && $value instanceof $class;
             }
         }
 
@@ -286,7 +288,7 @@ enum DataType: string implements ProvidesArrayOfValues
     }
 
     /**
-     * Convert this data type to it's primitive version.
+     * Convert this data type to its primitive version.
      *
      * @return ?static
      */

@@ -24,7 +24,7 @@ class LaravelSettingsProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadMigrationsFrom($this->packagePath('database/migrations'));
 

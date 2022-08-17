@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @package TaylorNetwork\LaravelSettings
  *
  * @property ?Model $model
+ * @property Model  $owner
  */
 trait HasOwner
 {

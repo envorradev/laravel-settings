@@ -9,12 +9,12 @@ use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
 /**
  * Class SettingsCollection
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package  TaylorNetwork\LaravelSettings
  *
  * @template TKey of array-key
  * @template TModel of \TaylorNetwork\LaravelSettings\Models\Setting
  *
- * @extends SettingsCollection<TKey, TModel>
+ * @extends Collection<TKey, TModel>
  */
 class SettingsCollection extends Collection implements CastsCollections
 {
