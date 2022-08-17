@@ -4,6 +4,11 @@ namespace TaylorNetwork\LaravelSettings\Traits;
 
 use Illuminate\Support\Str;
 
+/**
+ * Trait AliasesSnakeCaseAttributes
+ *
+ * @package LaravelSettings
+ */
 trait AliasesSnakeCaseAttributes
 {
     /**

@@ -4,6 +4,11 @@ namespace TaylorNetwork\LaravelSettings\Enums;
 
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 
+/**
+ * Class SettingType
+ *
+ * @package LaravelSettings
+ */
 enum SettingType: string implements ProvidesArrayOfValues
 {
     case GLOBAL = 'global';

@@ -5,6 +5,11 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 use TaylorNetwork\LaravelSettings\Enums\DataType;
 
 
+/**
+ * Contract DynamicallyCastsTypes
+ *
+ * @package LaravelSettings
+ */
 interface DynamicallyCastsTypes
 {
     /**

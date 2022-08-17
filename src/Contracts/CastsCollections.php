@@ -4,6 +4,11 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 
 use Illuminate\Support\Collection;
 
+/**
+ * Contract CastsCollections
+ *
+ * @package LaravelSettings
+ */
 interface CastsCollections
 {
     /**

@@ -10,6 +10,11 @@ use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
+/**
+ * Contract Repository
+ *
+ * @package LaravelSettings
+ */
 interface Repository
 {
     /**

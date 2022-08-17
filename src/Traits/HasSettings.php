@@ -5,6 +5,11 @@ namespace TaylorNetwork\LaravelSettings\Traits;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
+/**
+ * Trait HasSettings
+ *
+ * @package LaravelSettings
+ */
 trait HasSettings
 {
     /**

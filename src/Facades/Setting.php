@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Repositories\AppSettingsRepository;
-use TaylorNetwork\LaravelSettings\Repositories\GlobalSettingsRepository;
-use TaylorNetwork\LaravelSettings\Repositories\ModelSettingsRepository;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
-use TaylorNetwork\LaravelSettings\Repositories\UserSettingsRepository;
 use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
 /**
+ * Class Setting
+ *
+ * @package LaravelSettings
+ *
  * @method SettingModel findOrFail(string $key)
  * @method SettingModel|null find(string $key)
  * @method mixed get(string $key, mixed $default = null)
@@ -28,10 +28,11 @@ use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
  * @method static SettingsRepository instance()
  * @method static SettingType|null repositorySettingType()
  * @method static SettingsRepository scope(string $scope)
- * @method static GlobalSettingsRepository global()
- * @method static AppSettingsRepository app()
- * @method static ModelSettingsRepository model()
- * @method static UserSettingsRepository user()
+ * @method static SettingsRepository global()
+ * @method static SettingsRepository app()
+ * @method static SettingsRepository model()
+ * @method static SettingsRepository user()
+ *
  * @see SettingsRepository
  */
 class Setting extends Facade

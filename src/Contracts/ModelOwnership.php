@@ -5,6 +5,11 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * Contract ModelOwnership
+ *
+ * @package LaravelSettings
+ */
 interface ModelOwnership
 {
     /**

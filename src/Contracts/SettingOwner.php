@@ -4,6 +4,11 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+/**
+ * Contract SettingOwner
+ *
+ * @package LaravelSettings
+ */
 interface SettingOwner
 {
     /**

@@ -13,7 +13,12 @@ use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
 use TaylorNetwork\LaravelSettings\Traits\HasOwner;
 
+
 /**
+ * Class Setting
+ *
+ * @package LaravelSettings
+ *
  * @property SettingType setting_type
  * @property DataType data_type
  */

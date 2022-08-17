@@ -14,6 +14,11 @@ use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 
+/**
+ * Class SettingsRepository
+ *
+ * @package LaravelSettings
+ */
 class SettingsRepository implements Repository
 {
     /**

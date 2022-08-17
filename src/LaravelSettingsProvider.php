@@ -5,6 +5,11 @@ namespace TaylorNetwork\LaravelSettings;
 use Illuminate\Support\ServiceProvider;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 
+/**
+ * Class LaravelSettingsProvider
+ *
+ * @package LaravelSettings
+ */
 class LaravelSettingsProvider extends ServiceProvider
 {
     /**
@@ -16,6 +21,9 @@ class LaravelSettingsProvider extends ServiceProvider
         $this->app->bind('Setting', SettingsRepository::class);
     }
 
+    /**
+     * @return void
+     */
     public function boot()
     {
         $this->loadMigrationsFrom($this->packagePath('database/migrations'));

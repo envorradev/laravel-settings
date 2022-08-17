@@ -2,6 +2,11 @@
 
 namespace TaylorNetwork\LaravelSettings\Contracts;
 
+/**
+ * Contract ProvidesArrayOfValues
+ *
+ * @package LaravelSettings
+ */
 interface ProvidesArrayOfValues
 {
     /**

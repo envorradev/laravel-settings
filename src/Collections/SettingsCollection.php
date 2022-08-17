@@ -7,6 +7,10 @@ use Illuminate\Support\Collection as BaseCollection;
 use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
 
 /**
+ * Class SettingsCollection
+ *
+ * @package LaravelSettings
+ *
  * @template TKey of array-key
  * @template TModel of \TaylorNetwork\LaravelSettings\Models\Setting
  *

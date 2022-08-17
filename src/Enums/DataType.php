@@ -8,6 +8,11 @@ use Illuminate\Support\Collection;
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
 
+/**
+ * Class DataType
+ *
+ * @package LaravelSettings
+ */
 enum DataType: string implements ProvidesArrayOfValues
 {
     case ARRAY = 'array';

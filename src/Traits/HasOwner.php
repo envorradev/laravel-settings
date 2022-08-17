@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property ?Model $owner
+ * Trait HasOwner
+ *
+ * @package LaravelSettings
+ *
+ * @property ?Model $model
  */
 trait HasOwner
 {
