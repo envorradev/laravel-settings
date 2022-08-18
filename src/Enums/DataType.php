@@ -240,7 +240,6 @@ enum DataType: string implements ProvidesArrayOfValues
      *
      * @param mixed $value
      * @return bool
-     * @throws DataTypeException
      */
     public function valueIsType(mixed $value): bool
     {
@@ -259,10 +258,13 @@ enum DataType: string implements ProvidesArrayOfValues
                 return self::stringIsValidJson($value);
             }
 
-            if(self::areAllOfPrimitiveType(DataType::OBJECT, [$this, $type])) {
-                $class = $this->resolveObjectClass();
-                return $class && $value instanceof $class;
-            }
+            try {
+                if(self::areAllOfPrimitiveType(DataType::OBJECT, [$this, $type])) {
+                    $class = $this->resolveObjectClass();
+                    return $class && $value instanceof $class;
+                }
+            } catch (DataTypeException) {}
+
         }
 
         return $this->toPrimitive()->is($type);

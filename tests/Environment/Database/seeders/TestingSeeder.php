@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\database\seeders;
+namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;

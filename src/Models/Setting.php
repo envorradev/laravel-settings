@@ -25,6 +25,7 @@ use TaylorNetwork\LaravelSettings\Traits\HasOwner;
  * @property ?DataType    $dataType
  * @property ?DataType    $data_type
  * @property mixed        $owner
+ * @property mixed $value
  *
  * @method static static firstOrCreate(array $attributes = [], array $values = [])
  * @see Builder

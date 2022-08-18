@@ -3,14 +3,10 @@
 namespace TaylorNetwork\LaravelSettings\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
-use TaylorNetwork\LaravelSettings\Models\Setting;
 use TaylorNetwork\LaravelSettings\Tests\CustomTests\SharedTests;
-use TaylorNetwork\LaravelSettings\Tests\Environment\database\seeders\TestingSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\TestingSeeder;
 
 class TestCase extends OrchestraTestCase
 {
