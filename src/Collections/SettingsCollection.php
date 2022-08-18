@@ -3,54 +3,47 @@
 namespace TaylorNetwork\LaravelSettings\Collections;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as BaseCollection;
 use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
+use TaylorNetwork\LaravelSettings\Models\Setting;
 
 /**
  * Class SettingsCollection
  *
  * @package  TaylorNetwork\LaravelSettings
  *
- * @template TKey of array-key
- * @template TModel of \TaylorNetwork\LaravelSettings\Models\Setting
+ * @method Setting first(callable $callback = null, $default = null)
+ * @method Setting firstOrFail($key = null, $operator = null, $value = null)
  *
- * @extends Collection<TKey, TModel>
+ * @implements CastsCollections<array-key, Setting>
+ * @extends Collection<array-key, Setting>
  */
 class SettingsCollection extends Collection implements CastsCollections
 {
     /**
      * @inheritDoc
      */
-    public static function from(iterable $iterable): static
+    public static function from(iterable $items): self
     {
-        return new static($iterable);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromArray(array $array): static
-    {
-        return static::from($array);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromJson(string $json): static
-    {
-        return static::fromArray(json_decode($json, true));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromCollection(BaseCollection $collection): static
-    {
-        if($collection instanceof static) {
-            return $collection;
+        foreach($items as $key => $item) {
+            $items[$key] = $item instanceof Setting ? $item : Setting::modelFromArray($item);
         }
 
-        return static::from($collection);
+        return new self($items);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function fromArray(array $array): self
+    {
+        return self::from($array);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function fromJson(string $json): self
+    {
+        return self::fromArray(json_decode($json, true));
     }
 }

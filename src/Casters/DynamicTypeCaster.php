@@ -42,17 +42,17 @@ class DynamicTypeCaster
     }
 
     /**
-     * New @DynamicTypeCaster instance.
+     * New DynamicTypeCaster instance.
      *
      * @param DynamicallyCastsTypes $model
      * @param string $key
      * @param mixed $value
      * @param array $attributes
-     * @return static
+     * @return self
      */
-    public function newInstance(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes): static
+    public function newInstance(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes): self
     {
-        return new static(
+        return new self(
             model: $model,
             key: $key,
             value: $value,

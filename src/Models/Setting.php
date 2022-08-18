@@ -2,6 +2,7 @@
 
 namespace TaylorNetwork\LaravelSettings\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
@@ -24,6 +25,9 @@ use TaylorNetwork\LaravelSettings\Traits\HasOwner;
  * @property ?DataType    $dataType
  * @property ?DataType    $data_type
  * @property mixed        $owner
+ *
+ * @method static static firstOrCreate(array $attributes = [], array $values = [])
+ * @see Builder
  */
 class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
 {
@@ -127,5 +131,33 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public function newCollection(array $models = []): SettingsCollection
     {
         return new SettingsCollection($models);
+    }
+
+    /**
+     * Get a new model instance from an array.
+     *
+     * @param  array  $attributes
+     * @return static
+     */
+    public static function modelFromArray(array $attributes): static
+    {
+        return static::firstOrCreate($attributes);
+    }
+
+    /**
+     * Get a new model instance from JSON.
+     *
+     * @param  string  $json
+     * @return ?static
+     */
+    public static function modelFromJson(string $json): ?static
+    {
+        $arrayModel = json_decode($json, true);
+
+        if(is_int(array_key_first($arrayModel))) {
+            return null;
+        }
+
+        return static::modelFromArray($arrayModel);
     }
 }

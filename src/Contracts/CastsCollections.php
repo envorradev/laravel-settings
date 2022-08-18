@@ -2,44 +2,36 @@
 
 namespace TaylorNetwork\LaravelSettings\Contracts;
 
-use Illuminate\Support\Collection;
 
 /**
  * Contract CastsCollections
  *
  * @package TaylorNetwork\LaravelSettings
+ *
+ * @template TKey of array-key
+ * @template TValue
  */
 interface CastsCollections
 {
     /**
-     * New collection from data.
-     *
-     * @param iterable $iterable
-     * @return static
+     * @param  iterable  $items
+     * @return self<TKey, TValue>
      */
-    public static function from(iterable $iterable): static;
+    public static function from(iterable $items): self;
 
     /**
      * New collection from array.
      *
      * @param array $array
-     * @return static
+     * @return self<TKey, TValue>
      */
-    public static function fromArray(array $array): static;
+    public static function fromArray(array $array): self;
 
     /**
      * New collection from JSON.
      *
      * @param string $json
-     * @return static
+     * @return self<TKey, TValue>
      */
-    public static function fromJson(string $json): static;
-
-    /**
-     * New collection from other collection.
-     *
-     * @param Collection $collection
-     * @return static
-     */
-    public static function fromCollection(Collection $collection): static;
+    public static function fromJson(string $json): self;
 }

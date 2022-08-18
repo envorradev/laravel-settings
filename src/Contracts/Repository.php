@@ -129,7 +129,7 @@ interface Repository
      * Get all Settings related to a Model.
      *
      * @param Model $model
-     * @param SettingType|array $filterTypes
+     * @param SettingType|array<SettingType> $filterTypes
      * @return SettingsCollection
      */
     public function allRelatedToModel(Model $model, SettingType|array $filterTypes = []): SettingsCollection;
@@ -137,7 +137,8 @@ interface Repository
     /**
      * Normalize the Collection to a SettingsCollection.
      *
-     * @param iterable $iterable
+     * @template TKey of array-key
+     * @param iterable<TKey, Setting|array> $iterable
      * @return SettingsCollection
      */
     public function normalizeCollection(iterable $iterable): SettingsCollection;

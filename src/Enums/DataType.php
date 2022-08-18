@@ -1,6 +1,4 @@
-<?php /** @noinspection PhpStanGlobal */
-
-/** @noinspection PhpStanGlobal */
+<?php
 
 namespace TaylorNetwork\LaravelSettings\Enums;
 

@@ -35,7 +35,8 @@ class SettingsRepository implements Repository
      */
     public function findOrFail(string $key): Setting
     {
-        return $this->normalizeCollection($this->where('key', $key)->take(1)->get())->firstOrFail();
+        $collection = new SettingsCollection($this->where('key', $key)->take(1)->get());
+        return $collection->firstOrFail();
     }
 
     /**
@@ -43,7 +44,8 @@ class SettingsRepository implements Repository
      */
     public function find(string $key): ?Setting
     {
-        return $this->normalizeCollection($this->where('key', $key)->take(1)->get())->first();
+        $collection = new SettingsCollection($this->where('key', $key)->take(1)->get());
+        return $collection->first();
     }
 
     /**
@@ -189,7 +191,7 @@ class SettingsRepository implements Repository
      */
     public function normalizeCollection(iterable $iterable): SettingsCollection
     {
-        return SettingsCollection::from($iterable);
+        return new SettingsCollection($iterable);
     }
 
     /**
