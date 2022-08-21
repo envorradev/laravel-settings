@@ -5,8 +5,8 @@ namespace TaylorNetwork\LaravelSettings\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
-use TaylorNetwork\LaravelSettings\Tests\CustomTests\SharedTests;
 use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\TestingSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
 
 class TestCase extends OrchestraTestCase
 {

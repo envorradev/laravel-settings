@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Implementation;
+namespace TaylorNetwork\LaravelSettings\Tests\Feature;
 
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;

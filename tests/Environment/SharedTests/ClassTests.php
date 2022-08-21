@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\CustomTests;
+namespace TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests;
 
 trait ClassTests
 {
@@ -8,4 +8,6 @@ trait ClassTests
     {
         $this->assertTrue(method_exists($class, $method));
     }
+
+
 }

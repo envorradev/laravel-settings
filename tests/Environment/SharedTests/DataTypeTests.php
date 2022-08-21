@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\CustomTests;
+namespace TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests;
 
 use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;

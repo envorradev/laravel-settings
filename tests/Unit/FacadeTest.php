@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package;
+namespace TaylorNetwork\LaravelSettings\Tests\Unit;
 
 use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Facades\Setting;

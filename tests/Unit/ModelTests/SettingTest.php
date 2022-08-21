@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\ModelTests;
+namespace TaylorNetwork\LaravelSettings\Tests\Unit\ModelTests;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;

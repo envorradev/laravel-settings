@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package\Enums;
+namespace TaylorNetwork\LaravelSettings\Tests\Unit\Enums;
 
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;

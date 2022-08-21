@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Units\Package;
+namespace TaylorNetwork\LaravelSettings\Tests\Unit;
 
 use Illuminate\Support\Collection;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;
