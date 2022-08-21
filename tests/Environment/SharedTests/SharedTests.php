@@ -10,4 +10,5 @@ trait SharedTests
     use EnumTests;
     use SettingModelTests;
     use SettingTypeTests;
+    use ReflectionTests;
 }

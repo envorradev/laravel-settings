@@ -33,15 +33,181 @@ enum DataType: string implements ProvidesArrayOfValues
     case TIMESTAMP = 'timestamp';
 
     /**
+     * Are all given data types the same type?
+     *
+     * @param  DataType         $dataType
+     * @param  array<DataType>  $typesToCheck
+     * @return bool
+     */
+    public static function areAllOfType(DataType $dataType, array $typesToCheck): bool
+    {
+        foreach ($typesToCheck as $type) {
+            if (!$type->is($dataType)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the given type is the same as this one.
+     *
+     * @param  DataType|string|null  $type
+     * @return bool
+     */
+    public function is(self|string|null $type): bool
+    {
+        $dataType = $type instanceof self ? $type : self::tryFrom($type);
+
+        if ($dataType) {
+            if ($this === $dataType) {
+                return true;
+            }
+
+            return in_array($dataType, $this->aliases());
+        }
+
+        return false;
+    }
+
+    /**
+     * The data type's aliases.
+     *
+     * @return array<DataType>
+     */
+    public function aliases(): array
+    {
+        foreach (self::aliasMap() as $aliases) {
+            if (in_array($this, $aliases)) {
+                return $aliases;
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Map of data types and their aliases.
+     *
+     * @return array<array<DataType>>
+     */
+    public static function aliasMap(): array
+    {
+        return [
+            [self::INTEGER, self::INT],
+            [self::BOOLEAN, self::BOOL],
+            [self::FLOAT, self::REAL, self::DOUBLE],
+        ];
+    }
+
+    /**
      * @inheritDoc
      */
     public static function values(): array
     {
         $values = [];
-        foreach(self::cases() as $case) {
+        foreach (self::cases() as $case) {
             $values[] = $case->value;
         }
         return $values;
+    }
+
+    /**
+     * Convert the inbound value to its string representation.
+     *
+     * @param  mixed  $value
+     * @return string
+     */
+    public function convertValueToString(mixed $value): string
+    {
+        if ($this->is(self::ARRAY)) {
+            return json_encode($value);
+        }
+
+        return (string) $value;
+    }
+
+    /**
+     * Is the given value the same type as this instance?
+     *
+     * @param  mixed  $value
+     * @return bool
+     */
+    public function valueIsType(mixed $value): bool
+    {
+        $type = self::fromValue($value);
+
+        if ($this->isPrimitive() && $type->isPrimitive()) {
+            return $this->is($type);
+        }
+
+        if ($this->toPrimitive()->isIn([self::OBJECT, self::STRING, self::INTEGER])) {
+            if ($this->is(self::TIMESTAMP) && $type->is(self::INTEGER)) {
+                return self::integerIsValidTimestamp($value);
+            }
+
+            if ($this->is(self::JSON) && $type->is(self::STRING)) {
+                return self::stringIsValidJson($value);
+            }
+
+            try {
+                if (self::areAllOfPrimitiveType(DataType::OBJECT, [$this, $type])) {
+                    $class = $this->resolveObjectClass();
+                    return $class && $value instanceof $class;
+                }
+            } catch (DataTypeException) {
+            }
+
+        }
+
+        return $this->toPrimitive()->is($type);
+    }
+
+    /**
+     * New instance from the type of variable passed.
+     *
+     * @param  mixed  $value
+     * @return static
+     */
+    public static function fromValue(mixed $value): self
+    {
+        $primitive = self::from(gettype($value));
+
+        if ($primitive->is(self::OBJECT)) {
+            $valueClass = get_class($value);
+            if (array_key_exists($valueClass, self::classMap())) {
+                return Arr::first(self::classMap()[$valueClass]);
+            }
+        }
+
+        return $primitive;
+    }
+
+    /**
+     * Map of classes to their data types.
+     *
+     * @return array<class-string, array<DataType>>
+     */
+    public static function classMap(): array
+    {
+        return [
+            Collection::class => [
+                self::COLLECTION,
+            ],
+            Carbon::class => [
+                self::DATETIME,
+                self::DATE,
+            ],
+        ];
+    }
+
+    /**
+     * Is this type a primitive type?
+     *
+     * @return bool
+     */
+    public function isPrimitive(): bool
+    {
+        return in_array($this, self::primitives());
     }
 
     /**
@@ -59,6 +225,42 @@ enum DataType: string implements ProvidesArrayOfValues
             self::OBJECT,
             self::STRING,
         ];
+    }
+
+    /**
+     * Check if this data type is any of the given ones.
+     *
+     * @param  array<DataType>|array<string>  $types
+     * @return bool
+     */
+    public function isIn(array $types): bool
+    {
+        foreach ($types as $type) {
+            if ($this->is($type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Convert this data type to its primitive version.
+     *
+     * @return ?static
+     */
+    public function toPrimitive(): ?self
+    {
+        if ($this->isPrimitive()) {
+            return $this;
+        }
+
+        foreach (self::primitiveMap() as $primitive => $types) {
+            if (in_array($this, Arr::wrap($types))) {
+                return self::from($primitive);
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -100,66 +302,28 @@ enum DataType: string implements ProvidesArrayOfValues
     }
 
     /**
-     * Map of classes to their data types.
+     * Is a given integer a valid timestamp?
      *
-     * @return array<class-string, array<DataType>>
+     * @param  mixed  $value
+     * @return bool
      */
-    public static function classMap(): array
+    public static function integerIsValidTimestamp(mixed $value): bool
     {
-        return [
-            Collection::class => [
-                self::COLLECTION,
-            ],
-            Carbon::class => [
-                self::DATETIME,
-                self::DATE,
-            ],
-        ];
-    }
-
-    /**
-     * Map of data types and their aliases.
-     *
-     * @return array<array<DataType>>
-     */
-    public static function aliasMap(): array
-    {
-        return [
-            [self::INTEGER, self::INT],
-            [self::BOOLEAN, self::BOOL],
-            [self::FLOAT, self::REAL, self::DOUBLE],
-        ];
-    }
-
-    /**
-     * New instance from the type of variable passed.
-     *
-     * @param mixed $value
-     * @return static
-     */
-    public static function fromValue(mixed $value): self
-    {
-        $primitive = self::from(gettype($value));
-
-        if($primitive->is(self::OBJECT)) {
-            $valueClass = get_class($value);
-            if(array_key_exists($valueClass, self::classMap())) {
-                return Arr::first(self::classMap()[$valueClass]);
-            }
+        if (self::fromValue($value)->is(self::INTEGER)) {
+            return $value === strtotime(date('c', $value));
         }
-
-        return $primitive;
+        return false;
     }
 
     /**
      * Is a given string valid JSON?
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return bool
      */
     public static function stringIsValidJson(mixed $value): bool
     {
-        if(self::fromValue($value)->is(self::STRING)) {
+        if (self::fromValue($value)->is(self::STRING)) {
             json_decode($value);
             return json_last_error() === JSON_ERROR_NONE;
         }
@@ -167,107 +331,26 @@ enum DataType: string implements ProvidesArrayOfValues
     }
 
     /**
-     * Is a given integer a valid timestamp?
-     *
-     * @param mixed $value
-     * @return bool
-     */
-    public static function integerIsValidTimestamp(mixed $value): bool
-    {
-        if(self::fromValue($value)->is(self::INTEGER)) {
-            return $value === strtotime(date('c', $value));
-        }
-        return false;
-    }
-
-    /**
-     * Are all given data types the same type?
-     *
-     * @param DataType $dataType
-     * @param array<DataType> $typesToCheck
-     * @return bool
-     */
-    public static function areAllOfType(DataType $dataType, array $typesToCheck): bool
-    {
-        foreach($typesToCheck as $type) {
-            if(!$type->is($dataType)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Are all given data types the same primitive type?
      *
-     * @param DataType $primitiveDataType
-     * @param array<DataType> $typesToCheck
+     * @param  DataType         $primitiveDataType
+     * @param  array<DataType>  $typesToCheck
      * @return bool
      * @throws DataTypeException
      */
     public static function areAllOfPrimitiveType(DataType $primitiveDataType, array $typesToCheck): bool
     {
-       if(!$primitiveDataType->isPrimitive()) {
-           throw new DataTypeException('$primitiveDataType should be a primitive data type.');
-       }
-
-       foreach($typesToCheck as $type) {
-           if(!$type->toPrimitive()->is($primitiveDataType)) {
-               return false;
-           }
-       }
-
-       return true;
-    }
-
-    /**
-     * The data type's aliases.
-     *
-     * @return array<DataType>
-     */
-    public function aliases(): array
-    {
-        foreach(self::aliasMap() as $aliases) {
-            if(in_array($this, $aliases)) {
-                return $aliases;
-            }
-        }
-        return [];
-    }
-
-    /**
-     * Is the given value the same type as this instance?
-     *
-     * @param mixed $value
-     * @return bool
-     */
-    public function valueIsType(mixed $value): bool
-    {
-        $type = self::fromValue($value);
-
-        if($this->isPrimitive() && $type->isPrimitive()) {
-            return $this->is($type);
+        if (!$primitiveDataType->isPrimitive()) {
+            throw new DataTypeException('$primitiveDataType should be a primitive data type.');
         }
 
-        if($this->toPrimitive()->isIn([self::OBJECT, self::STRING, self::INTEGER])) {
-            if($this->is(self::TIMESTAMP) && $type->is(self::INTEGER)) {
-                return self::integerIsValidTimestamp($value);
+        foreach ($typesToCheck as $type) {
+            if (!$type->toPrimitive()->is($primitiveDataType)) {
+                return false;
             }
-
-            if($this->is(self::JSON) && $type->is(self::STRING)) {
-                return self::stringIsValidJson($value);
-            }
-
-            try {
-                if(self::areAllOfPrimitiveType(DataType::OBJECT, [$this, $type])) {
-                    $class = $this->resolveObjectClass();
-                    return $class && $value instanceof $class;
-                }
-            } catch (DataTypeException) {}
-
         }
 
-        return $this->toPrimitive()->is($type);
+        return true;
     }
 
     /**
@@ -277,95 +360,13 @@ enum DataType: string implements ProvidesArrayOfValues
      */
     public function resolveObjectClass(): ?string
     {
-        if($this->toPrimitive()->is(self::OBJECT)) {
-            foreach(self::classMap() as $class => $types) {
-                if(in_array($this, Arr::wrap($types))) {
+        if ($this->toPrimitive()->is(self::OBJECT)) {
+            foreach (self::classMap() as $class => $types) {
+                if (in_array($this, Arr::wrap($types))) {
                     return $class;
                 }
             }
         }
         return null;
     }
-
-    /**
-     * Convert this data type to its primitive version.
-     *
-     * @return ?static
-     */
-    public function toPrimitive(): ?self
-    {
-        if($this->isPrimitive()) {
-            return $this;
-        }
-
-        foreach(self::primitiveMap() as $primitive => $types) {
-            if(in_array($this, Arr::wrap($types))) {
-                return self::from($primitive);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Is this type a primitive type?
-     *
-     * @return bool
-     */
-    public function isPrimitive(): bool
-    {
-        return in_array($this, self::primitives());
-    }
-
-    /**
-     * Checks if the given type is the same as this one.
-     *
-     * @param DataType|string|null $type
-     * @return bool
-     */
-    public function is(self|string|null $type): bool
-    {
-        $dataType = $type instanceof self ? $type : self::tryFrom($type);
-
-        if($dataType) {
-            if($this === $dataType) {
-                return true;
-            }
-
-            return in_array($dataType, $this->aliases());
-        }
-
-        return false;
-    }
-
-    /**
-     * Check if this data type is any of the given ones.
-     *
-     * @param array<DataType>|array<string> $types
-     * @return bool
-     */
-    public function isIn(array $types): bool
-    {
-        foreach($types as $type) {
-            if($this->is($type)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Convert the inbound value to its string representation.
-     *
-     * @param mixed $value
-     * @return string
-     */
-    public function convertValueToString(mixed $value): string
-    {
-        if($this->is(self::ARRAY)) {
-            return json_encode($value);
-        }
-
-        return (string) $value;
-    }
- }
+}

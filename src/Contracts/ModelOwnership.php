@@ -13,17 +13,17 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 interface ModelOwnership
 {
     /**
+     * Is a Model the owner of this Model?
+     *
+     * @param  Model  $model
+     * @return bool
+     */
+    public function belongsToModel(Model $model): bool;
+
+    /**
      * Owner relation.
      *
      * @return MorphTo
      */
     public function owner(): MorphTo;
-
-    /**
-     * Is a Model the owner of this Model?
-     *
-     * @param Model $model
-     * @return bool
-     */
-    public function belongsToModel(Model $model): bool;
 }

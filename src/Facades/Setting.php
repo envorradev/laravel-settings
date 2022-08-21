@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
+use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
+
 /**
  * Class Setting
  *
@@ -33,7 +34,7 @@ use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
  * @method static SettingsRepository model()
  * @method static SettingsRepository user()
  *
- * @see SettingsRepository
+ * @see     SettingsRepository
  */
 class Setting extends Facade
 {

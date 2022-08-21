@@ -13,15 +13,6 @@ use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 class LaravelSettingsProvider extends ServiceProvider
 {
     /**
-     * @inheritDoc
-     */
-    public function register()
-    {
-        $this->mergeConfigFrom($this->packagePath('config/laravel_settings.php'), 'laravel_settings');
-        $this->app->bind('Setting', SettingsRepository::class);
-    }
-
-    /**
      * @return void
      */
     public function boot(): void
@@ -36,9 +27,18 @@ class LaravelSettingsProvider extends ServiceProvider
     }
 
     /**
-     * @internal
-     * @param string|null $path
+     * @inheritDoc
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom($this->packagePath('config/laravel_settings.php'), 'laravel_settings');
+        $this->app->bind('Setting', SettingsRepository::class);
+    }
+
+    /**
+     * @param  string|null  $path
      * @return string
+     * @internal
      */
     private function packagePath(?string $path = null): string
     {

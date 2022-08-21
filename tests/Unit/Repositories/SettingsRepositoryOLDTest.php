@@ -20,7 +20,7 @@ use TaylorNetwork\LaravelSettings\Tests\TestCase;
 /**
  * @coversDefaultClass \TaylorNetwork\LaravelSettings\Repositories\SettingsRepository
  */
-class SettingsRepositoryTest extends TestCase
+class SettingsRepositoryOLDTest extends TestCase
 {
     protected function assertScopeSettingType(SettingType $settingType, SettingsRepository $repository): void
     {

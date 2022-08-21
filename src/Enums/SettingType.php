@@ -17,39 +17,39 @@ enum SettingType: string implements ProvidesArrayOfValues
     case USER = 'user';
 
     /**
+     * Make a new instance from given.
+     *
+     * @param  SettingType|string|null  $case
+     * @return static
+     */
+    public static function make(SettingType|string|null $case = null): self
+    {
+        $case = !$case instanceof self && $case !== null ? self::tryFrom($case) : $case;
+        return $case ?? self::APP;
+    }
+
+    /**
      * @inheritDoc
      */
     public static function values(): array
     {
         $values = [];
-        foreach(self::cases() as $case) {
+        foreach (self::cases() as $case) {
             $values[] = $case->value;
         }
         return $values;
     }
 
     /**
-     * Check if this type is same as given type.
-     *
-     * @param SettingType|string|null $case
-     * @return bool
-     */
-    public function is(self|string|null $case): bool
-    {
-        $case = !$case instanceof self ? self::tryFrom($case) : $case;
-        return $this === $case;
-    }
-
-    /**
      * Check if this type is in given types.
      *
-     * @param array $cases
+     * @param  array  $cases
      * @return bool
      */
     public function isIn(array $cases): bool
     {
-        foreach($cases as $case) {
-            if($this->is($case)) {
+        foreach ($cases as $case) {
+            if ($this->is($case)) {
                 return true;
             }
         }
@@ -57,14 +57,14 @@ enum SettingType: string implements ProvidesArrayOfValues
     }
 
     /**
-     * Make a new instance from given.
+     * Check if this type is same as given type.
      *
-     * @param SettingType|string|null $case
-     * @return static
+     * @param  SettingType|string|null  $case
+     * @return bool
      */
-    public static function make(SettingType|string|null $case = null): self
+    public function is(self|string|null $case): bool
     {
-        $case = !$case instanceof self && $case !== null ? self::tryFrom($case) : $case;
-        return $case ?? self::APP;
+        $case = !$case instanceof self ? self::tryFrom($case) : $case;
+        return $this === $case;
     }
 }

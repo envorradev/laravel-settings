@@ -6,7 +6,7 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 /**
  * Contract CastsCollections
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package  TaylorNetwork\LaravelSettings
  *
  * @template TKey of array-key
  * @template TValue
@@ -22,7 +22,7 @@ interface CastsCollections
     /**
      * New collection from array.
      *
-     * @param array $array
+     * @param  array  $array
      * @return self<TKey, TValue>
      */
     public static function fromArray(array $array): self;
@@ -30,7 +30,7 @@ interface CastsCollections
     /**
      * New collection from JSON.
      *
-     * @param string $json
+     * @param  string  $json
      * @return self<TKey, TValue>
      */
     public static function fromJson(string $json): self;

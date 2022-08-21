@@ -2,7 +2,7 @@
 
 use TaylorNetwork\LaravelSettings\Facades\Setting;
 
-if(!function_exists('setting')) {
+if (!function_exists('setting')) {
     /**
      * @param  string       $key
      * @param  mixed|null   $default

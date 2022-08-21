@@ -25,16 +25,24 @@ use TaylorNetwork\LaravelSettings\Traits\HasOwner;
  * @property ?DataType    $dataType
  * @property ?DataType    $data_type
  * @property mixed        $owner
- * @property mixed $value
+ * @property mixed        $value
  *
  * @method static static firstOrCreate(array $attributes = [], array $values = [])
- * @see Builder
+ * @see     Builder
  */
 class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
 {
     use HasOwner;
     use AliasesSnakeCaseAttributes;
 
+    /**
+     * @inheritDoc
+     */
+    protected $casts = [
+        'data_type' => DataType::class,
+        'setting_type' => SettingType::class,
+        'value' => DynamicTypeCaster::class,
+    ];
     /**
      * @inheritDoc
      */
@@ -46,13 +54,32 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     ];
 
     /**
-     * @inheritDoc
+     * Get a new model instance from JSON.
+     *
+     * @param  string  $json
+     * @return ?static
      */
-    protected $casts = [
-        'data_type' => DataType::class,
-        'setting_type' => SettingType::class,
-        'value' => DynamicTypeCaster::class,
-    ];
+    public static function modelFromJson(string $json): ?static
+    {
+        $arrayModel = json_decode($json, true);
+
+        if (is_int(array_key_first($arrayModel))) {
+            return null;
+        }
+
+        return static::modelFromArray($arrayModel);
+    }
+
+    /**
+     * Get a new model instance from an array.
+     *
+     * @param  array  $attributes
+     * @return static
+     */
+    public static function modelFromArray(array $attributes): static
+    {
+        return static::firstOrCreate($attributes);
+    }
 
     /**
      * @inheritDoc
@@ -63,33 +90,13 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     }
 
     /**
-     * Is this a Global setting?
+     * Does this Model have an owner?
      *
      * @return bool
      */
-    public function isGlobalSetting(): bool
+    public function hasOwner(): bool
     {
-        return $this->isSettingType(SettingType::GLOBAL);
-    }
-
-    /**
-     * Is this an App setting?
-     *
-     * @return bool
-     */
-    public function isAppSetting(): bool
-    {
-        return $this->isSettingType(SettingType::APP);
-    }
-
-    /**
-     * Is this a User setting?
-     *
-     * @return bool
-     */
-    public function isUserSetting(): bool
-    {
-        return $this->isSettingType(SettingType::USER);
+        return $this->isModelSetting() && $this->owner;
     }
 
     /**
@@ -106,9 +113,29 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     }
 
     /**
+     * Is this an App setting?
+     *
+     * @return bool
+     */
+    public function isAppSetting(): bool
+    {
+        return $this->isSettingType(SettingType::APP);
+    }
+
+    /**
+     * Is this a Global setting?
+     *
+     * @return bool
+     */
+    public function isGlobalSetting(): bool
+    {
+        return $this->isSettingType(SettingType::GLOBAL);
+    }
+
+    /**
      * Check if this is the same SettingType as given.
      *
-     * @param SettingType|string|array $type
+     * @param  SettingType|string|array  $type
      * @return bool
      */
     public function isSettingType(SettingType|string|array $type): bool
@@ -117,13 +144,13 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     }
 
     /**
-     * Does this Model have an owner?
+     * Is this a User setting?
      *
      * @return bool
      */
-    public function hasOwner(): bool
+    public function isUserSetting(): bool
     {
-        return $this->isModelSetting() && $this->owner;
+        return $this->isSettingType(SettingType::USER);
     }
 
     /**
@@ -132,33 +159,5 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public function newCollection(array $models = []): SettingsCollection
     {
         return new SettingsCollection($models);
-    }
-
-    /**
-     * Get a new model instance from an array.
-     *
-     * @param  array  $attributes
-     * @return static
-     */
-    public static function modelFromArray(array $attributes): static
-    {
-        return static::firstOrCreate($attributes);
-    }
-
-    /**
-     * Get a new model instance from JSON.
-     *
-     * @param  string  $json
-     * @return ?static
-     */
-    public static function modelFromJson(string $json): ?static
-    {
-        $arrayModel = json_decode($json, true);
-
-        if(is_int(array_key_first($arrayModel))) {
-            return null;
-        }
-
-        return static::modelFromArray($arrayModel);
     }
 }
