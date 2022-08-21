@@ -158,15 +158,6 @@ interface Repository
     public function newQuery(): Builder;
 
     /**
-     * Normalize the Collection to a SettingsCollection.
-     *
-     * @template TKey of array-key
-     * @param  iterable<TKey, Setting|array>  $iterable
-     * @return SettingsCollection
-     */
-    public function normalizeCollection(iterable $iterable): SettingsCollection;
-
-    /**
      * Get the current query.
      *
      * @return Builder

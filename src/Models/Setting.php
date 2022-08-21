@@ -54,6 +54,17 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     ];
 
     /**
+     * Get a new model instance from an array.
+     *
+     * @param  array  $attributes
+     * @return static
+     */
+    public static function modelFromArray(array $attributes): static
+    {
+        return static::firstOrCreate($attributes);
+    }
+
+    /**
      * Get a new model instance from JSON.
      *
      * @param  string  $json
@@ -68,17 +79,6 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
         }
 
         return static::modelFromArray($arrayModel);
-    }
-
-    /**
-     * Get a new model instance from an array.
-     *
-     * @param  array  $attributes
-     * @return static
-     */
-    public static function modelFromArray(array $attributes): static
-    {
-        return static::firstOrCreate($attributes);
     }
 
     /**
@@ -97,6 +97,26 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public function hasOwner(): bool
     {
         return $this->isModelSetting() && $this->owner;
+    }
+
+    /**
+     * Is this an App setting?
+     *
+     * @return bool
+     */
+    public function isAppSetting(): bool
+    {
+        return $this->isSettingType(SettingType::APP);
+    }
+
+    /**
+     * Is this a Global setting?
+     *
+     * @return bool
+     */
+    public function isGlobalSetting(): bool
+    {
+        return $this->isSettingType(SettingType::GLOBAL);
     }
 
     /**
@@ -121,26 +141,6 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public function isSettingType(SettingType|string|array $type): bool
     {
         return $this->settingType?->isIn(Arr::wrap($type)) ?? false;
-    }
-
-    /**
-     * Is this an App setting?
-     *
-     * @return bool
-     */
-    public function isAppSetting(): bool
-    {
-        return $this->isSettingType(SettingType::APP);
-    }
-
-    /**
-     * Is this a Global setting?
-     *
-     * @return bool
-     */
-    public function isGlobalSetting(): bool
-    {
-        return $this->isSettingType(SettingType::GLOBAL);
     }
 
     /**

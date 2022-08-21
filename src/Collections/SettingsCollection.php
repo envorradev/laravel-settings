@@ -22,9 +22,13 @@ class SettingsCollection extends Collection implements CastsCollections
     /**
      * @inheritDoc
      */
-    public static function fromJson(string $json): self
+    public static function from(iterable $items): self
     {
-        return self::fromArray(json_decode($json, true));
+        foreach ($items as $key => $item) {
+            $items[$key] = $item instanceof Setting ? $item : Setting::modelFromArray($item);
+        }
+
+        return new self($items);
     }
 
     /**
@@ -38,12 +42,8 @@ class SettingsCollection extends Collection implements CastsCollections
     /**
      * @inheritDoc
      */
-    public static function from(iterable $items): self
+    public static function fromJson(string $json): self
     {
-        foreach ($items as $key => $item) {
-            $items[$key] = $item instanceof Setting ? $item : Setting::modelFromArray($item);
-        }
-
-        return new self($items);
+        return self::fromArray(json_decode($json, true));
     }
 }

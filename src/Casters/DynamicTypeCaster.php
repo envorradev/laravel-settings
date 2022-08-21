@@ -42,19 +42,6 @@ class DynamicTypeCaster
     }
 
     /**
-     * Update the casts array.
-     *
-     * @param ?string    $key
-     * @param ?DataType  $dataType
-     * @return $this
-     */
-    public function updateCasts(?string $key = null, ?DataType $dataType = null): static
-    {
-        $this->casts[$key ?? $this->key] = $dataType?->value ?? $this->model->getDataType()->value;
-        return $this;
-    }
-
-    /**
      * Forwards calls to Model, handles get and set methods from HasAttributes.
      *
      * @param  string  $name
@@ -68,6 +55,29 @@ class DynamicTypeCaster
             return $this->newInstance(...$arguments)->$method();
         }
         return $this->forwardCallTo($this->model, $name, $arguments);
+    }
+
+    /**
+     * Cast attribute from string to @DataType.
+     *
+     * @return mixed
+     */
+    public function getCastedAttribute(): mixed
+    {
+        if ($this->validateInstance()) {
+            return $this->castAttribute($this->key, $this->value);
+        }
+        return null;
+    }
+
+    /**
+     * Prevents HasAttributes trait from checking for incrementing attribute on this class.
+     *
+     * @return false
+     */
+    public function getIncrementing(): bool
+    {
+        return false;
     }
 
     /**
@@ -87,39 +97,6 @@ class DynamicTypeCaster
             value: $value,
             modelAttributes: $attributes
         );
-    }
-
-    /**
-     * Cast attribute from string to @DataType.
-     *
-     * @return mixed
-     */
-    public function getCastedAttribute(): mixed
-    {
-        if ($this->validateInstance()) {
-            return $this->castAttribute($this->key, $this->value);
-        }
-        return null;
-    }
-
-    /**
-     * Is this instance valid?
-     *
-     * @return bool
-     */
-    public function validateInstance(): bool
-    {
-        return $this->model && $this->key && array_key_exists($this->key, $this->casts);
-    }
-
-    /**
-     * Prevents HasAttributes trait from checking for incrementing attribute on this class.
-     *
-     * @return false
-     */
-    public function getIncrementing(): bool
-    {
-        return false;
     }
 
     /**
@@ -193,5 +170,28 @@ class DynamicTypeCaster
     {
         $this->value = $value;
         return $this;
+    }
+
+    /**
+     * Update the casts array.
+     *
+     * @param ?string    $key
+     * @param ?DataType  $dataType
+     * @return $this
+     */
+    public function updateCasts(?string $key = null, ?DataType $dataType = null): static
+    {
+        $this->casts[$key ?? $this->key] = $dataType?->value ?? $this->model->getDataType()->value;
+        return $this;
+    }
+
+    /**
+     * Is this instance valid?
+     *
+     * @return bool
+     */
+    public function validateInstance(): bool
+    {
+        return $this->model && $this->key && array_key_exists($this->key, $this->casts);
     }
 }

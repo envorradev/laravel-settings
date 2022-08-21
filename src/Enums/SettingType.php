@@ -41,6 +41,18 @@ enum SettingType: string implements ProvidesArrayOfValues
     }
 
     /**
+     * Check if this type is same as given type.
+     *
+     * @param  SettingType|string|null  $case
+     * @return bool
+     */
+    public function is(self|string|null $case): bool
+    {
+        $case = !$case instanceof self ? self::tryFrom($case) : $case;
+        return $this === $case;
+    }
+
+    /**
      * Check if this type is in given types.
      *
      * @param  array  $cases
@@ -54,17 +66,5 @@ enum SettingType: string implements ProvidesArrayOfValues
             }
         }
         return false;
-    }
-
-    /**
-     * Check if this type is same as given type.
-     *
-     * @param  SettingType|string|null  $case
-     * @return bool
-     */
-    public function is(self|string|null $case): bool
-    {
-        $case = !$case instanceof self ? self::tryFrom($case) : $case;
-        return $this === $case;
     }
 }

@@ -48,18 +48,6 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public static function instance(
-        ?SettingType $scopeSettingType = null,
-        ?Model $scopeOwner = null,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): static {
-        return new static($scopeSettingType, $scopeOwner, $scopeDataType, $query);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public static function global(
         ?DataType $scopeDataType = null,
         ?Builder $query = null
@@ -69,6 +57,18 @@ class SettingsRepository implements Repository
             scopeDataType: $scopeDataType,
             query: $query
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function instance(
+        ?SettingType $scopeSettingType = null,
+        ?Model $scopeOwner = null,
+        ?DataType $scopeDataType = null,
+        ?Builder $query = null,
+    ): static {
+        return new static($scopeSettingType, $scopeOwner, $scopeDataType, $query);
     }
 
     /**
@@ -114,17 +114,22 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function normalizeCollection(iterable $iterable): SettingsCollection
+    public function allOfType(SettingType $type): SettingsCollection
     {
-        return new SettingsCollection($iterable);
+        return $this->normalizeCollection($this->query()->where('setting_type', $type)->get());
     }
 
     /**
      * @inheritDoc
      */
-    public function get(string $key, mixed $default = null): mixed
+    public function allRelatedToModel(Model $model, array|SettingType $filterTypes = []): SettingsCollection
     {
-        return $this->find($key)?->value ?? $default;
+        return $this->normalizeCollection(
+            $this->filterQuery(
+                query: $this->query()->whereMorphedTo('owner', $model),
+                filterTypes: $filterTypes
+            )->get()
+        );
     }
 
     /**
@@ -139,21 +144,29 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder
+    public function findOrFail(string $key): Setting
     {
-        return $this->query()->where($field, $operatorOrValue, $valueOrNull);
+        $collection = new SettingsCollection($this->where('key', $key)->take(1)->get());
+        return $collection->firstOrFail();
     }
 
     /**
      * @inheritDoc
      */
-    public function query(): Builder
+    public function get(string $key, mixed $default = null): mixed
     {
-        if (!$this->query) {
-            $this->newQuery();
-        }
+        return $this->find($key)?->value ?? $default;
+    }
 
-        return $this->query;
+    /**
+     * Get the model.
+     *
+     * @return Setting
+     */
+    public function getModel(): Setting
+    {
+        $settingsModel = config('laravel_settings.settings_model', Setting::class);
+        return new $settingsModel();
     }
 
     /**
@@ -179,35 +192,45 @@ class SettingsRepository implements Repository
     }
 
     /**
-     * Get the model.
-     *
-     * @return Setting
+     * @inheritDoc
      */
-    public function getModel(): Setting
+    public function query(): Builder
     {
-        $settingsModel = config('laravel_settings.settings_model', Setting::class);
-        return new $settingsModel();
+        if (!$this->query) {
+            $this->newQuery();
+        }
+
+        return $this->query;
     }
 
     /**
      * @inheritDoc
      */
-    public function allOfType(SettingType $type): SettingsCollection
-    {
-        return $this->normalizeCollection($this->query()->where('setting_type', $type)->get());
+    public function set(
+        string $key,
+        mixed $value,
+        ?string $description,
+        ?SettingType $settingType = null,
+        ?DataType $dataType = null,
+        ?SettingOwner $owner = null
+    ): Setting {
+        //
     }
 
     /**
      * @inheritDoc
      */
-    public function allRelatedToModel(Model $model, array|SettingType $filterTypes = []): SettingsCollection
+    public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder
     {
-        return $this->normalizeCollection(
-            $this->filterQuery(
-                query: $this->query()->whereMorphedTo('owner', $model),
-                filterTypes: $filterTypes
-            )->get()
-        );
+        return $this->query()->where($field, $operatorOrValue, $valueOrNull);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function whereOwner(Model $owner): Builder
+    {
+        return $this->query()->whereMorphedTo('owner', $owner);
     }
 
     /**
@@ -235,34 +258,15 @@ class SettingsRepository implements Repository
     }
 
     /**
-     * @inheritDoc
+     * Normalize the Collection to a SettingsCollection.
+     *
+     * @template TKey of array-key
+     * @param  iterable<TKey, Setting|array>  $iterable
+     * @return SettingsCollection
      */
-    public function findOrFail(string $key): Setting
+    protected function normalizeCollection(iterable $iterable): SettingsCollection
     {
-        $collection = new SettingsCollection($this->where('key', $key)->take(1)->get());
-        return $collection->firstOrFail();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function set(
-        string $key,
-        mixed $value,
-        ?string $description,
-        ?SettingType $settingType = null,
-        ?DataType $dataType = null,
-        ?SettingOwner $owner = null
-    ): Setting {
-        //
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function whereOwner(Model $owner): Builder
-    {
-        return $this->query()->whereMorphedTo('owner', $owner);
+        return new SettingsCollection($iterable);
     }
 
 
