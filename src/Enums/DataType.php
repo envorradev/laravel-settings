@@ -5,8 +5,8 @@ namespace TaylorNetwork\LaravelSettings\Enums;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
+use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 
 /**
  * Class DataType

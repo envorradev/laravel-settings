@@ -2,17 +2,17 @@
 
 namespace TaylorNetwork\LaravelSettings\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use TaylorNetwork\LaravelSettings\Enums\DataType;
+use TaylorNetwork\LaravelSettings\Traits\HasOwner;
+use TaylorNetwork\LaravelSettings\Enums\SettingType;
+use TaylorNetwork\LaravelSettings\Contracts\ModelOwnership;
 use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
-use TaylorNetwork\LaravelSettings\Contracts\ModelOwnership;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
-use TaylorNetwork\LaravelSettings\Traits\HasOwner;
 
 
 /**
@@ -113,6 +113,17 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     }
 
     /**
+     * Check if this is the same SettingType as given.
+     *
+     * @param  SettingType|string|array  $type
+     * @return bool
+     */
+    public function isSettingType(SettingType|string|array $type): bool
+    {
+        return $this->settingType?->isIn(Arr::wrap($type)) ?? false;
+    }
+
+    /**
      * Is this an App setting?
      *
      * @return bool
@@ -130,17 +141,6 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public function isGlobalSetting(): bool
     {
         return $this->isSettingType(SettingType::GLOBAL);
-    }
-
-    /**
-     * Check if this is the same SettingType as given.
-     *
-     * @param  SettingType|string|array  $type
-     * @return bool
-     */
-    public function isSettingType(SettingType|string|array $type): bool
-    {
-        return $this->settingType?->isIn(Arr::wrap($type)) ?? false;
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace TaylorNetwork\LaravelSettings\Traits;
 
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use TaylorNetwork\LaravelSettings\Models\Setting;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Trait HasSettings

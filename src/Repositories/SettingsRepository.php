@@ -2,16 +2,16 @@
 
 namespace TaylorNetwork\LaravelSettings\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use TaylorNetwork\LaravelSettings\Enums\DataType;
+use TaylorNetwork\LaravelSettings\Models\Setting;
+use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Contracts\Repository;
 use TaylorNetwork\LaravelSettings\Contracts\SettingOwner;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Models\Setting;
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 
 /**
  * Class SettingsRepository

@@ -3,8 +3,8 @@
 namespace TaylorNetwork\LaravelSettings\Collections;
 
 use Illuminate\Database\Eloquent\Collection;
-use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
 use TaylorNetwork\LaravelSettings\Models\Setting;
+use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
 
 /**
  * Class SettingsCollection

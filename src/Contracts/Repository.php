@@ -2,13 +2,13 @@
 
 namespace TaylorNetwork\LaravelSettings\Contracts;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ItemNotFoundException;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting;
+use TaylorNetwork\LaravelSettings\Enums\SettingType;
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 
 /**
  * Contract Repository

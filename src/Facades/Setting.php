@@ -2,12 +2,12 @@
 
 namespace TaylorNetwork\LaravelSettings\Facades;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 
 /**
