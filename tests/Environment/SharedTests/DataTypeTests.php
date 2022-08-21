@@ -10,10 +10,10 @@ trait DataTypeTests
     /**
      * @throws DataTypeException
      */
-    protected function assertAllOfDataType(DataType $type, iterable $items, ?string $key = 'value'): void
+    protected function assertAllOfDataType(DataType $dataType, iterable $items, ?string $key = 'value'): void
     {
         foreach($items as $item) {
-            $this->assertIsDataType($type, $key ? $item[$key] : $item);
+            $this->assertIsDataType($dataType, $key ? $item[$key] : $item);
         }
     }
 

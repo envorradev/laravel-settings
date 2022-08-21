@@ -2,11 +2,18 @@
 
 namespace TaylorNetwork\LaravelSettings\Tests;
 
+use TaylorNetwork\LaravelSettings\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\TestingSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
 use TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\UserSettingsSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\ModelSettingsSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\GlobalSettingsSeeder;
+use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\UserUsingTraitSeeder;
 
 class TestCase extends OrchestraTestCase
 {
@@ -42,7 +49,18 @@ class TestCase extends OrchestraTestCase
 
     protected function defineDatabaseSeeders(): void
     {
-        $this->seed(TestingSeeder::class);
+        // Seed setting types
+        $this->seed([
+            AppSettingsSeeder::class,
+            GlobalSettingsSeeder::class,
+            ModelSettingsSeeder::class,
+            UserSettingsSeeder::class,
+        ]);
+
+        // Seed models
+        $this->seed([
+            UserUsingTraitSeeder::class,
+        ]);
     }
 
     protected function defineDatabaseMigrations(): void
@@ -50,10 +68,18 @@ class TestCase extends OrchestraTestCase
         $this->loadMigrationsFrom(__DIR__.'/Environment/database/migrations');
     }
 
-
-    /** @test */
     public function test_environment_is_working()
     {
         $this->assertTrue(true);
+    }
+
+    public function test_settings_seeded()
+    {
+        $this->assertDatabaseCount('settings', SettingsSeeder::groupSeedCount());
+    }
+
+    public function test_models_seeded()
+    {
+        $this->assertDatabaseCount('users', UserUsingTraitSeeder::seedCount());
     }
 }

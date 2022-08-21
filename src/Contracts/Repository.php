@@ -110,10 +110,18 @@ interface Repository
     /**
      * Get all Settings of a SettingType.
      *
-     * @param  SettingType  $type
+     * @param  DataType  $dataType
      * @return SettingsCollection
      */
-    public function allOfType(SettingType $type): SettingsCollection;
+    public function allOfDataType(DataType $dataType): SettingsCollection;
+
+    /**
+     * Get all Settings of a SettingType.
+     *
+     * @param  SettingType  $settingType
+     * @return SettingsCollection
+     */
+    public function allOfSettingType(SettingType $settingType): SettingsCollection;
 
     /**
      * Get all Settings related to a Model.

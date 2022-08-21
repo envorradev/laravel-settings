@@ -114,9 +114,17 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function allOfType(SettingType $type): SettingsCollection
+    public function allOfDataType(DataType $dataType): SettingsCollection
     {
-        return $this->normalizeCollection($this->query()->where('setting_type', $type)->get());
+        return $this->normalizeCollection($this->query()->where('data_type', $dataType)->get());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function allOfSettingType(SettingType $settingType): SettingsCollection
+    {
+        return $this->normalizeCollection($this->query()->where('setting_type', $settingType)->get());
     }
 
     /**

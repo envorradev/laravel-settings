@@ -7,9 +7,9 @@ use TaylorNetwork\LaravelSettings\Enums\SettingType;
 
 trait SettingTypeTests
 {
-    protected function assertAllOfSettingType(SettingType $settingType, SettingsCollection $collection): void
+    protected function assertAllOfSettingType(SettingType $settingType, iterable $items): void
     {
-        foreach($collection as $setting) {
+        foreach($items as $setting) {
             $this->assertIsSettingType($settingType, $setting->setting_type);
         }
     }
