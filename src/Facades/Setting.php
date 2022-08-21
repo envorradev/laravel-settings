@@ -11,7 +11,7 @@ use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 
 /**
- * Class Setting
+ * Setting
  *
  * @package TaylorNetwork\LaravelSettings
  *

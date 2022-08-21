@@ -16,7 +16,7 @@ use TaylorNetwork\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
 
 
 /**
- * Class Setting
+ * Setting
  *
  * @package TaylorNetwork\LaravelSettings
  *

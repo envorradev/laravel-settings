@@ -6,7 +6,7 @@ use TaylorNetwork\LaravelSettings\Models\Setting;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * Trait HasSettings
+ * HasSettings
  *
  * @package TaylorNetwork\LaravelSettings
  */

@@ -9,7 +9,7 @@ use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 
 /**
- * Class DataType
+ * DataType
  *
  * @package TaylorNetwork\LaravelSettings
  */

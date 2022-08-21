@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 
 /**
- * Class LaravelSettingsProvider
+ * LaravelSettingsProvider
  *
  * @package TaylorNetwork\LaravelSettings
  */

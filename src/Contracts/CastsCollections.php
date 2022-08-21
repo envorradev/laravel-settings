@@ -4,7 +4,7 @@ namespace TaylorNetwork\LaravelSettings\Contracts;
 
 
 /**
- * Contract CastsCollections
+ * CastsCollections
  *
  * @package  TaylorNetwork\LaravelSettings
  *

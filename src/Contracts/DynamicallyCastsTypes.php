@@ -6,7 +6,7 @@ use TaylorNetwork\LaravelSettings\Enums\DataType;
 
 
 /**
- * Contract DynamicallyCastsTypes
+ * DynamicallyCastsTypes
  *
  * @package TaylorNetwork\LaravelSettings
  */

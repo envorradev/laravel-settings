@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasAttributes;
 use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
 
 /**
- * Class DynamicTypeCaster
+ * DynamicTypeCaster
  *
  * @package TaylorNetwork\LaravelSettings
  *

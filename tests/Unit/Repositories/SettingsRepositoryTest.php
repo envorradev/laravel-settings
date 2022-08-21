@@ -52,10 +52,10 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_execute_allRelatedToModel_method(): void
     {
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $model = UserUsingTrait::find(3);
 
-        foreach($this->repository()->allRelatedToModel($model) as $setting) {
+        foreach ($this->repository()->allRelatedToModel($model) as $setting) {
             $this->assertEquals($model, $setting->owner);
         }
     }
@@ -137,7 +137,7 @@ class SettingsRepositoryTest extends TestCase
         $repository = SettingsRepository::app();
         $query = $repository->where('description', 'test description');
         $expectedQuery = Setting::query()->where('setting_type', SettingType::APP)
-                                         ->where('description', 'test description');
+            ->where('description', 'test description');
 
         $scopedQuery = Setting::query()->where('setting_type', SettingType::APP);
 

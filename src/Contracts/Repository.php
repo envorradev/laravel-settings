@@ -11,7 +11,7 @@ use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 
 /**
- * Contract Repository
+ * Repository
  *
  * @package TaylorNetwork\LaravelSettings
  */

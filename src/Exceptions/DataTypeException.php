@@ -5,7 +5,7 @@ namespace TaylorNetwork\LaravelSettings\Exceptions;
 use Exception;
 
 /**
- * Class DataTypeException
+ * DataTypeException
  *
  * @package TaylorNetwork\LaravelSettings
  */

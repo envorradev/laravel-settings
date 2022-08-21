@@ -5,9 +5,10 @@ namespace TaylorNetwork\LaravelSettings\Collections;
 use Illuminate\Database\Eloquent\Collection;
 use TaylorNetwork\LaravelSettings\Models\Setting;
 use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
+use TaylorNetwork\LaravelSettings\Exceptions\CastCollectionException;
 
 /**
- * Class SettingsCollection
+ * SettingsCollection
  *
  * @package  TaylorNetwork\LaravelSettings
  *
@@ -21,11 +22,16 @@ class SettingsCollection extends Collection implements CastsCollections
 {
     /**
      * @inheritDoc
+     * @throws CastCollectionException
      */
     public static function from(iterable $items): self
     {
         foreach ($items as $key => $item) {
-            $items[$key] = $item instanceof Setting ? $item : Setting::modelFromArray($item);
+            if (!is_iterable($item) && !$item instanceof Setting) {
+                throw new CastCollectionException('Cannot cast to SettingsCollection.');
+            }
+
+            $items[$key] = !$item instanceof Setting ? Setting::modelFromArray($item): $item;
         }
 
         return new self($items);

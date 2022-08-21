@@ -2,8 +2,8 @@
 
 namespace TaylorNetwork\LaravelSettings\Tests\Unit\Enums;
 
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;
+use TaylorNetwork\LaravelSettings\Enums\SettingType;
 
 /**
  * @coversDefaultClass \TaylorNetwork\LaravelSettings\Enums\SettingType
@@ -12,27 +12,27 @@ class SettingTypeTest extends TestCase
 {
     /**
      * @test
-     * @covers ::values
-     */
-    public function it_returns_array_of_backing_values(): void
-    {
-        $this->checkEnumValuesMethod(SettingType::class);
-    }
-
-    /**
-     * @test
      * @covers ::isIn
      */
-    public function it_returns_if_type_is_in_array(): void
+    public function it_can_execute_isIn_method(): void
     {
         $this->checkEnumIsInMethod(SettingType::class);
     }
 
     /**
      * @test
+     * @covers ::is
+     */
+    public function it_can_execute_is_method(): void
+    {
+        $this->checkEnumIsMethod(SettingType::class);
+    }
+
+    /**
+     * @test
      * @covers ::make
      */
-    public function it_returns_a_new_instance_based_on_input(): void
+    public function it_can_execute_static_make_method(): void
     {
         $this->assertEquals(SettingType::MODEL, SettingType::make('model'));
         $this->assertEquals(SettingType::GLOBAL, SettingType::make(SettingType::GLOBAL));
@@ -41,10 +41,10 @@ class SettingTypeTest extends TestCase
 
     /**
      * @test
-     * @covers ::is
+     * @covers ::values
      */
-    public function it_returns_if_a_two_types_are_the_same(): void
+    public function it_can_execute_static_values_method(): void
     {
-        $this->checkEnumIsMethod(SettingType::class);
+        $this->checkEnumValuesMethod(SettingType::class);
     }
 }

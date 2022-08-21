@@ -14,7 +14,7 @@ use TaylorNetwork\LaravelSettings\Contracts\SettingOwner;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 
 /**
- * Class SettingsRepository
+ * SettingsRepository
  *
  * @package TaylorNetwork\LaravelSettings
  */

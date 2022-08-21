@@ -5,7 +5,7 @@ namespace TaylorNetwork\LaravelSettings\Traits;
 use Illuminate\Support\Str;
 
 /**
- * Trait AliasesSnakeCaseAttributes
+ * AliasesSnakeCaseAttributes
  *
  * @package TaylorNetwork\LaravelSettings
  */

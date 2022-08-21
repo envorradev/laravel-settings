@@ -2,6 +2,9 @@
 
 namespace TaylorNetwork\LaravelSettings\Tests\Unit\Collections;
 
+use TaylorNetwork\LaravelSettings\Enums\DataType;
+use TaylorNetwork\LaravelSettings\Enums\SettingType;
+use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;
 
 /**
@@ -9,32 +12,22 @@ use TaylorNetwork\LaravelSettings\Tests\TestCase;
  */
 class SettingsCollectionTest extends TestCase
 {
-
-    /**
-     * @test
-     * @covers ::from
-     */
-    public function it_can_execute_from_method(): void
-    {
-
-    }
-
-    /**
-     * @test
-     * @covers ::firstOrFail
-     */
-    public function it_can_execute_firstOrFail_method(): void
-    {
-
-    }
-
     /**
      * @test
      * @covers ::fromArray
      */
     public function it_can_execute_fromArray_method(): void
     {
+        $array = [
+            [
+                'key' => 'app.test.float1',
+                'setting_type' => SettingType::APP,
+                'data_type' => DataType::FLOAT,
+                'value' => 7.5,
+            ],
+        ];
 
+        $this->assertInstanceOf(SettingsCollection::class, SettingsCollection::fromArray($array));
     }
 
     /**
@@ -43,15 +36,27 @@ class SettingsCollectionTest extends TestCase
      */
     public function it_can_execute_fromJson_method(): void
     {
+        $json = '[{"key":"app.test.float1","setting_type":"app","data_type":"float","value":"7.5"}]';
 
+        $this->assertInstanceOf(SettingsCollection::class, SettingsCollection::fromJson($json));
     }
 
     /**
      * @test
-     * @covers ::first
+     * @covers ::from
      */
-    public function it_can_execute_first_method(): void
+    public function it_can_execute_from_method(): void
     {
+        $collection = collect([
+            [
+                'key' => 'app.test.float1',
+                'setting_type' => SettingType::APP,
+                'data_type' => DataType::FLOAT,
+                'value' => 7.5,
+            ],
+        ]);
 
+        $this->assertNotInstanceOf(SettingsCollection::class, $collection);
+        $this->assertInstanceOf(SettingsCollection::class, SettingsCollection::from($collection));
     }
 }

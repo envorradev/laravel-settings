@@ -5,7 +5,7 @@ namespace TaylorNetwork\LaravelSettings\Enums;
 use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
 
 /**
- * Class SettingType
+ * SettingType
  *
  * @package TaylorNetwork\LaravelSettings
  */

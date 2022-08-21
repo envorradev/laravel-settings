@@ -3,7 +3,7 @@
 namespace TaylorNetwork\LaravelSettings\Contracts;
 
 /**
- * Contract ProvidesArrayOfValues
+ * ProvidesArrayOfValues
  *
  * @package TaylorNetwork\LaravelSettings
  */
