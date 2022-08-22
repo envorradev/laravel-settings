@@ -2,12 +2,13 @@
 
 namespace Envorra\LaravelSettings\Tests\Environment\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method static static first()
+ * @mixin Builder
  */
 abstract class TestingModel extends Model implements Authenticatable
 {

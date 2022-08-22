@@ -9,6 +9,7 @@ use Envorra\LaravelSettings\Repositories\SettingsRepository;
  * LaravelSettingsProvider
  *
  * @package Envorra\LaravelSettings
+ * @codeCoverageIgnore
  */
 class LaravelSettingsProvider extends ServiceProvider
 {

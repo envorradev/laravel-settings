@@ -14,7 +14,7 @@ trait AliasesSnakeCaseAttributes
     /**
      * @inheritDoc
      */
-    public function getAttribute($key)
+    public function getAttribute($key): mixed
     {
         return parent::getAttribute($key) ?? parent::getAttribute(Str::snake($key));
     }
@@ -22,13 +22,19 @@ trait AliasesSnakeCaseAttributes
     /**
      * @inheritDoc
      */
-    public function setAttribute($key, $value)
+    public function setAttribute($key, $value): mixed
     {
         $snakeKey = Str::snake($key);
 
+        if ($snakeKey === $key) {
+            return parent::setAttribute($key, $value);
+        }
+
+        $columns = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+
         return parent::setAttribute(
-            $key === $snakeKey || !in_array($snakeKey, array_keys($this->getAttributes())) ? $key : $snakeKey,
-            $value
+            key: in_array($snakeKey, $columns) ? $snakeKey : $key,
+            value: $value
         );
     }
 }

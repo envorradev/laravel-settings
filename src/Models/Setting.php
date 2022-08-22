@@ -4,6 +4,7 @@ namespace Envorra\LaravelSettings\Models;
 
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Traits\HasOwner;
@@ -56,11 +57,15 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
      * Get a new model instance from an array.
      *
      * @param  array  $attributes
-     * @return Model
+     * @return ?Model
      */
-    public static function modelFromArray(array $attributes): Model
+    public static function modelFromArray(array $attributes): ?Model
     {
-        return static::firstOrCreate($attributes);
+        try {
+            return static::firstOrCreate($attributes);
+        } catch (QueryException) {
+            return null;
+        }
     }
 
     /**

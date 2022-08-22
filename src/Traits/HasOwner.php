@@ -20,7 +20,7 @@ trait HasOwner
      */
     public function belongsToModel(Model $model): bool
     {
-        return $this->owner === $model;
+        return $this->owner?->id === $model->id;
     }
 
     /**
