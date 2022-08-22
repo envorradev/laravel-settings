@@ -1,15 +1,15 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Feature;
+namespace Envorra\LaravelSettings\Tests\Feature;
 
 use stdClass;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Models\Setting;
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
-use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Casters\DynamicTypeCaster;
+use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
 
 class TyperCasterTest extends TestCase
 {

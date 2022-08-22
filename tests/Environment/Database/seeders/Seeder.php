@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
+namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use ReflectionClass;
 use Illuminate\Database\Eloquent\Model;

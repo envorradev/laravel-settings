@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Contracts;
+namespace Envorra\LaravelSettings\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * ModelOwnership
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 interface ModelOwnership
 {

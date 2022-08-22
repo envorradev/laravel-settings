@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Traits;
+namespace Envorra\LaravelSettings\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * HasOwner
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  *
  * @property ?Model $model
  * @property Model  $owner

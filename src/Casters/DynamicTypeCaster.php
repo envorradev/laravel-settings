@@ -1,16 +1,16 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Casters;
+namespace Envorra\LaravelSettings\Casters;
 
 use Illuminate\Support\Traits\ForwardsCalls;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\DataType;
 use Illuminate\Database\Eloquent\Concerns\HasAttributes;
-use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
+use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
 
 /**
  * DynamicTypeCaster
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  *
  * @method mixed get(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes)
  * @method mixed set(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes)

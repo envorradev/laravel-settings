@@ -1,10 +1,10 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests;
+namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
-use TaylorNetwork\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Models\Setting;
 
 trait SettingModelTests
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Contracts;
+namespace Envorra\LaravelSettings\Contracts;
 
 
 /**
  * CastsCollections
  *
- * @package  TaylorNetwork\LaravelSettings
+ * @package  Envorra\LaravelSettings
  *
  * @template TKey of array-key
  * @template TValue

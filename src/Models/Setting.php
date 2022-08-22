@@ -1,24 +1,24 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Models;
+namespace Envorra\LaravelSettings\Models;
 
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Traits\HasOwner;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Contracts\ModelOwnership;
-use TaylorNetwork\LaravelSettings\Casters\DynamicTypeCaster;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Contracts\DynamicallyCastsTypes;
-use TaylorNetwork\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Traits\HasOwner;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Contracts\ModelOwnership;
+use Envorra\LaravelSettings\Casters\DynamicTypeCaster;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
+use Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
 
 
 /**
  * Setting
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  *
  * @property ?SettingType $settingType
  * @property ?SettingType $setting_type

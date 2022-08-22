@@ -1,22 +1,22 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Unit\Collections;
+namespace Envorra\LaravelSettings\Tests\Unit\Collections;
 
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Exceptions\CastCollectionException;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Exceptions\CastCollectionException;
 
 /**
- * @coversDefaultClass \TaylorNetwork\LaravelSettings\Collections\SettingsCollection
+ * @coversDefaultClass \Envorra\LaravelSettings\Collections\SettingsCollection
  */
 class SettingsCollectionTest extends TestCase
 {
     /**
      * @test
      * @covers ::fromArray
-     * @covers \TaylorNetwork\LaravelSettings\Exceptions\CastCollectionException
+     * @covers \Envorra\LaravelSettings\Exceptions\CastCollectionException
      */
     public function it_can_execute_fromArray_method(): void
     {

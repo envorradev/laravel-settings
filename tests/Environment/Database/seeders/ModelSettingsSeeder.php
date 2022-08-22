@@ -1,11 +1,11 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
+namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use Illuminate\Support\Collection;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 
 class ModelSettingsSeeder extends SettingsSeeder
 {

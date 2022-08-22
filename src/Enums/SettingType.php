@@ -1,13 +1,13 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Enums;
+namespace Envorra\LaravelSettings\Enums;
 
-use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
+use Envorra\LaravelSettings\Contracts\ProvidesArrayOfValues;
 
 /**
  * SettingType
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 enum SettingType: string implements ProvidesArrayOfValues
 {

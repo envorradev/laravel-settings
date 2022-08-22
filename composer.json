@@ -1,5 +1,5 @@
 {
-    "name": "taylornetwork/laravel-settings",
+    "name": "envorradev/laravel-settings",
     "description": "A package to manage global and model based settings",
     "require": {
         "php": "^8.1",
@@ -17,18 +17,18 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "TaylorNetwork\\LaravelSettings\\": "src/"
+            "Envorra\\LaravelSettings\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TaylorNetwork\\LaravelSettings\\Tests\\": "tests/"
+            "Envorra\\LaravelSettings\\Tests\\": "tests/"
         }
     },
     "authors": [
         {
             "name": "Sam Taylor",
-            "email": "sam@taylornetwork.ca"
+            "email": "sam@envorra.dev"
         }
     ],
     "config": {
@@ -39,10 +39,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "TaylorNetwork\\LaravelSettings\\LaravelSettingsProvider"
+                "Envorra\\LaravelSettings\\LaravelSettingsProvider"
             ],
             "aliases": {
-                "Setting": "TaylorNetwork\\LarvavelSettings\\Facades\\Setting"
+                "Setting": "Envorra\\LarvavelSettings\\Facades\\Setting"
             }
         },
         "ramsey/composer-repl": {

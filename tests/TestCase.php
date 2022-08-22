@@ -1,21 +1,21 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests;
+namespace Envorra\LaravelSettings\Tests;
 
-use TaylorNetwork\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
-use TaylorNetwork\LaravelSettings\Facades\Setting as SettingFacade;
-use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
-use TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\UserSettingsSeeder;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\ModelSettingsSeeder;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\GlobalSettingsSeeder;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\UserUsingTraitSeeder;
+use Envorra\LaravelSettings\LaravelSettingsProvider;
+use Envorra\LaravelSettings\Facades\Setting as SettingFacade;
+use Envorra\LaravelSettings\Repositories\SettingsRepository;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
+use Envorra\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\ModelSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\GlobalSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserUsingTraitSeeder;
 
 class TestCase extends OrchestraTestCase
 {

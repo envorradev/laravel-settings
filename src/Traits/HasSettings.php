@@ -1,14 +1,14 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Traits;
+namespace Envorra\LaravelSettings\Traits;
 
-use TaylorNetwork\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * HasSettings
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 trait HasSettings
 {

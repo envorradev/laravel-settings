@@ -1,19 +1,19 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Contracts;
+namespace Envorra\LaravelSettings\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ItemNotFoundException;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Models\Setting;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 /**
  * Repository
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 interface Repository
 {

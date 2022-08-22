@@ -1,14 +1,14 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings;
+namespace Envorra\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
-use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
+use Envorra\LaravelSettings\Repositories\SettingsRepository;
 
 /**
  * LaravelSettingsProvider
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 class LaravelSettingsProvider extends ServiceProvider
 {

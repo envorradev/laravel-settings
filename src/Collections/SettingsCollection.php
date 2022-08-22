@@ -1,16 +1,16 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Collections;
+namespace Envorra\LaravelSettings\Collections;
 
 use Illuminate\Database\Eloquent\Collection;
-use TaylorNetwork\LaravelSettings\Models\Setting;
-use TaylorNetwork\LaravelSettings\Contracts\CastsCollections;
-use TaylorNetwork\LaravelSettings\Exceptions\CastCollectionException;
+use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Contracts\CastsCollections;
+use Envorra\LaravelSettings\Exceptions\CastCollectionException;
 
 /**
  * SettingsCollection
  *
- * @package  TaylorNetwork\LaravelSettings
+ * @package  Envorra\LaravelSettings
  *
  * @method Setting first(callable $callback = null, $default = null)
  * @method Setting firstOrFail($key = null, $operator = null, $value = null)

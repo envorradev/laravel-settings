@@ -1,8 +1,8 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
+namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
-use TaylorNetwork\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Models\Setting;
 
 abstract class SettingsSeeder extends Seeder
 {

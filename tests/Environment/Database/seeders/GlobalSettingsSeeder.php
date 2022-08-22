@@ -1,9 +1,9 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
+namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\SettingType;
 
 class GlobalSettingsSeeder extends SettingsSeeder
 {

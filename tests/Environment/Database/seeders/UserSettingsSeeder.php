@@ -1,12 +1,12 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
+namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use Carbon\Carbon;
-use TaylorNetwork\LaravelSettings\Models\Setting;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
+use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 
 class UserSettingsSeeder extends SettingsSeeder
 {

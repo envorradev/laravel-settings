@@ -1,14 +1,14 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Contracts;
+namespace Envorra\LaravelSettings\Contracts;
 
-use TaylorNetwork\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\DataType;
 
 
 /**
  * DynamicallyCastsTypes
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 interface DynamicallyCastsTypes
 {

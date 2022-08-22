@@ -1,22 +1,22 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Repositories;
+namespace Envorra\LaravelSettings\Repositories;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Models\Setting;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Contracts\Repository;
-use TaylorNetwork\LaravelSettings\Contracts\SettingOwner;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Contracts\Repository;
+use Envorra\LaravelSettings\Contracts\SettingOwner;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 /**
  * SettingsRepository
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 class SettingsRepository implements Repository
 {

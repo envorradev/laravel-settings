@@ -1,13 +1,13 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Contracts;
+namespace Envorra\LaravelSettings\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * SettingOwner
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 interface SettingOwner
 {

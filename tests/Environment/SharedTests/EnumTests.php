@@ -1,9 +1,9 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests;
+namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Enums\SettingType;
 
 trait EnumTests
 {

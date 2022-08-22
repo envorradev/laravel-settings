@@ -1,13 +1,13 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Exceptions;
+namespace Envorra\LaravelSettings\Exceptions;
 
 use Exception;
 
 /**
  * CastCollectionException
  *
- * @package TaylorNetwork\LaravelSettings\Exceptions
+ * @package Envorra\LaravelSettings\Exceptions
  */
 class CastCollectionException extends Exception
 {

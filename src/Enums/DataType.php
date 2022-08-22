@@ -1,17 +1,17 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Enums;
+namespace Envorra\LaravelSettings\Enums;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
-use TaylorNetwork\LaravelSettings\Contracts\ProvidesArrayOfValues;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Contracts\ProvidesArrayOfValues;
 
 /**
  * DataType
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 enum DataType: string implements ProvidesArrayOfValues
 {

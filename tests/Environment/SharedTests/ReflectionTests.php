@@ -1,6 +1,6 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests;
+namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
 use ReflectionClass;
 use ReflectionException;

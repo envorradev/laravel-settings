@@ -1,8 +1,8 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Models;
+namespace Envorra\LaravelSettings\Tests\Environment\Models;
 
-use TaylorNetwork\LaravelSettings\Traits\HasSettings;
+use Envorra\LaravelSettings\Traits\HasSettings;
 
 class UserUsingTrait extends TestingModel
 {

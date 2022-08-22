@@ -1,8 +1,8 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders;
+namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
-use TaylorNetwork\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 
 class UserUsingTraitSeeder extends Seeder
 {

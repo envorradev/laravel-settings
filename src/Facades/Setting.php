@@ -1,19 +1,19 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Facades;
+namespace Envorra\LaravelSettings\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Models\Setting as SettingModel;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Models\Setting as SettingModel;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Repositories\SettingsRepository;
 
 /**
  * Setting
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  *
  * @mixin SettingsRepository
  */

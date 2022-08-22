@@ -1,9 +1,9 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests;
+namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
 
 trait DataTypeTests
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Unit\Facades;
+namespace Envorra\LaravelSettings\Tests\Unit\Facades;
 
-use TaylorNetwork\LaravelSettings\Facades\Setting;
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
+use Envorra\LaravelSettings\Facades\Setting;
+use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Repositories\SettingsRepository;
 
 /**
- * @coversDefaultClass \TaylorNetwork\LaravelSettings\Facades\Setting
+ * @coversDefaultClass \Envorra\LaravelSettings\Facades\Setting
  */
 class SettingFacadeTest extends TestCase
 {

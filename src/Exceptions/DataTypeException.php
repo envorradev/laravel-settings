@@ -1,13 +1,13 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Exceptions;
+namespace Envorra\LaravelSettings\Exceptions;
 
 use Exception;
 
 /**
  * DataTypeException
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 class DataTypeException extends Exception
 {

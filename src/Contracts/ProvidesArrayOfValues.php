@@ -1,11 +1,11 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Contracts;
+namespace Envorra\LaravelSettings\Contracts;
 
 /**
  * ProvidesArrayOfValues
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 interface ProvidesArrayOfValues
 {

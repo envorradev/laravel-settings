@@ -1,16 +1,16 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Unit\Enums;
+namespace Envorra\LaravelSettings\Tests\Unit\Enums;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
 
 /**
- * @coversDefaultClass \TaylorNetwork\LaravelSettings\Enums\DataType
+ * @coversDefaultClass \Envorra\LaravelSettings\Enums\DataType
  */
 class DataTypeTest extends TestCase
 {

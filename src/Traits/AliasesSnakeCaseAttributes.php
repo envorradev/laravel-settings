@@ -1,13 +1,13 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Traits;
+namespace Envorra\LaravelSettings\Traits;
 
 use Illuminate\Support\Str;
 
 /**
  * AliasesSnakeCaseAttributes
  *
- * @package TaylorNetwork\LaravelSettings
+ * @package Envorra\LaravelSettings
  */
 trait AliasesSnakeCaseAttributes
 {

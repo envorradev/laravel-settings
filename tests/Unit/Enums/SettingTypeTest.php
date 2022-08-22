@@ -1,12 +1,12 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Unit\Enums;
+namespace Envorra\LaravelSettings\Tests\Unit\Enums;
 
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Enums\SettingType;
 
 /**
- * @coversDefaultClass \TaylorNetwork\LaravelSettings\Enums\SettingType
+ * @coversDefaultClass \Envorra\LaravelSettings\Enums\SettingType
  */
 class SettingTypeTest extends TestCase
 {

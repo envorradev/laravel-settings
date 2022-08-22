@@ -1,11 +1,11 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Feature;
+namespace Envorra\LaravelSettings\Tests\Feature;
 
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
+use Envorra\LaravelSettings\Tests\TestCase;
 
 class UserWithTraitTest extends TestCase
 {

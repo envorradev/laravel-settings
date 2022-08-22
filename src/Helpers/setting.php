@@ -1,6 +1,6 @@
 <?php
 
-use TaylorNetwork\LaravelSettings\Facades\Setting;
+use Envorra\LaravelSettings\Facades\Setting;
 
 if (!function_exists('setting')) {
     /**

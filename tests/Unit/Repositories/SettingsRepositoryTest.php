@@ -1,23 +1,23 @@
 <?php
 
-namespace TaylorNetwork\LaravelSettings\Tests\Unit\Repositories;
+namespace Envorra\LaravelSettings\Tests\Unit\Repositories;
 
 use ReflectionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ItemNotFoundException;
-use TaylorNetwork\LaravelSettings\Enums\DataType;
-use TaylorNetwork\LaravelSettings\Tests\TestCase;
-use TaylorNetwork\LaravelSettings\Models\Setting;
-use TaylorNetwork\LaravelSettings\Enums\SettingType;
-use TaylorNetwork\LaravelSettings\Exceptions\DataTypeException;
-use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
-use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
-use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
+use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Repositories\SettingsRepository;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
 
 /**
- * @coversDefaultClass \TaylorNetwork\LaravelSettings\Repositories\SettingsRepository
+ * @coversDefaultClass \Envorra\LaravelSettings\Repositories\SettingsRepository
  */
 class SettingsRepositoryTest extends TestCase
 {
