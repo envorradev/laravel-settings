@@ -27,8 +27,7 @@ use TaylorNetwork\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
  * @property mixed        $owner
  * @property mixed        $value
  *
- * @method static static firstOrCreate(array $attributes = [], array $values = [])
- * @see     Builder
+ * @mixin Builder
  */
 class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
 {
@@ -57,9 +56,9 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
      * Get a new model instance from an array.
      *
      * @param  array  $attributes
-     * @return static
+     * @return Model
      */
-    public static function modelFromArray(array $attributes): static
+    public static function modelFromArray(array $attributes): Model
     {
         return static::firstOrCreate($attributes);
     }
@@ -68,9 +67,9 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
      * Get a new model instance from JSON.
      *
      * @param  string  $json
-     * @return ?static
+     * @return ?Model
      */
-    public static function modelFromJson(string $json): ?static
+    public static function modelFromJson(string $json): ?Model
     {
         $arrayModel = json_decode($json, true);
 

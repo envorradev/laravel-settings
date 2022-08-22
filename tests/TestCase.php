@@ -6,6 +6,8 @@ use TaylorNetwork\LaravelSettings\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use TaylorNetwork\LaravelSettings\LaravelSettingsProvider;
+use TaylorNetwork\LaravelSettings\Facades\Setting as SettingFacade;
+use TaylorNetwork\LaravelSettings\Repositories\SettingsRepository;
 use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
 use TaylorNetwork\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
 use TaylorNetwork\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
@@ -27,7 +29,9 @@ class TestCase extends OrchestraTestCase
 
     protected function getPackageAliases($app): array
     {
-        return [];
+        return [
+            'SettingAlias' => SettingFacade::class
+        ];
     }
 
     protected function getPackageProviders($app): array

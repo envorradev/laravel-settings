@@ -40,7 +40,10 @@
         "laravel": {
             "providers": [
                 "TaylorNetwork\\LaravelSettings\\LaravelSettingsProvider"
-            ]
+            ],
+            "aliases": {
+                "Setting": "TaylorNetwork\\LarvavelSettings\\Facades\\Setting"
+            }
         },
         "ramsey/composer-repl": {
             "includes": []

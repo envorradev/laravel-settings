@@ -6,6 +6,7 @@ use TaylorNetwork\LaravelSettings\Enums\DataType;
 use TaylorNetwork\LaravelSettings\Enums\SettingType;
 use TaylorNetwork\LaravelSettings\Collections\SettingsCollection;
 use TaylorNetwork\LaravelSettings\Tests\TestCase;
+use TaylorNetwork\LaravelSettings\Exceptions\CastCollectionException;
 
 /**
  * @coversDefaultClass \TaylorNetwork\LaravelSettings\Collections\SettingsCollection
@@ -15,6 +16,7 @@ class SettingsCollectionTest extends TestCase
     /**
      * @test
      * @covers ::fromArray
+     * @covers \TaylorNetwork\LaravelSettings\Exceptions\CastCollectionException
      */
     public function it_can_execute_fromArray_method(): void
     {
@@ -28,6 +30,9 @@ class SettingsCollectionTest extends TestCase
         ];
 
         $this->assertInstanceOf(SettingsCollection::class, SettingsCollection::fromArray($array));
+
+        $this->expectException(CastCollectionException::class);
+        SettingsCollection::fromArray(['empty']);
     }
 
     /**
