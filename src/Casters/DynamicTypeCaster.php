@@ -2,6 +2,7 @@
 
 namespace Envorra\LaravelSettings\Casters;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Traits\ForwardsCalls;
 use Envorra\LaravelSettings\Enums\DataType;
 use Illuminate\Database\Eloquent\Concerns\HasAttributes;
@@ -12,8 +13,10 @@ use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
  *
  * @package Envorra\LaravelSettings
  *
- * @method mixed get(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes)
- * @method mixed set(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes)
+ * @method mixed get(DynamicallyCastsTypes $model, string $key, mixed $value, array $modelAttributes)
+ * @method mixed set(DynamicallyCastsTypes $model, string $key, mixed $value, array $modelAttributes)
+ *
+ * @mixin Model
  */
 class DynamicTypeCaster
 {
@@ -71,31 +74,21 @@ class DynamicTypeCaster
     }
 
     /**
-     * Prevents HasAttributes trait from checking for incrementing attribute on this class.
-     *
-     * @return false
-     */
-    public function getIncrementing(): bool
-    {
-        return false;
-    }
-
-    /**
      * New DynamicTypeCaster instance.
      *
      * @param  DynamicallyCastsTypes  $model
      * @param  string                 $key
      * @param  mixed                  $value
-     * @param  array                  $attributes
+     * @param  array                  $modelAttributes
      * @return self
      */
-    public function newInstance(DynamicallyCastsTypes $model, string $key, mixed $value, array $attributes): self
+    public function newInstance(DynamicallyCastsTypes $model, string $key, mixed $value, array $modelAttributes): self
     {
         return new self(
             model: $model,
             key: $key,
             value: $value,
-            modelAttributes: $attributes
+            modelAttributes: $modelAttributes
         );
     }
 
