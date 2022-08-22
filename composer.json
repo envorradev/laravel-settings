@@ -42,7 +42,7 @@
                 "Envorra\\LaravelSettings\\LaravelSettingsProvider"
             ],
             "aliases": {
-                "Setting": "Envorra\\LarvavelSettings\\Facades\\Setting"
+                "Setting": "Envorra\\LaravelSettings\\Facades\\Setting"
             }
         },
         "ramsey/composer-repl": {
