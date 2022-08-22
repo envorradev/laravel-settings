@@ -231,9 +231,19 @@ class SettingsRepository implements Repository
             return $setting;
         }
 
-        $action = new CreateSettingForUser();
+        $setting = new Setting(compact('key', 'value', 'description'));
 
-        return $action->handle(new Actionable($this, $this->getModel(), []));
+        $setting->data_type = $dataType ?? DataType::fromValue($value);
+        $setting->setting_type = $settingType ?? SettingType::make();
+
+        if ($owner) {
+            $setting->owner_type = get_class($owner);
+            $setting->owner_id = $owner->id;
+        }
+
+        $setting->save();
+
+        return $setting->fresh();
     }
 
     /**

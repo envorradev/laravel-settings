@@ -39,6 +39,7 @@ class SettingsCollection extends Collection implements CastsCollections
 
     /**
      * @inheritDoc
+     * @throws CastCollectionException
      */
     public static function fromArray(array $array): self
     {
@@ -47,6 +48,7 @@ class SettingsCollection extends Collection implements CastsCollections
 
     /**
      * @inheritDoc
+     * @throws CastCollectionException
      */
     public static function fromJson(string $json): self
     {

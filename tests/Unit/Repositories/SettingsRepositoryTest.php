@@ -137,7 +137,7 @@ class SettingsRepositoryTest extends TestCase
         $repository = SettingsRepository::app();
         $query = $repository->where('description', 'test description');
         $expectedQuery = Setting::query()->where('setting_type', SettingType::APP)
-            ->where('description', 'test description');
+                                ->where('description', 'test description');
 
         $scopedQuery = Setting::query()->where('setting_type', SettingType::APP);
 

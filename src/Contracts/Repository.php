@@ -175,12 +175,12 @@ interface Repository
     /**
      * Set a setting.
      *
-     * @param  string        $key
-     * @param  mixed         $value
-     * @param ?string        $description
-     * @param ?SettingType   $settingType
-     * @param ?DataType      $dataType
-     * @param ?Model  $owner
+     * @param  string       $key
+     * @param  mixed        $value
+     * @param ?string       $description
+     * @param ?SettingType  $settingType
+     * @param ?DataType     $dataType
+     * @param ?Model        $owner
      * @return Setting
      */
     public function set(

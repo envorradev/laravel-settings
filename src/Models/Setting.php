@@ -21,7 +21,7 @@ use Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
  *
  * @package Envorra\LaravelSettings
  *
- * @property int $id
+ * @property int          $id
  * @property ?SettingType $settingType
  * @property ?SettingType $setting_type
  * @property ?DataType    $dataType
@@ -63,7 +63,7 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     public static function modelFromArray(array $attributes): ?Model
     {
         try {
-            return static::firstOrCreate($attributes);
+            return (new Setting)->firstOrCreate($attributes);
         } catch (QueryException) {
             return null;
         }
