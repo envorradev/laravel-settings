@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
 use Envorra\LaravelSettings\Enums\SettingType;
+use Envorra\LaravelSettings\Actions\Actionable;
 use Envorra\LaravelSettings\Contracts\Repository;
-use Envorra\LaravelSettings\Contracts\SettingOwner;
+use Envorra\LaravelSettings\Actions\CreateSettingForUser;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 /**
@@ -20,6 +21,7 @@ use Envorra\LaravelSettings\Collections\SettingsCollection;
  */
 class SettingsRepository implements Repository
 {
+
     /**
      * @inheritDoc
      */
@@ -217,12 +219,21 @@ class SettingsRepository implements Repository
     public function set(
         string $key,
         mixed $value,
-        ?string $description,
+        ?string $description = null,
         ?SettingType $settingType = null,
         ?DataType $dataType = null,
-        ?SettingOwner $owner = null
+        ?Model $owner = null
     ): Setting {
-        //
+
+        if ($setting = $this->find($key)) {
+            $setting->value = $value;
+            $setting->save();
+            return $setting;
+        }
+
+        $action = new CreateSettingForUser();
+
+        return $action->handle(new Actionable($this, $this->getModel(), []));
     }
 
     /**

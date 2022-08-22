@@ -180,16 +180,16 @@ interface Repository
      * @param ?string        $description
      * @param ?SettingType   $settingType
      * @param ?DataType      $dataType
-     * @param ?SettingOwner  $owner
+     * @param ?Model  $owner
      * @return Setting
      */
     public function set(
         string $key,
         mixed $value,
-        ?string $description,
+        ?string $description = null,
         ?SettingType $settingType = null,
         ?DataType $dataType = null,
-        ?SettingOwner $owner = null,
+        ?Model $owner = null,
     ): Setting;
 
     /**

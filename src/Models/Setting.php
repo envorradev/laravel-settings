@@ -21,6 +21,7 @@ use Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
  *
  * @package Envorra\LaravelSettings
  *
+ * @property int $id
  * @property ?SettingType $settingType
  * @property ?SettingType $setting_type
  * @property ?DataType    $dataType

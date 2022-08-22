@@ -167,7 +167,17 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_execute_set_method(): void
     {
+        // starting values
+        $this->assertEquals(4, $this->repository()->get('user.test.int1'));
+        $this->assertNull($this->repository()->get('some-test-key-to-be-set'));
 
+        // set new values
+        $this->assertModelExists($this->repository()->set('user.test.int1', 8));
+        $this->assertModelExists($this->repository()->set('some-test-key-to-be-set', 'a value'));
+
+        // check if they persist
+        $this->assertEquals(8, $this->repository()->get('user.test.int1'));
+        $this->assertEquals('a value', $this->repository()->get('some-test-key-to-be-set'));
     }
 
     /**
