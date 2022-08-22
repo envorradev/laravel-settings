@@ -3,9 +3,9 @@
 namespace Envorra\LaravelSettings\Tests\Unit\Collections;
 
 use Envorra\LaravelSettings\Enums\DataType;
+use Envorra\LaravelSettings\Tests\TestCase;
 use Envorra\LaravelSettings\Enums\SettingType;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
-use Envorra\LaravelSettings\Tests\TestCase;
 use Envorra\LaravelSettings\Exceptions\CastCollectionException;
 
 /**

@@ -3,8 +3,8 @@
 namespace Envorra\LaravelSettings\Casters;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Traits\ForwardsCalls;
 use Envorra\LaravelSettings\Enums\DataType;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\Database\Eloquent\Concerns\HasAttributes;
 use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
 

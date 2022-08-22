@@ -2,10 +2,10 @@
 
 namespace Envorra\LaravelSettings\Tests\Feature;
 
-use Envorra\LaravelSettings\Collections\SettingsCollection;
-use Envorra\LaravelSettings\Exceptions\DataTypeException;
-use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 
 class UserWithTraitTest extends TestCase
 {

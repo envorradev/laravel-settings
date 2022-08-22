@@ -3,8 +3,8 @@
 namespace Envorra\LaravelSettings\Tests\Unit\Traits;
 
 use Illuminate\Database\Eloquent\Model;
-use Envorra\LaravelSettings\Traits\HasSettings;
 use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Traits\HasSettings;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 
@@ -13,14 +13,6 @@ use Envorra\LaravelSettings\Collections\SettingsCollection;
  */
 class HasSettingsTest extends TestCase
 {
-    protected function anonymousModel(): Model
-    {
-        return new class extends Model {
-            use HasSettings;
-        };
-    }
-
-
     /**
      * @test
      * @covers ::settings
@@ -35,5 +27,12 @@ class HasSettingsTest extends TestCase
 
         /** @phpstan-ignore-next-line */
         $this->assertCount(0, $this->anonymousModel()->settings);
+    }
+
+    protected function anonymousModel(): Model
+    {
+        return new class extends Model {
+            use HasSettings;
+        };
     }
 }

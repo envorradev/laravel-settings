@@ -11,9 +11,9 @@ abstract class SettingsSeeder extends Seeder
     public static function groupSeedCount(): int
     {
         return AppSettingsSeeder::seedCount()
-                + GlobalSettingsSeeder::seedCount()
-                + ModelSettingsSeeder::seedCount()
-                + UserSettingsSeeder::seedCount();
+            + GlobalSettingsSeeder::seedCount()
+            + ModelSettingsSeeder::seedCount()
+            + UserSettingsSeeder::seedCount();
     }
 }
 

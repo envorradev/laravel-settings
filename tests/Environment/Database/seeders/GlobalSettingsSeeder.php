@@ -23,7 +23,7 @@ class GlobalSettingsSeeder extends SettingsSeeder
                 'data_type' => DataType::ARRAY,
                 'value' => [
                     'name' => 'item1',
-                    'description' => 'the number one item'
+                    'description' => 'the number one item',
                 ],
             ],
             [
@@ -32,7 +32,7 @@ class GlobalSettingsSeeder extends SettingsSeeder
                 'data_type' => DataType::ARRAY,
                 'value' => [
                     'name' => 'item1',
-                    'listing' => ['list1', 'list2', 'list3']
+                    'listing' => ['list1', 'list2', 'list3'],
                 ],
             ],
         ];

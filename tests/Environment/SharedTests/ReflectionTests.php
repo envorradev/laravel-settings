@@ -3,8 +3,8 @@
 namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
 use ReflectionClass;
-use ReflectionException;
 use ReflectionProperty;
+use ReflectionException;
 
 trait ReflectionTests
 {

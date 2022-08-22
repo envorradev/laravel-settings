@@ -13,21 +13,6 @@ use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
 
 class TyperCasterTest extends TestCase
 {
-    protected function model(array $attributes = []): DynamicallyCastsTypes
-    {
-        return new Setting($attributes);
-    }
-
-    protected function cast(string $value, DataType $dataType): mixed
-    {
-        $attributes = [
-            'value' => $value,
-            'data_type' => $dataType,
-        ];
-
-        return (new DynamicTypeCaster)->get($this->model($attributes), 'value', $value, $attributes);
-    }
-
     /** @test */
     public function it_can_cast_to_array()
     {
@@ -55,14 +40,15 @@ class TyperCasterTest extends TestCase
     /** @test */
     public function it_can_cast_to_collection()
     {
-        $collection = $this->cast('[{"key":"col.one","value":"collection 1"},{"key":"col.two","value":"collection 2"}]', DataType::COLLECTION);
+        $collection = $this->cast('[{"key":"col.one","value":"collection 1"},{"key":"col.two","value":"collection 2"}]',
+            DataType::COLLECTION);
 
         $this->assertIsObject($collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertEquals(2, $collection->count());
         $this->assertEquals([
             'key' => 'col.one',
-            'value' => 'collection 1'
+            'value' => 'collection 1',
         ], $collection->first());
         $this->assertEquals('collection 2', $collection->where('key', 'col.two')->first()['value']);
     }
@@ -151,5 +137,20 @@ class TyperCasterTest extends TestCase
 
         $this->assertIsInt($timestamp);
         $this->assertEquals(1640995200, $timestamp);
+    }
+
+    protected function cast(string $value, DataType $dataType): mixed
+    {
+        $attributes = [
+            'value' => $value,
+            'data_type' => $dataType,
+        ];
+
+        return (new DynamicTypeCaster)->get($this->model($attributes), 'value', $value, $attributes);
+    }
+
+    protected function model(array $attributes = []): DynamicallyCastsTypes
+    {
+        return new Setting($attributes);
     }
 }

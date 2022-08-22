@@ -2,10 +2,10 @@
 
 namespace Envorra\LaravelSettings\Tests\Environment\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
 /**
  * @mixin Builder

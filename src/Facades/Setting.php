@@ -3,11 +3,6 @@
 namespace Envorra\LaravelSettings\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Envorra\LaravelSettings\Enums\SettingType;
-use Envorra\LaravelSettings\Models\Setting as SettingModel;
-use Envorra\LaravelSettings\Collections\SettingsCollection;
 use Envorra\LaravelSettings\Repositories\SettingsRepository;
 
 /**

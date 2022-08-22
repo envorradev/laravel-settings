@@ -3,7 +3,6 @@
 namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use Carbon\Carbon;
-use Envorra\LaravelSettings\Models\Setting;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Enums\SettingType;
 use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;

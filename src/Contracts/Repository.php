@@ -4,9 +4,9 @@ namespace Envorra\LaravelSettings\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\ItemNotFoundException;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
+use Illuminate\Support\ItemNotFoundException;
 use Envorra\LaravelSettings\Enums\SettingType;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 

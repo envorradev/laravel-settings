@@ -227,6 +227,11 @@ class DynamicTypeCasterTest extends TestCase
         return new DynamicTypeCaster(...$this->casterArgsTypeToString());
     }
 
+    protected function defaultClassToReflect(): string|object|null
+    {
+        return DynamicTypeCaster::class;
+    }
+
     protected function model(): Setting
     {
         return new Setting([
@@ -244,10 +249,5 @@ class DynamicTypeCasterTest extends TestCase
     protected function modelValueAsType(): mixed
     {
         return json_decode($this->modelValueAsString(), true);
-    }
-
-    protected function defaultClassToReflect(): string|object|null
-    {
-        return DynamicTypeCaster::class;
     }
 }

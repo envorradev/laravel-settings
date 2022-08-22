@@ -2,8 +2,8 @@
 
 namespace Envorra\LaravelSettings\Collections;
 
-use Illuminate\Database\Eloquent\Collection;
 use Envorra\LaravelSettings\Models\Setting;
+use Illuminate\Database\Eloquent\Collection;
 use Envorra\LaravelSettings\Contracts\CastsCollections;
 use Envorra\LaravelSettings\Exceptions\CastCollectionException;
 
@@ -31,7 +31,7 @@ class SettingsCollection extends Collection implements CastsCollections
                 throw new CastCollectionException('Cannot cast to SettingsCollection.');
             }
 
-            $items[$key] = !$item instanceof Setting ? Setting::modelFromArray($item): $item;
+            $items[$key] = !$item instanceof Setting ? Setting::modelFromArray($item) : $item;
         }
 
         return new self($items);

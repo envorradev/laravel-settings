@@ -2,14 +2,12 @@
 
 namespace Envorra\LaravelSettings\Tests;
 
-use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Envorra\LaravelSettings\LaravelSettingsProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Envorra\LaravelSettings\Facades\Setting as SettingFacade;
-use Envorra\LaravelSettings\Repositories\SettingsRepository;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
 use Envorra\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserSettingsSeeder;
@@ -27,28 +25,24 @@ class TestCase extends OrchestraTestCase
         return [];
     }
 
-    protected function getPackageAliases($app): array
+    public function test_environment_is_working()
     {
-        return [
-            'SettingAlias' => SettingFacade::class
-        ];
+        $this->assertTrue(true);
     }
 
-    protected function getPackageProviders($app): array
+    public function test_models_seeded()
     {
-        return [
-            LaravelSettingsProvider::class,
-        ];
+        $this->assertDatabaseCount('users', UserUsingTraitSeeder::seedCount());
     }
 
-    protected function defineEnvironment($app): void
+    public function test_settings_seeded()
     {
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
+        $this->assertDatabaseCount('settings', SettingsSeeder::groupSeedCount());
+    }
+
+    protected function defineDatabaseMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__.'/Environment/database/migrations');
     }
 
     protected function defineDatabaseSeeders(): void
@@ -67,23 +61,27 @@ class TestCase extends OrchestraTestCase
         ]);
     }
 
-    protected function defineDatabaseMigrations(): void
+    protected function defineEnvironment($app): void
     {
-        $this->loadMigrationsFrom(__DIR__.'/Environment/database/migrations');
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
     }
 
-    public function test_environment_is_working()
+    protected function getPackageAliases($app): array
     {
-        $this->assertTrue(true);
+        return [
+            'SettingAlias' => SettingFacade::class,
+        ];
     }
 
-    public function test_settings_seeded()
+    protected function getPackageProviders($app): array
     {
-        $this->assertDatabaseCount('settings', SettingsSeeder::groupSeedCount());
-    }
-
-    public function test_models_seeded()
-    {
-        $this->assertDatabaseCount('users', UserUsingTraitSeeder::seedCount());
+        return [
+            LaravelSettingsProvider::class,
+        ];
     }
 }

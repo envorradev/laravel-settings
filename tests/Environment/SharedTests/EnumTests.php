@@ -11,15 +11,28 @@ trait EnumTests
      * @param  class-string<DataType|SettingType>  $enum
      * @return void
      */
-    protected function checkEnumValuesMethod(string $enum): void
+    protected function checkEnumIsInMethod(string $enum): void
     {
-        $values = [];
-        foreach($enum::cases() as $case) {
-            $values[] = $case->value;
-        }
+        $cases = $enum::cases();
+        $firstCase = $cases[0];
+        $expectTrue = [
+            $cases[1],
+            $cases[1]->value,
+            null,
+            $cases[0]->value,
+            $cases[0],
+        ];
+        $expectFalse = [
+            null,
+            'testing-value',
+            'false-value',
+            $cases[1],
+        ];
 
-        $this->assertMethodExists($enum, 'values');
-        $this->assertEquals($values, $enum::values());
+        $this->assertMethodExists($enum, 'isIn');
+        $this->assertTrue($firstCase->isIn($expectTrue));
+        $this->assertFalse($firstCase->isIn($expectFalse));
+        $this->assertFalse($firstCase->isIn([]));
     }
 
     /**
@@ -43,27 +56,14 @@ trait EnumTests
      * @param  class-string<DataType|SettingType>  $enum
      * @return void
      */
-    protected function checkEnumIsInMethod(string $enum): void
+    protected function checkEnumValuesMethod(string $enum): void
     {
-        $cases = $enum::cases();
-        $firstCase = $cases[0];
-        $expectTrue = [
-            $cases[1],
-            $cases[1]->value,
-            null,
-            $cases[0]->value,
-            $cases[0],
-        ];
-        $expectFalse = [
-            null,
-            'testing-value',
-            'false-value',
-            $cases[1],
-        ];
+        $values = [];
+        foreach ($enum::cases() as $case) {
+            $values[] = $case->value;
+        }
 
-        $this->assertMethodExists($enum, 'isIn');
-        $this->assertTrue($firstCase->isIn($expectTrue));
-        $this->assertFalse($firstCase->isIn($expectFalse));
-        $this->assertFalse($firstCase->isIn([]));
+        $this->assertMethodExists($enum, 'values');
+        $this->assertEquals($values, $enum::values());
     }
 }

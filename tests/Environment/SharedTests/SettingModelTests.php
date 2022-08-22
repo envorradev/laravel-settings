@@ -2,9 +2,9 @@
 
 namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
-use Envorra\LaravelSettings\Collections\SettingsCollection;
-use Envorra\LaravelSettings\Exceptions\DataTypeException;
 use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Exceptions\DataTypeException;
+use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 trait SettingModelTests
 {
@@ -21,7 +21,7 @@ trait SettingModelTests
      */
     protected function assertSettingsAreValid(SettingsCollection $collection): void
     {
-        foreach($collection as $setting) {
+        foreach ($collection as $setting) {
             $this->assertSettingIsValid($setting);
         }
     }

@@ -16,9 +16,30 @@ use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
  */
 class SettingTest extends TestCase
 {
-    protected function emptyModel(): Setting
+    /**
+     * @test
+     * @covers \Envorra\LaravelSettings\Traits\HasOwner::belongsToModel
+     */
+    public function it_can_execute_belongsToModel_method(): void
     {
-        return new Setting;
+        $setting = Setting::where('setting_type', SettingType::MODEL)->first();
+
+        $this->assertFalse($setting->belongsToModel(UserUsingTrait::find(1)));
+        $this->assertTrue($setting->belongsToModel(UserUsingTrait::find(3)));
+    }
+
+    /**
+     * @test
+     * @covers \Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes::getAttribute
+     */
+    public function it_can_execute_getAttribute_method(): void
+    {
+        $setting = Setting::where('key', 'global.test.array1')->first();
+
+        $this->assertIsSettingType(SettingType::GLOBAL, $setting->setting_type);
+        $this->assertIsSettingType(SettingType::GLOBAL, $setting->settingType);
+        $this->assertIsSettingType(SettingType::GLOBAL, $setting->getAttribute('setting_type'));
+        $this->assertIsSettingType(SettingType::GLOBAL, $setting->getAttribute('settingType'));
     }
 
     /**
@@ -106,6 +127,46 @@ class SettingTest extends TestCase
 
     /**
      * @test
+     * @covers ::newCollection
+     */
+    public function it_can_execute_newCollection_method(): void
+    {
+        $this->assertInstanceOf(SettingsCollection::class, $this->emptyModel()->newCollection());
+    }
+
+    /**
+     * @test
+     * @covers \Envorra\LaravelSettings\Traits\HasOwner::owner
+     */
+    public function it_can_execute_owner_method(): void
+    {
+        $model = Setting::where('setting_type', SettingType::MODEL)->first();
+
+        $this->assertInstanceOf(MorphTo::class, $model->owner());
+        $this->assertInstanceOf(Model::class, $model->owner);
+    }
+
+    /**
+     * @test
+     * @covers \Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes::setAttribute
+     */
+    public function it_can_execute_setAttribute_method(): void
+    {
+        $setting = new Setting();
+
+        $this->assertNull($setting->data_type);
+        $this->assertNull($setting->setting_type);
+
+        $setting->setAttribute('data_type', DataType::ARRAY);
+        $setting->setAttribute('settingType', SettingType::APP);
+
+        $this->assertEquals(DataType::ARRAY, $setting->data_type);
+        $this->assertEquals(SettingType::APP, $setting->setting_type);
+
+    }
+
+    /**
+     * @test
      * @covers ::modelFromArray
      */
     public function it_can_execute_static_modelFromArray_method(): void
@@ -133,69 +194,8 @@ class SettingTest extends TestCase
         $this->assertNull(Setting::modelFromJson('['.$json.']'));
     }
 
-    /**
-     * @test
-     * @covers ::newCollection
-     */
-    public function it_can_execute_newCollection_method(): void
+    protected function emptyModel(): Setting
     {
-        $this->assertInstanceOf(SettingsCollection::class, $this->emptyModel()->newCollection());
-    }
-
-    /**
-     * @test
-     * @covers \Envorra\LaravelSettings\Traits\HasOwner::owner
-     */
-    public function it_can_execute_owner_method(): void
-    {
-        $model = Setting::where('setting_type', SettingType::MODEL)->first();
-
-        $this->assertInstanceOf(MorphTo::class, $model->owner());
-        $this->assertInstanceOf(Model::class, $model->owner);
-    }
-
-    /**
-     * @test
-     * @covers \Envorra\LaravelSettings\Traits\HasOwner::belongsToModel
-     */
-    public function it_can_execute_belongsToModel_method(): void
-    {
-        $setting = Setting::where('setting_type', SettingType::MODEL)->first();
-
-        $this->assertFalse($setting->belongsToModel(UserUsingTrait::find(1)));
-        $this->assertTrue($setting->belongsToModel(UserUsingTrait::find(3)));
-    }
-
-    /**
-     * @test
-     * @covers \Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes::getAttribute
-     */
-    public function it_can_execute_getAttribute_method(): void
-    {
-        $setting = Setting::where('key', 'global.test.array1')->first();
-
-        $this->assertIsSettingType(SettingType::GLOBAL, $setting->setting_type);
-        $this->assertIsSettingType(SettingType::GLOBAL, $setting->settingType);
-        $this->assertIsSettingType(SettingType::GLOBAL, $setting->getAttribute('setting_type'));
-        $this->assertIsSettingType(SettingType::GLOBAL, $setting->getAttribute('settingType'));
-    }
-
-    /**
-     * @test
-     * @covers \Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes::setAttribute
-     */
-    public function it_can_execute_setAttribute_method(): void
-    {
-        $setting = new Setting();
-
-        $this->assertNull($setting->data_type);
-        $this->assertNull($setting->setting_type);
-
-        $setting->setAttribute('data_type', DataType::ARRAY);
-        $setting->setAttribute('settingType', SettingType::APP);
-
-        $this->assertEquals(DataType::ARRAY, $setting->data_type);
-        $this->assertEquals(SettingType::APP, $setting->setting_type);
-
+        return new Setting;
     }
 }
