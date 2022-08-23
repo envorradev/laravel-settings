@@ -48,7 +48,7 @@ enum SettingType: string implements ProvidesArrayOfValues
      */
     public function is(self|string|null $case): bool
     {
-        $case = !$case instanceof self ? self::tryFrom($case) : $case;
+        $case = !$case instanceof self ? self::tryFrom($case ?? '') : $case;
         return $this === $case;
     }
 

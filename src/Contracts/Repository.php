@@ -8,6 +8,7 @@ use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Support\ItemNotFoundException;
 use Envorra\LaravelSettings\Enums\SettingType;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 /**
@@ -89,13 +90,13 @@ interface Repository
     /**
      * Get user scoped repository.
      *
-     * @param ?Model     $scopeUser
+     * @param Model|Authenticatable|null     $scopeUser
      * @param ?DataType  $scopeDataType
      * @param ?Builder   $query
      * @return Repository
      */
     public static function user(
-        ?Model $scopeUser = null,
+        Model|Authenticatable|null $scopeUser = null,
         ?DataType $scopeDataType = null,
         ?Builder $query = null,
     ): Repository;
@@ -181,7 +182,7 @@ interface Repository
      * @param ?SettingType  $settingType
      * @param ?DataType     $dataType
      * @param ?Model        $owner
-     * @return Setting
+     * @return ?Setting
      */
     public function set(
         string $key,
@@ -190,7 +191,7 @@ interface Repository
         ?SettingType $settingType = null,
         ?DataType $dataType = null,
         ?Model $owner = null,
-    ): Setting;
+    ): ?Setting;
 
     /**
      * Where query.

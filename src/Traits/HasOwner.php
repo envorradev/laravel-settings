@@ -44,4 +44,15 @@ trait HasOwner
         }
         return $this;
     }
+
+    /**
+     * Define a polymorphic, inverse one-to-one or many relationship.
+     *
+     * @param  ?string  $name
+     * @param  ?string  $type
+     * @param  ?string  $id
+     * @param  ?string  $ownerKey
+     * @return MorphTo
+     */
+    abstract public function morphTo($name = null, $type = null, $id = null, $ownerKey = null);
 }

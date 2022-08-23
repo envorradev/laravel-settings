@@ -161,7 +161,7 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     /**
      * @inheritDoc
      */
-    public function newCollection(array $models = []): SettingsCollection
+    public function newCollection(iterable $models = []): SettingsCollection
     {
         return new SettingsCollection($models);
     }

@@ -117,7 +117,7 @@ enum DataType: string implements ProvidesArrayOfValues
         if ($primitive->is(self::OBJECT)) {
             $valueClass = get_class($value);
             if (array_key_exists($valueClass, self::classMap())) {
-                return Arr::first(self::classMap()[$valueClass]);
+                return Arr::first(self::classMap()[$valueClass]) ?? self::STRING;
             }
         }
 
@@ -258,7 +258,7 @@ enum DataType: string implements ProvidesArrayOfValues
      */
     public function is(self|string|null $type): bool
     {
-        $dataType = $type instanceof self ? $type : self::tryFrom($type);
+        $dataType = $type instanceof self ? $type : self::tryFrom($type ?? '');
 
         if ($dataType) {
             if ($this === $dataType) {
@@ -363,6 +363,7 @@ enum DataType: string implements ProvidesArrayOfValues
                     return $class && $value instanceof $class;
                 }
             } catch (DataTypeException) {
+                // fail this type check, continue checking below
             }
 
         }

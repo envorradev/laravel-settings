@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
 use Envorra\LaravelSettings\Enums\SettingType;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Envorra\LaravelSettings\Contracts\Repository;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 
@@ -91,7 +92,7 @@ class SettingsRepository implements Repository
      * @inheritDoc
      */
     public static function user(
-        ?Model $scopeUser = null,
+        Model|Authenticatable|null $scopeUser = null,
         ?DataType $scopeDataType = null,
         ?Builder $query = null
     ): static {
@@ -221,7 +222,7 @@ class SettingsRepository implements Repository
         ?SettingType $settingType = null,
         ?DataType $dataType = null,
         ?Model $owner = null
-    ): Setting {
+    ): ?Setting {
 
         if ($setting = $this->find($key)) {
             $setting->value = $value;

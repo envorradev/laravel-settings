@@ -3,6 +3,7 @@
 namespace Envorra\LaravelSettings\Traits;
 
 use Illuminate\Support\Str;
+use Illuminate\Database\Connection;
 
 /**
  * AliasesSnakeCaseAttributes
@@ -37,4 +38,18 @@ trait AliasesSnakeCaseAttributes
             value: $value
         );
     }
+
+    /**
+     * Get the database connection for the model.
+     *
+     * @return Connection
+     */
+    abstract public function getConnection();
+
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     */
+    abstract public function getTable();
 }
