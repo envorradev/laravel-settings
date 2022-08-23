@@ -17,6 +17,7 @@ class SettingsCollectionTest extends TestCase
      * @test
      * @covers ::fromArray
      * @covers \Envorra\LaravelSettings\Exceptions\CastCollectionException
+     * @throws CastCollectionException
      */
     public function it_can_execute_fromArray_method(): void
     {
@@ -38,6 +39,7 @@ class SettingsCollectionTest extends TestCase
     /**
      * @test
      * @covers ::fromJson
+     * @throws CastCollectionException
      */
     public function it_can_execute_fromJson_method(): void
     {
@@ -49,6 +51,7 @@ class SettingsCollectionTest extends TestCase
     /**
      * @test
      * @covers ::from
+     * @throws CastCollectionException
      */
     public function it_can_execute_from_method(): void
     {

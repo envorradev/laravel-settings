@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+/** @noinspection PhpEnforceDocCommentInspection */
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Envorra\LaravelSettings\Enums\DataType;
+use Illuminate\Database\Migrations\Migration;
 use Envorra\LaravelSettings\Enums\SettingType;
 
 return new class extends Migration {

@@ -52,7 +52,6 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_execute_allRelatedToModel_method(): void
     {
-        /** @phpstan-ignore-next-line */
         $model = UserUsingTrait::find(3);
 
         foreach ($this->repository()->allRelatedToModel($model) as $setting) {
@@ -76,7 +75,6 @@ class SettingsRepositoryTest extends TestCase
     /**
      * @test
      * @covers ::findOrFail
-     * @throws DataTypeException
      */
     public function it_can_execute_findOrFail_method(): void
     {
@@ -93,7 +91,6 @@ class SettingsRepositoryTest extends TestCase
     /**
      * @test
      * @covers ::find
-     * @throws DataTypeException
      */
     public function it_can_execute_find_method(): void
     {
@@ -118,7 +115,6 @@ class SettingsRepositoryTest extends TestCase
     /**
      * @test
      * @covers ::get
-     * @throws DataTypeException
      */
     public function it_can_execute_get_method(): void
     {
@@ -239,7 +235,6 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_execute_whereOwner_method(): void
     {
-        /** @phpstan-ignore-next-line */
         $owner = UserUsingTrait::find(3);
         $expectedQuery = Setting::query()->whereMorphedTo('owner', $owner);
 

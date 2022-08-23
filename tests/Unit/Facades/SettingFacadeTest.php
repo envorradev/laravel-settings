@@ -11,10 +11,14 @@ use Envorra\LaravelSettings\Repositories\SettingsRepository;
  */
 class SettingFacadeTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     * @noinspection PhpUndefinedClassInspection
+     * @noinspection PhpFullyQualifiedNameUsageInspection
+     */
     public function it_can_use_alias(): void
     {
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line  */
         $this->assertInstanceOf(SettingsRepository::class, \SettingAlias::instance());
     }
 

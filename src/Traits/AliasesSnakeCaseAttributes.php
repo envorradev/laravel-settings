@@ -21,6 +21,22 @@ trait AliasesSnakeCaseAttributes
     }
 
     /**
+     * Get the database connection for the model.
+     *
+     * @return Connection
+     * @noinspection PhpMissingReturnTypeInspection
+     */
+    abstract public function getConnection();
+
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     * @noinspection PhpMissingReturnTypeInspection
+     */
+    abstract public function getTable();
+
+    /**
      * @inheritDoc
      */
     public function setAttribute($key, $value): mixed
@@ -38,18 +54,4 @@ trait AliasesSnakeCaseAttributes
             value: $value
         );
     }
-
-    /**
-     * Get the database connection for the model.
-     *
-     * @return Connection
-     */
-    abstract public function getConnection();
-
-    /**
-     * Get the table associated with the model.
-     *
-     * @return string
-     */
-    abstract public function getTable();
 }

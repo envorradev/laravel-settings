@@ -13,6 +13,19 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 trait HasSettings
 {
     /**
+     * Define a polymorphic one-to-many relationship.
+     *
+     * @param  string   $related
+     * @param  string   $name
+     * @param  ?string  $type
+     * @param  ?string  $id
+     * @param  ?string  $localKey
+     * @return MorphMany
+     * @noinspection PhpMissingReturnTypeInspection
+     */
+    abstract public function morphMany($related, $name, $type = null, $id = null, $localKey = null);
+
+    /**
      * Model has settings.
      *
      * @return MorphMany
@@ -21,16 +34,4 @@ trait HasSettings
     {
         return $this->morphMany(Setting::class, 'owner');
     }
-
-    /**
-     * Define a polymorphic one-to-many relationship.
-     *
-     * @param  string  $related
-     * @param  string  $name
-     * @param  ?string  $type
-     * @param  ?string  $id
-     * @param  ?string  $localKey
-     * @return MorphMany
-     */
-    abstract public function morphMany($related, $name, $type = null, $id = null, $localKey = null);
 }

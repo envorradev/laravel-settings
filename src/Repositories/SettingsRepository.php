@@ -26,7 +26,7 @@ class SettingsRepository implements Repository
      */
     public function __construct(
         protected ?SettingType $scopeSettingType = null,
-        protected ?Model $scopeOwner = null,
+        protected Model|Authenticatable|null $scopeOwner = null,
         protected ?DataType $scopeDataType = null,
         protected ?Builder $query = null,
     ) {
@@ -65,7 +65,7 @@ class SettingsRepository implements Repository
      */
     public static function instance(
         ?SettingType $scopeSettingType = null,
-        ?Model $scopeOwner = null,
+        Model|Authenticatable|null $scopeOwner = null,
         ?DataType $scopeDataType = null,
         ?Builder $query = null,
     ): static {

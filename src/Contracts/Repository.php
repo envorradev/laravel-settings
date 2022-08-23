@@ -21,14 +21,14 @@ interface Repository
     /**
      * Repository Constructor.
      *
-     * @param ?SettingType  $scopeSettingType
-     * @param ?Model        $scopeOwner
-     * @param ?DataType     $scopeDataType
-     * @param ?Builder      $query
+     * @param ?SettingType                 $scopeSettingType
+     * @param  Model|Authenticatable|null  $scopeOwner
+     * @param ?DataType                    $scopeDataType
+     * @param ?Builder                     $query
      */
     public function __construct(
         ?SettingType $scopeSettingType = null,
-        ?Model $scopeOwner = null,
+        Model|Authenticatable|null $scopeOwner = null,
         ?DataType $scopeDataType = null,
         ?Builder $query = null,
     );
@@ -60,15 +60,15 @@ interface Repository
     /**
      * New repository instance.
      *
-     * @param ?SettingType  $scopeSettingType
-     * @param ?Model        $scopeOwner
-     * @param ?DataType     $scopeDataType
-     * @param ?Builder      $query
+     * @param ?SettingType                 $scopeSettingType
+     * @param  Model|Authenticatable|null  $scopeOwner
+     * @param ?DataType                    $scopeDataType
+     * @param ?Builder                     $query
      * @return static
      */
     public static function instance(
         ?SettingType $scopeSettingType = null,
-        ?Model $scopeOwner = null,
+        Model|Authenticatable|null $scopeOwner = null,
         ?DataType $scopeDataType = null,
         ?Builder $query = null,
     ): static;
@@ -90,9 +90,9 @@ interface Repository
     /**
      * Get user scoped repository.
      *
-     * @param Model|Authenticatable|null     $scopeUser
-     * @param ?DataType  $scopeDataType
-     * @param ?Builder   $query
+     * @param  Model|Authenticatable|null  $scopeUser
+     * @param ?DataType                    $scopeDataType
+     * @param ?Builder                     $query
      * @return Repository
      */
     public static function user(

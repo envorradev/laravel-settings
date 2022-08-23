@@ -125,6 +125,7 @@ class DataTypeTest extends TestCase
     /**
      * @test
      * @covers ::areAllOfPrimitiveType
+     * @throws DataTypeException
      */
     public function it_can_execute_static_areAllOfPrimitiveType_method(): void
     {

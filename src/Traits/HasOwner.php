@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  *
  * @package Envorra\LaravelSettings\Traits
  *
- * @property ?Model $model
- * @property Model  $owner
+ * @property ?Model       $model
+ * @property Model        $owner
  * @property class-string $owner_type
- * @property int $owner_id
+ * @property int          $owner_id
  */
 trait HasOwner
 {
@@ -24,6 +24,18 @@ trait HasOwner
     {
         return !empty($this->owner?->id) && !empty($model->id) && $this->owner->id === $model->id;
     }
+
+    /**
+     * Define a polymorphic, inverse one-to-one or many relationship.
+     *
+     * @param  ?string  $name
+     * @param  ?string  $type
+     * @param  ?string  $id
+     * @param  ?string  $ownerKey
+     * @return MorphTo
+     * @noinspection PhpMissingReturnTypeInspection
+     */
+    abstract public function morphTo($name = null, $type = null, $id = null, $ownerKey = null);
 
     /**
      * @inheritDoc
@@ -38,21 +50,10 @@ trait HasOwner
      */
     public function setOwner(Model $owner): static
     {
-        if(!$this->exists && !empty($owner->id)) {
+        if (!$this->exists && !empty($owner->id)) {
             $this->owner_type = get_class($owner);
             $this->owner_id = $owner->id;
         }
         return $this;
     }
-
-    /**
-     * Define a polymorphic, inverse one-to-one or many relationship.
-     *
-     * @param  ?string  $name
-     * @param  ?string  $type
-     * @param  ?string  $id
-     * @param  ?string  $ownerKey
-     * @return MorphTo
-     */
-    abstract public function morphTo($name = null, $type = null, $id = null, $ownerKey = null);
 }

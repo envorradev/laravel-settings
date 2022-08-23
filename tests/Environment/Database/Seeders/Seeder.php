@@ -21,11 +21,12 @@ abstract class Seeder extends EloquentSeeder
 
     /**
      * @return void
+     * @noinspection PhpUndefinedMethodInspection
      */
     public function run(): void
     {
         foreach (static::seed() as $item) {
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore-next-line  */
             static::$model::create($item);
         }
     }

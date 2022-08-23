@@ -7,9 +7,6 @@ use Envorra\LaravelSettings\Exceptions\DataTypeException;
 
 trait DataTypeTests
 {
-    /**
-     * @throws DataTypeException
-     */
     protected function assertAllOfDataType(DataType $dataType, iterable $items, ?string $key = 'value'): void
     {
         foreach ($items as $item) {
@@ -17,9 +14,6 @@ trait DataTypeTests
         }
     }
 
-    /**
-     * @throws DataTypeException
-     */
     protected function assertIsDataType(DataType $type, mixed $value): void
     {
         $valueType = is_string($value) ? DataType::tryFrom($value) : null;

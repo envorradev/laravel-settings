@@ -16,16 +16,17 @@ class HasSettingsTest extends TestCase
     /**
      * @test
      * @covers ::settings
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function it_can_execute_settings_method(): void
     {
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line  */
         $this->assertInstanceOf(MorphMany::class, $this->anonymousModel()->settings());
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line  */
         $this->assertInstanceOf(SettingsCollection::class, $this->anonymousModel()->settings);
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line  */
         $this->assertCount(0, $this->anonymousModel()->settings);
     }
 

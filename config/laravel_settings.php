@@ -1,7 +1,7 @@
 <?php
 
-use Envorra\LaravelSettings\Enums\SettingType;
 use Envorra\LaravelSettings\Models\Setting;
+use Envorra\LaravelSettings\Enums\SettingType;
 
 return [
     'default_setting_type' => SettingType::APP,
