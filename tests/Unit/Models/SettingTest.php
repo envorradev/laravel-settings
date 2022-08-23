@@ -167,6 +167,25 @@ class SettingTest extends TestCase
 
     /**
      * @test
+     * @covers \Envorra\LaravelSettings\Traits\HasOwner::setOwner
+     */
+    public function it_can_execute_setOwner_method(): void
+    {
+        $owner = UserUsingTrait::find(1);
+
+        // Success on new setting
+        $setting = new Setting();
+        $this->assertInstanceOf(Setting::class, $setting->setOwner($owner));
+        $this->assertEquals($owner, $setting->owner);
+
+        // Fail on existing setting
+        $setting = Setting::first();
+        $setting->setOwner($owner);
+        $this->assertNotEquals($owner, $setting->owner);
+    }
+
+    /**
+     * @test
      * @covers ::modelFromArray
      */
     public function it_can_execute_static_modelFromArray_method(): void

@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
 use Envorra\LaravelSettings\Enums\SettingType;
-use Envorra\LaravelSettings\Actions\Actionable;
 use Envorra\LaravelSettings\Contracts\Repository;
-use Envorra\LaravelSettings\Actions\CreateSettingForUser;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 /**
@@ -237,8 +235,7 @@ class SettingsRepository implements Repository
         $setting->setting_type = $settingType ?? SettingType::make();
 
         if ($owner) {
-            $setting->owner_type = get_class($owner);
-            $setting->owner_id = $owner->id;
+            $setting->setOwner($owner);
         }
 
         $setting->save();

@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  *
  * @property ?Model $model
  * @property Model  $owner
+ * @property class-string $owner_type
+ * @property int $owner_id
  */
 trait HasOwner
 {
@@ -29,5 +31,17 @@ trait HasOwner
     public function owner(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setOwner(Model $owner): static
+    {
+        if(!$this->exists && !empty($owner->id)) {
+            $this->owner_type = get_class($owner);
+            $this->owner_id = $owner->id;
+        }
+        return $this;
     }
 }

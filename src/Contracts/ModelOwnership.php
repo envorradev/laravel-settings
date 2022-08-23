@@ -26,4 +26,12 @@ interface ModelOwnership
      * @return MorphTo
      */
     public function owner(): MorphTo;
+
+    /**
+     * Set the owner of the model if new.
+     *
+     * @param  Model  $owner
+     * @return $this
+     */
+    public function setOwner(Model $owner): static;
 }
