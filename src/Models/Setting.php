@@ -80,7 +80,7 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     {
         $arrayModel = json_decode($json, true);
 
-        if (is_int(array_key_first($arrayModel))) {
+        if (json_last_error() !== JSON_ERROR_NONE || is_int(array_key_first($arrayModel))) {
             return null;
         }
 

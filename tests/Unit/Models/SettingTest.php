@@ -44,21 +44,6 @@ class SettingTest extends TestCase
 
     /**
      * @test
-     * @covers ::getDataType
-     */
-    public function it_can_execute_getDataType_method(): void
-    {
-        // Default data type
-        $this->assertEquals(DataType::STRING, $this->emptyModel()->getDataType());
-
-        $this->assertEquals(
-            DataType::COLLECTION,
-            Setting::where('data_type', DataType::COLLECTION)->first()->getDataType()
-        );
-    }
-
-    /**
-     * @test
      * @covers ::hasOwner
      */
     public function it_can_execute_hasOwner_method(): void
@@ -167,54 +152,107 @@ class SettingTest extends TestCase
 
     /**
      * @test
-     * @covers \Envorra\LaravelSettings\Traits\HasOwner::setOwner
+     * @covers ::getDataType
      */
-    public function it_can_execute_setOwner_method(): void
+    public function it_can_get_dataType(): void
     {
-        $owner = UserUsingTrait::find(1);
+        $this->assertEquals(
+            DataType::COLLECTION,
+            Setting::where('data_type', DataType::COLLECTION)->first()->getDataType()
+        );
+    }
 
-        // Success on new setting
-        $setting = new Setting();
-        $this->assertInstanceOf(Setting::class, $setting->setOwner($owner));
-        $this->assertEquals($owner, $setting->owner);
-
-        // Fail on existing setting
-        $setting = Setting::first();
-        $setting->setOwner($owner);
-        $this->assertNotEquals($owner, $setting->owner);
+    /**
+     * @test
+     * @covers ::getDataType
+     */
+    public function it_can_get_default_dataType(): void
+    {
+        $this->assertEquals(DataType::STRING, $this->emptyModel()->getDataType());
     }
 
     /**
      * @test
      * @covers ::modelFromArray
      */
-    public function it_can_execute_static_modelFromArray_method(): void
+    public function it_can_make_model_from_array_with_correct_structure(): void
     {
-        $array = [
-            'key' => 'app.test.float1',
-            'setting_type' => SettingType::APP,
-            'data_type' => DataType::FLOAT,
-            'value' => 7.5,
-        ];
-
-        $this->assertModelExists(Setting::modelFromArray($array));
-        $this->assertNull(Setting::modelFromArray([$array]));
+        $this->assertModelExists(Setting::modelFromArray($this->modelArray()));
     }
 
     /**
      * @test
      * @covers ::modelFromJson
      */
-    public function it_can_execute_static_modelFromJson_method(): void
+    public function it_can_make_model_from_valid_json(): void
     {
-        $json = '{"key":"app.test.float1","setting_type":"app","data_type":"float","value":"7.5"}';
+        $this->assertModelExists(Setting::modelFromJson(json_encode($this->modelArray())));
 
-        $this->assertModelExists(Setting::modelFromJson($json));
-        $this->assertNull(Setting::modelFromJson('['.$json.']'));
+    }
+
+    /**
+     * @test
+     * @covers \Envorra\LaravelSettings\Traits\HasOwner::setOwner
+     */
+    public function it_can_set_owner_on_new_model(): void
+    {
+        $owner = UserUsingTrait::find(1);
+        $setting = new Setting();
+        $this->assertInstanceOf(Setting::class, $setting->setOwner($owner));
+        $this->assertEquals($owner, $setting->owner);
+    }
+
+    /**
+     * @test
+     * @covers ::modelFromArray
+     */
+    public function it_cannot_make_model_from_array_with_incorrect_structure(): void
+    {
+        $this->assertNull(Setting::modelFromArray([$this->modelArray()]));
+    }
+
+    /**
+     * @test
+     * @covers ::modelFromJson
+     */
+    public function it_cannot_make_model_from_invalid_json(): void
+    {
+        $this->assertNull(Setting::modelFromJson('not json'));
+    }
+
+    /**
+     * @test
+     * @covers ::modelFromJson
+     */
+    public function it_cannot_make_model_from_valid_json_without_model_structure(): void
+    {
+        $this->assertNull(Setting::modelFromJson('['.json_encode($this->modelArray()).']'));
+    }
+
+    /**
+     * @test
+     * @covers \Envorra\LaravelSettings\Traits\HasOwner::setOwner
+     */
+    public function it_cannot_set_owner_on_existing_model(): void
+    {
+        $owner = UserUsingTrait::find(1);
+        $setting = Setting::first();
+        $setting->setOwner($owner);
+        $this->assertNotEquals($owner, $setting->owner);
     }
 
     protected function emptyModel(): Setting
     {
         return new Setting;
+    }
+
+    protected function modelArray(): array
+    {
+        return [
+            'key' => 'app.test.float1',
+            'setting_type' => SettingType::APP,
+            'data_type' => DataType::FLOAT,
+            'value' => 7.5,
+        ];
     }
 }

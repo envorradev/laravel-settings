@@ -25,7 +25,7 @@ class DynamicTypeCasterTest extends TestCase
 
     /**
      * @test
-     * @covers ::get
+     * @covers ::__call
      */
     public function it_can_execute_get_method(): void
     {
@@ -131,7 +131,7 @@ class DynamicTypeCasterTest extends TestCase
 
     /**
      * @test
-     * @covers ::set
+     * @covers ::__call
      */
     public function it_can_execute_set_method(): void
     {
@@ -157,16 +157,6 @@ class DynamicTypeCasterTest extends TestCase
 
     /**
      * @test
-     * @covers ::validateInstance
-     */
-    public function it_can_execute_validateInstance_method(): void
-    {
-        $this->assertFalse($this->casterEmpty()->validateInstance());
-        $this->assertTrue($this->casterStringToType()->validateInstance());
-    }
-
-    /**
-     * @test
      * @covers ::__call
      */
     public function it_can_forward_calls_to_model(): void
@@ -182,6 +172,24 @@ class DynamicTypeCasterTest extends TestCase
     public function it_can_make_new_instance(): void
     {
         $this->assertInstanceOf(DynamicTypeCaster::class, $this->casterEmpty());
+    }
+
+    /**
+     * @test
+     * @covers ::validateInstance
+     */
+    public function it_can_validate_a_valid_instance(): void
+    {
+        $this->assertTrue($this->casterStringToType()->validateInstance());
+    }
+
+    /**
+     * @test
+     * @covers ::validateInstance
+     */
+    public function it_can_validate_an_invalid_instance(): void
+    {
+        $this->assertFalse($this->casterEmpty()->validateInstance());
     }
 
     protected function casterArgsStringToType(): array

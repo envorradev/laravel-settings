@@ -16,10 +16,9 @@ class SettingsCollectionTest extends TestCase
     /**
      * @test
      * @covers ::fromArray
-     * @covers \Envorra\LaravelSettings\Exceptions\CastCollectionException
      * @throws CastCollectionException
      */
-    public function it_can_execute_fromArray_method(): void
+    public function it_can_create_new_instance_from_array(): void
     {
         $array = [
             [
@@ -31,9 +30,6 @@ class SettingsCollectionTest extends TestCase
         ];
 
         $this->assertInstanceOf(SettingsCollection::class, SettingsCollection::fromArray($array));
-
-        $this->expectException(CastCollectionException::class);
-        SettingsCollection::fromArray(['empty']);
     }
 
     /**
@@ -41,7 +37,7 @@ class SettingsCollectionTest extends TestCase
      * @covers ::fromJson
      * @throws CastCollectionException
      */
-    public function it_can_execute_fromJson_method(): void
+    public function it_can_create_new_instance_from_valid_json(): void
     {
         $json = '[{"key":"app.test.float1","setting_type":"app","data_type":"float","value":"7.5"}]';
 
@@ -66,5 +62,27 @@ class SettingsCollectionTest extends TestCase
 
         $this->assertNotInstanceOf(SettingsCollection::class, $collection);
         $this->assertInstanceOf(SettingsCollection::class, SettingsCollection::from($collection));
+    }
+
+    /**
+     * @test
+     * @covers ::fromJson
+     * @throws CastCollectionException
+     */
+    public function it_throws_an_exception_on_invalid_json(): void
+    {
+        $this->expectException(CastCollectionException::class);
+        SettingsCollection::fromJson('not json');
+    }
+
+    /**
+     * @test
+     * @covers ::fromArray
+     * @throws CastCollectionException
+     */
+    public function it_throws_exception_when_array_is_invalid(): void
+    {
+        $this->expectException(CastCollectionException::class);
+        SettingsCollection::fromArray(['empty']);
     }
 }

@@ -52,6 +52,12 @@ class SettingsCollection extends Collection implements CastsCollections
      */
     public static function fromJson(string $json): self
     {
-        return self::fromArray(json_decode($json, true));
+        $array = json_decode($json, true);
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return self::fromArray($array);
+        }
+
+        throw new CastCollectionException('Invalid JSON supplied.');
     }
 }

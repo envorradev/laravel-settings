@@ -30,21 +30,37 @@ class SettingTypeTest extends TestCase
 
     /**
      * @test
-     * @covers ::make
-     */
-    public function it_can_execute_static_make_method(): void
-    {
-        $this->assertEquals(SettingType::MODEL, SettingType::make('model'));
-        $this->assertEquals(SettingType::GLOBAL, SettingType::make(SettingType::GLOBAL));
-        $this->assertEquals(SettingType::APP, SettingType::make());
-    }
-
-    /**
-     * @test
      * @covers ::values
      */
     public function it_can_execute_static_values_method(): void
     {
         $this->checkEnumValuesMethod(SettingType::class);
+    }
+
+    /**
+     * @test
+     * @covers ::make
+     */
+    public function it_can_make_instance_from_SettingType(): void
+    {
+        $this->assertEquals(SettingType::GLOBAL, SettingType::make(SettingType::GLOBAL));
+    }
+
+    /**
+     * @test
+     * @covers ::make
+     */
+    public function it_can_make_instance_from_null(): void
+    {
+        $this->assertEquals(SettingType::APP, SettingType::make());
+    }
+
+    /**
+     * @test
+     * @covers ::make
+     */
+    public function it_can_make_instance_from_string(): void
+    {
+        $this->assertEquals(SettingType::MODEL, SettingType::make('model'));
     }
 }
