@@ -18,7 +18,7 @@ class SettingFacadeTest extends TestCase
      */
     public function it_can_use_alias(): void
     {
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(SettingsRepository::class, \SettingAlias::instance());
     }
 

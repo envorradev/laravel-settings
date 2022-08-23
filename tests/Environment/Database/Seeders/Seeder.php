@@ -28,7 +28,7 @@ abstract class Seeder extends EloquentSeeder
     public function run(): void
     {
         foreach (static::seed() as $item) {
-            /** @phpstan-ignore-next-line  */
+            /** @phpstan-ignore-next-line */
             static::$model::create($item);
         }
     }
