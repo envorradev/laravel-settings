@@ -7,7 +7,6 @@ use Envorra\LaravelSettings\LaravelSettingsProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Envorra\LaravelSettings\Facades\Setting as SettingFacade;
 use Envorra\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\ModelSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserSettingsSeeder;

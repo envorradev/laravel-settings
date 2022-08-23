@@ -3,11 +3,11 @@
     "description": "A package to manage global and model based settings",
     "require": {
         "php": "^8.1",
-        "illuminate/support": "^9.24",
-        "illuminate/database": "^9.24",
-        "illuminate/auth": "^9.24",
-        "illuminate/config": "^9.24",
-        "illuminate/contracts": "^9.24"
+        "illuminate/support": "^9",
+        "illuminate/database": "^9",
+        "illuminate/auth": "^9",
+        "illuminate/config": "^9",
+        "illuminate/contracts": "^9"
     },
     "require-dev": {
         "orchestra/testbench": "^7.6",
