@@ -29,6 +29,7 @@ trait HasSettings
      * Model has settings.
      *
      * @return MorphMany
+     * @noinspection PhpUnused
      */
     public function settings(): MorphMany
     {

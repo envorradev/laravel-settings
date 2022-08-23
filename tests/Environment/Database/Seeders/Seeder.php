@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnused */
+
 namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;

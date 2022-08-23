@@ -16,6 +16,7 @@ class Setting extends Facade
 {
     /**
      * @inheritDoc
+     * @noinspection PhpUnused
      */
     protected static function getFacadeAccessor(): string
     {

@@ -10,7 +10,6 @@ use Envorra\LaravelSettings\Tests\TestCase;
 use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Support\ItemNotFoundException;
 use Envorra\LaravelSettings\Enums\SettingType;
-use Envorra\LaravelSettings\Exceptions\DataTypeException;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 use Envorra\LaravelSettings\Repositories\SettingsRepository;
 use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
@@ -24,7 +23,6 @@ class SettingsRepositoryTest extends TestCase
     /**
      * @test
      * @covers ::allOfDataType
-     * @throws DataTypeException
      */
     public function it_can_execute_allOfDataType_method(): void
     {

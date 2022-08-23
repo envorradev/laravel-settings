@@ -3,7 +3,6 @@
 namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
 use Envorra\LaravelSettings\Models\Setting;
-use Envorra\LaravelSettings\Exceptions\DataTypeException;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 
 trait SettingModelTests

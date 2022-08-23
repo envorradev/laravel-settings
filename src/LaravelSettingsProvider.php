@@ -15,6 +15,7 @@ class LaravelSettingsProvider extends ServiceProvider
 {
     /**
      * @return void
+     * @noinspection PhpUnused
      */
     public function boot(): void
     {
@@ -29,6 +30,7 @@ class LaravelSettingsProvider extends ServiceProvider
 
     /**
      * @inheritDoc
+     * @noinspection PhpUnused
      */
     public function register()
     {

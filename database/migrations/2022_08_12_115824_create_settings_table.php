@@ -1,6 +1,9 @@
 <?php
 
-/** @noinspection PhpEnforceDocCommentInspection */
+/**
+ * @noinspection PhpUnused
+ * @noinspection PhpEnforceDocCommentInspection
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

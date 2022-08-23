@@ -60,6 +60,7 @@ class TestCase extends OrchestraTestCase
         ]);
     }
 
+    /** @noinspection SpellCheckingInspection */
     protected function defineEnvironment($app): void
     {
         $app['config']->set('database.default', 'testbench');

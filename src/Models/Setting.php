@@ -44,8 +44,9 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
         'setting_type' => SettingType::class,
         'value' => DynamicTypeCaster::class,
     ];
+
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     protected $fillable = [
         'key',

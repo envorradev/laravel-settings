@@ -17,6 +17,7 @@ class HasSettingsTest extends TestCase
      * @test
      * @covers ::settings
      * @noinspection PhpUndefinedFieldInspection
+     * @noinspection PhpUndefinedMethodInspection
      */
     public function it_can_execute_settings_method(): void
     {

@@ -3,7 +3,6 @@
 namespace Envorra\LaravelSettings\Tests\Environment\SharedTests;
 
 use Envorra\LaravelSettings\Enums\DataType;
-use Envorra\LaravelSettings\Exceptions\DataTypeException;
 
 trait DataTypeTests
 {

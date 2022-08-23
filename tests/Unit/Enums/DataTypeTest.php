@@ -17,6 +17,7 @@ class DataTypeTest extends TestCase
     /**
      * @test
      * @covers ::convertValueToString
+     * @noinspection SpellCheckingInspection
      */
     public function it_can_execute_convertValueToString_method(): void
     {
