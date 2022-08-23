@@ -14,7 +14,7 @@ use Envorra\LaravelSettings\Exceptions\DataTypeException;
 use Envorra\LaravelSettings\Collections\SettingsCollection;
 use Envorra\LaravelSettings\Repositories\SettingsRepository;
 use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\SettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
 
 /**
  * @coversDefaultClass \Envorra\LaravelSettings\Repositories\SettingsRepository

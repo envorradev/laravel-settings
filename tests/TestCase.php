@@ -7,12 +7,12 @@ use Envorra\LaravelSettings\LaravelSettingsProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Envorra\LaravelSettings\Facades\Setting as SettingFacade;
 use Envorra\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\SettingsSeeder;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\AppSettingsSeeder;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\UserSettingsSeeder;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\ModelSettingsSeeder;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\GlobalSettingsSeeder;
-use Envorra\LaravelSettings\Tests\Environment\Database\Seeder\UserUsingTraitSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\ModelSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\GlobalSettingsSeeder;
+use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserUsingTraitSeeder;
 
 class TestCase extends OrchestraTestCase
 {
