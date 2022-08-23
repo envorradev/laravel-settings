@@ -48,5 +48,10 @@
         "ramsey/composer-repl": {
             "includes": []
         }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit tests/"
+        ]
     }
 }
