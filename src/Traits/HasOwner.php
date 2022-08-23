@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * HasOwner
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Traits
  *
  * @property ?Model $model
  * @property Model  $owner

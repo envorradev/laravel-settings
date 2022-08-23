@@ -15,7 +15,7 @@ use Envorra\LaravelSettings\Collections\SettingsCollection;
 /**
  * SettingsRepository
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Repositories
  */
 class SettingsRepository implements Repository
 {

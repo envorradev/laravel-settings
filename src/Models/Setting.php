@@ -19,7 +19,7 @@ use Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
 /**
  * Setting
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Models
  *
  * @property int          $id
  * @property ?SettingType $settingType

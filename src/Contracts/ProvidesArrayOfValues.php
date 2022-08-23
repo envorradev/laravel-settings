@@ -5,7 +5,7 @@ namespace Envorra\LaravelSettings\Contracts;
 /**
  * ProvidesArrayOfValues
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Contracts
  */
 interface ProvidesArrayOfValues
 {

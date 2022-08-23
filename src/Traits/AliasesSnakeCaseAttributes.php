@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 /**
  * AliasesSnakeCaseAttributes
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Traits
  */
 trait AliasesSnakeCaseAttributes
 {

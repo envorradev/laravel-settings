@@ -8,7 +8,7 @@ use Envorra\LaravelSettings\Enums\DataType;
 /**
  * DynamicallyCastsTypes
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Contracts
  */
 interface DynamicallyCastsTypes
 {

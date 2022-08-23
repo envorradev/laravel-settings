@@ -13,7 +13,7 @@ use Envorra\LaravelSettings\Collections\SettingsCollection;
 /**
  * Repository
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Contracts
  */
 interface Repository
 {

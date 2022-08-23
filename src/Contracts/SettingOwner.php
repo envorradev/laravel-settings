@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 /**
  * SettingOwner
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Contracts
  */
 interface SettingOwner
 {

@@ -6,7 +6,7 @@ namespace Envorra\LaravelSettings\Contracts;
 /**
  * CastsCollections
  *
- * @package  Envorra\LaravelSettings
+ * @package  Envorra\LaravelSettings\Contracts
  *
  * @template TKey of array-key
  * @template TValue
@@ -15,23 +15,23 @@ interface CastsCollections
 {
     /**
      * @param  iterable  $items
-     * @return self<TKey, TValue>
+     * @return CastsCollections<TKey, TValue>
      */
-    public static function from(iterable $items): self;
+    public static function from(iterable $items): CastsCollections;
 
     /**
      * New collection from array.
      *
      * @param  array  $array
-     * @return self<TKey, TValue>
+     * @return CastsCollections<TKey, TValue>
      */
-    public static function fromArray(array $array): self;
+    public static function fromArray(array $array): CastsCollections;
 
     /**
      * New collection from JSON.
      *
      * @param  string  $json
-     * @return self<TKey, TValue>
+     * @return CastsCollections<TKey, TValue>
      */
-    public static function fromJson(string $json): self;
+    public static function fromJson(string $json): CastsCollections;
 }

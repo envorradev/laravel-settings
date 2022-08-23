@@ -7,7 +7,7 @@ use Exception;
 /**
  * DataTypeException
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Exceptions
  */
 class DataTypeException extends Exception
 {

@@ -7,7 +7,7 @@ use Envorra\LaravelSettings\Contracts\ProvidesArrayOfValues;
 /**
  * SettingType
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Enums
  */
 enum SettingType: string implements ProvidesArrayOfValues
 {

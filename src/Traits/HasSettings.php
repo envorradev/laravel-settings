@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 /**
  * HasSettings
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Traits
  */
 trait HasSettings
 {

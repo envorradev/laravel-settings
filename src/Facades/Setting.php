@@ -8,7 +8,7 @@ use Envorra\LaravelSettings\Repositories\SettingsRepository;
 /**
  * Setting
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Facades
  *
  * @mixin SettingsRepository
  */

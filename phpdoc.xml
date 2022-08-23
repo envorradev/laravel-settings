@@ -14,7 +14,7 @@
             <source dsn=".">
                 <path>src</path>
             </source>
-            <default-package-name>LaravelSettings</default-package-name>
+            <default-package-name>Envorra-LaravelSettings</default-package-name>
         </api>
     </version>
 </phpdocumentor>

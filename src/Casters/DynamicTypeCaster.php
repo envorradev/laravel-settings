@@ -11,7 +11,7 @@ use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
 /**
  * DynamicTypeCaster
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Casters
  *
  * @method mixed get(DynamicallyCastsTypes $model, string $key, mixed $value, array $modelAttributes)
  * @method mixed set(DynamicallyCastsTypes $model, string $key, mixed $value, array $modelAttributes)

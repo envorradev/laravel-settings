@@ -11,7 +11,7 @@ use Envorra\LaravelSettings\Contracts\ProvidesArrayOfValues;
 /**
  * DataType
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Enums
  */
 enum DataType: string implements ProvidesArrayOfValues
 {

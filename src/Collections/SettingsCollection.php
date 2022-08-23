@@ -10,7 +10,7 @@ use Envorra\LaravelSettings\Exceptions\CastCollectionException;
 /**
  * SettingsCollection
  *
- * @package  Envorra\LaravelSettings
+ * @package  Envorra\LaravelSettings\Collections
  *
  * @method Setting first(callable $callback = null, $default = null)
  * @method Setting firstOrFail($key = null, $operator = null, $value = null)

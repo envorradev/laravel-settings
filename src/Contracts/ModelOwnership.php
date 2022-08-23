@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * ModelOwnership
  *
- * @package Envorra\LaravelSettings
+ * @package Envorra\LaravelSettings\Contracts
  */
 interface ModelOwnership
 {
