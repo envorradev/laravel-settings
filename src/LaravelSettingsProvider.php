@@ -35,7 +35,7 @@ class LaravelSettingsProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom($this->packagePath('config/laravel_settings.php'), 'laravel_settings');
-        $this->app->bind('Setting', SettingsRepository::class);
+        $this->app->bind('Setting', fn() => SettingsRepository::instance());
     }
 
     /**

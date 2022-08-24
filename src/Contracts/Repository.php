@@ -104,6 +104,15 @@ interface Repository
     ): Repository;
 
     /**
+     * Forward call to model.
+     *
+     * @param  string  $name
+     * @param  array   $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments): mixed;
+
+    /**
      * Get all the Settings.
      *
      * @return SettingsCollection

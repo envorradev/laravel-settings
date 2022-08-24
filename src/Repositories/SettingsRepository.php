@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Envorra\LaravelSettings\Enums\SettingType;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Envorra\LaravelSettings\Contracts\Repository;
@@ -17,9 +18,11 @@ use Envorra\LaravelSettings\Collections\SettingsCollection;
  * SettingsRepository
  *
  * @package Envorra\LaravelSettings\Repositories
+ * @mixin Setting
  */
 class SettingsRepository implements Repository
 {
+    use ForwardsCalls;
 
     /**
      * @inheritDoc
@@ -102,6 +105,14 @@ class SettingsRepository implements Repository
             scopeDataType: $scopeDataType,
             query: $query
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __call(string $name, array $arguments): mixed
+    {
+        return $this->forwardCallTo($this->getModel(), $name, $arguments);
     }
 
     /**

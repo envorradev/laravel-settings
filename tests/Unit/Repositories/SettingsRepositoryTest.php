@@ -260,6 +260,15 @@ class SettingsRepositoryTest extends TestCase
         $this->assertQuery($expectedQuery, $repository);
     }
 
+    /**
+     * @test
+     * @covers ::__call
+     */
+    public function it_can_forward_calls_to_model(): void
+    {
+        $this->assertModelExists($this->repository()->first());
+    }
+
     protected function assertPropValue(mixed $expected, string $property, SettingsRepository $repository): void
     {
         try {

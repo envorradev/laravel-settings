@@ -2,8 +2,10 @@
 
 namespace Envorra\LaravelSettings\Tests\Unit\Facades;
 
+use ReflectionException;
 use Envorra\LaravelSettings\Tests\TestCase;
 use Envorra\LaravelSettings\Facades\Setting;
+use Envorra\LaravelSettings\Enums\SettingType;
 use Envorra\LaravelSettings\Repositories\SettingsRepository;
 
 /**
@@ -11,6 +13,28 @@ use Envorra\LaravelSettings\Repositories\SettingsRepository;
  */
 class SettingFacadeTest extends TestCase
 {
+    /**
+     * @test
+     */
+    public function it_can_get_without_specifying_instance(): void
+    {
+        $this->assertModelExists(Setting::all()->first());
+    }
+
+    /**
+     * @test
+     * @throws ReflectionException
+     */
+    public function it_can_specify_scope(): void
+    {
+        $repository = Setting::user();
+
+        $this->assertEquals(
+            SettingType::USER,
+            $this->reflect($repository)->getProperty('scopeSettingType')->getValue($repository)
+        );
+    }
+
     /**
      * @test
      * @noinspection PhpUndefinedClassInspection
