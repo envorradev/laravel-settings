@@ -96,16 +96,6 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
     }
 
     /**
-     * Does this Model have an owner?
-     *
-     * @return bool
-     */
-    public function hasOwner(): bool
-    {
-        return $this->isModelSetting() && $this->owner;
-    }
-
-    /**
      * Is this an App setting?
      *
      * @return bool

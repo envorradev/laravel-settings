@@ -26,6 +26,14 @@ trait HasOwner
     }
 
     /**
+     * @inheritDoc
+     */
+    public function hasOwner(): bool
+    {
+        return $this->owner !== null;
+    }
+
+    /**
      * Define a polymorphic, inverse one-to-one or many relationship.
      *
      * @param  ?string  $name

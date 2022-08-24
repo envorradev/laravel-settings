@@ -44,7 +44,7 @@ class SettingTest extends TestCase
 
     /**
      * @test
-     * @covers ::hasOwner
+     * @covers \Envorra\LaravelSettings\Traits\HasOwner::hasOwner
      */
     public function it_can_execute_hasOwner_method(): void
     {

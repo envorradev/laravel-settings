@@ -23,6 +23,13 @@ interface ModelOwnership
     public function belongsToModel(Model $model): bool;
 
     /**
+     * Does the model have an owner?
+     *
+     * @return bool
+     */
+    public function hasOwner(): bool;
+
+    /**
      * Owner relation.
      *
      * @return MorphTo
