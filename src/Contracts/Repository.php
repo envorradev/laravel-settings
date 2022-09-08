@@ -4,14 +4,10 @@
 
 namespace Envorra\LaravelSettings\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Envorra\LaravelSettings\Enums\DataType;
-use Envorra\LaravelSettings\Models\Setting;
-use Illuminate\Support\ItemNotFoundException;
-use Envorra\LaravelSettings\Enums\SettingType;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Models\AbstractSettingModel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Repository
@@ -21,91 +17,27 @@ use Envorra\LaravelSettings\Collections\SettingsCollection;
 interface Repository
 {
     /**
-     * Repository Constructor.
-     *
-     * @param ?SettingType                 $scopeSettingType
-     * @param  Model|Authenticatable|null  $scopeOwner
-     * @param ?DataType                    $scopeDataType
-     * @param ?Builder                     $query
+     * @return Builder
      */
-    public function __construct(
-        ?SettingType $scopeSettingType = null,
-        Model|Authenticatable|null $scopeOwner = null,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    );
+    public function query(): Builder;
 
     /**
-     * Get app scoped repository.
-     *
-     * @param ?DataType  $scopeDataType
-     * @param ?Builder   $query
+     * @return Builder
+     */
+    public function newQuery(): Builder;
+    /**
      * @return Repository
      */
-    public static function app(
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): Repository;
+    public function newInstance(): Repository;
 
     /**
-     * Get global scoped repository.
-     *
-     * @param ?DataType  $scopeDataType
-     * @param ?Builder   $query
-     * @return Repository
+     * @param  string  $name
+     * @param  array   $arguments
+     * @return mixed
      */
-    public static function global(
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): Repository;
+    public static function __callStatic(string $name, array $arguments): mixed;
 
     /**
-     * New repository instance.
-     *
-     * @param ?SettingType                 $scopeSettingType
-     * @param  Model|Authenticatable|null  $scopeOwner
-     * @param ?DataType                    $scopeDataType
-     * @param ?Builder                     $query
-     * @return static
-     */
-    public static function instance(
-        ?SettingType $scopeSettingType = null,
-        Model|Authenticatable|null $scopeOwner = null,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): static;
-
-    /**
-     * Get model scoped repository.
-     *
-     * @param  Model     $scopeOwner
-     * @param ?DataType  $scopeDataType
-     * @param ?Builder   $query
-     * @return Repository
-     */
-    public static function model(
-        Model $scopeOwner,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): Repository;
-
-    /**
-     * Get user scoped repository.
-     *
-     * @param  Model|Authenticatable|null  $scopeUser
-     * @param ?DataType                    $scopeDataType
-     * @param ?Builder                     $query
-     * @return Repository
-     */
-    public static function user(
-        Model|Authenticatable|null $scopeUser = null,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): Repository;
-
-    /**
-     * Forward call to model.
-     *
      * @param  string  $name
      * @param  array   $arguments
      * @return mixed
@@ -113,112 +45,52 @@ interface Repository
     public function __call(string $name, array $arguments): mixed;
 
     /**
-     * Get all the Settings.
-     *
-     * @return SettingsCollection
+     * @return class-string<AbstractSettingModel>
      */
-    public function all(): SettingsCollection;
+    public static function modelClass(): string;
 
     /**
-     * Get all Settings of a SettingType.
-     *
-     * @param  DataType  $dataType
-     * @return SettingsCollection
+     * @return AbstractSettingModel
      */
-    public function allOfDataType(DataType $dataType): SettingsCollection;
+    public static function model(): AbstractSettingModel;
 
     /**
-     * Get all Settings of a SettingType.
-     *
-     * @param  SettingType  $settingType
-     * @return SettingsCollection
+     * @return Collection
      */
-    public function allOfSettingType(SettingType $settingType): SettingsCollection;
+    public function all(): Collection;
 
     /**
-     * Get all Settings related to a Model.
-     *
-     * @param  Model                           $model
-     * @param  SettingType|array<SettingType>  $filterTypes
-     * @return SettingsCollection
-     */
-    public function allRelatedToModel(Model $model, SettingType|array $filterTypes = []): SettingsCollection;
-
-    /**
-     * Find a Setting.
-     *
      * @param  string  $key
-     * @return ?Setting
+     * @return AbstractSettingModel
+     * @throws ModelNotFoundException
      */
-    public function find(string $key): ?Setting;
+    public function findOrFail(string $key): AbstractSettingModel;
 
     /**
-     * Find a Setting, or fail.
-     *
      * @param  string  $key
-     * @return Setting
-     * @throws ItemNotFoundException
+     * @return AbstractSettingModel|null
      */
-    public function findOrFail(string $key): Setting;
+    public function find(string $key): ?AbstractSettingModel;
 
     /**
-     * Get a Setting's value or the default.
-     *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  string      $key
+     * @param  mixed|null  $default
      * @return mixed
      */
     public function get(string $key, mixed $default = null): mixed;
 
     /**
-     * New query.
-     *
-     * @return Builder
+     * @param  string  $key
+     * @return self
      */
-    public function newQuery(): Builder;
+    public function whereKey(string $key): self;
 
     /**
-     * Get the current query.
-     *
-     * @return Builder
+     * @param  mixed       $column
+     * @param  mixed|null  $operator
+     * @param  mixed|null  $value
+     * @param  string      $boolean
+     * @return self
      */
-    public function query(): Builder;
-
-    /**
-     * Set a setting.
-     *
-     * @param  string       $key
-     * @param  mixed        $value
-     * @param ?string       $description
-     * @param ?SettingType  $settingType
-     * @param ?DataType     $dataType
-     * @param ?Model        $owner
-     * @return ?Setting
-     */
-    public function set(
-        string $key,
-        mixed $value,
-        ?string $description = null,
-        ?SettingType $settingType = null,
-        ?DataType $dataType = null,
-        ?Model $owner = null,
-    ): ?Setting;
-
-    /**
-     * Where query.
-     *
-     * @param  string  $field
-     * @param  mixed   $operatorOrValue
-     * @param  mixed   $valueOrNull
-     * @return Builder
-     */
-    public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder;
-
-    /**
-     * Where the owner is.
-     *
-     * @param  Model  $owner
-     * @return Builder
-     */
-    public function whereOwner(Model $owner): Builder;
+    public function where(mixed $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): self;
 }

@@ -3,8 +3,6 @@
 namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
 use Carbon\Carbon;
-use Envorra\LaravelSettings\Enums\DataType;
-use Envorra\LaravelSettings\Enums\SettingType;
 use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 
 class UserSettingsSeeder extends SettingsSeeder
@@ -14,42 +12,42 @@ class UserSettingsSeeder extends SettingsSeeder
         return [
             [
                 'key' => 'user.test.int1',
-                'setting_type' => SettingType::USER,
+                'setting_type' => 'user',
                 'owner_type' => UserUsingTrait::class,
                 'owner_id' => 1,
-                'data_type' => DataType::INT,
+                'data_type' => 'integer',
                 'value' => 4,
             ],
             [
                 'key' => 'user.test.int2',
-                'setting_type' => SettingType::USER,
+                'setting_type' => 'user',
                 'owner_type' => UserUsingTrait::class,
                 'owner_id' => 2,
-                'data_type' => DataType::INT,
+                'data_type' => 'integer',
                 'value' => 7,
             ],
             [
                 'key' => 'user.test.date1',
-                'setting_type' => SettingType::USER,
+                'setting_type' => 'user',
                 'owner_type' => UserUsingTrait::class,
                 'owner_id' => 2,
-                'data_type' => DataType::DATE,
+                'data_type' => 'date',
                 'value' => Carbon::today(),
             ],
             [
                 'key' => 'user.test.datetime1',
-                'setting_type' => SettingType::USER,
+                'setting_type' => 'user',
                 'owner_type' => UserUsingTrait::class,
                 'owner_id' => 2,
-                'data_type' => DataType::DATETIME,
+                'data_type' => 'datetime',
                 'value' => Carbon::now(),
             ],
             [
                 'key' => 'user.test.timestamp1',
-                'setting_type' => SettingType::USER,
+                'setting_type' => 'user',
                 'owner_type' => UserUsingTrait::class,
                 'owner_id' => 2,
-                'data_type' => DataType::TIMESTAMP,
+                'data_type' => 'timestamp',
                 'value' => time(),
             ],
         ];

@@ -2,8 +2,8 @@
 
 namespace Envorra\LaravelSettings\Tests\Environment\Database\Seeders;
 
-use Envorra\LaravelSettings\Enums\DataType;
-use Envorra\LaravelSettings\Enums\SettingType;
+
+use Envorra\LaravelSettings\SettingTypes\AppSettingType;
 
 class AppSettingsSeeder extends SettingsSeeder
 {
@@ -13,8 +13,8 @@ class AppSettingsSeeder extends SettingsSeeder
         return [
             [
                 'key' => 'app.test.float1',
-                'setting_type' => SettingType::APP,
-                'data_type' => DataType::FLOAT,
+                'setting_type' => 'app',
+                'data_type' => 'double',
                 'value' => 7.5,
             ],
         ];

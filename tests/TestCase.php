@@ -2,10 +2,16 @@
 
 namespace Envorra\LaravelSettings\Tests;
 
+use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Envorra\LaravelSettings\LaravelSettingsProvider;
+use Envorra\TypeHandler\Types\Primitives\DoubleType;
+use Envorra\TypeHandler\Types\Primitives\StringType;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Envorra\LaravelSettings\SettingTypes\AppSettingType;
+use Envorra\LaravelSettings\SettingTypes\GlobalSettingType;
 use Envorra\LaravelSettings\Facades\Setting as SettingFacade;
+use Envorra\LaravelSettings\Repositories\SettingsRepository;
 use Envorra\LaravelSettings\Tests\Environment\SharedTests\SharedTests;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\SettingsSeeder;
 use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\AppSettingsSeeder;
@@ -17,7 +23,7 @@ use Envorra\LaravelSettings\Tests\Environment\Database\Seeders\UserUsingTraitSee
 class TestCase extends OrchestraTestCase
 {
     use RefreshDatabase;
-    use SharedTests;
+//    use SharedTests;
 
     public function ignorePackageDiscoveriesFrom(): array
     {

@@ -16,11 +16,11 @@ return new class extends Migration {
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->enum('setting_type', SettingType::values());
+            $table->string('setting_type')->default('global');
             $table->nullableMorphs('owner');
             $table->string('key');
             $table->text('description')->nullable();
-            $table->enum('data_type', DataType::values());
+            $table->string('data_type')->default('string');
             $table->longText('value')->nullable();
             $table->timestamps();
         });

@@ -2,17 +2,11 @@
 
 namespace Envorra\LaravelSettings\Models;
 
-use Illuminate\Support\Arr;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Builder;
-use Envorra\LaravelSettings\Enums\DataType;
-use Envorra\LaravelSettings\Traits\HasOwner;
-use Envorra\LaravelSettings\Enums\SettingType;
-use Envorra\LaravelSettings\Contracts\ModelOwnership;
-use Envorra\LaravelSettings\Casters\DynamicTypeCaster;
-use Envorra\LaravelSettings\Collections\SettingsCollection;
-use Envorra\LaravelSettings\Contracts\DynamicallyCastsTypes;
+use Envorra\TypeHandler\Contracts\Types\Type;
+use Envorra\LaravelSettings\Casters\ValueCaster;
+use Envorra\LaravelSettings\Contracts\SettingType;
+use Envorra\LaravelSettings\Casters\DataTypeCaster;
+use Envorra\LaravelSettings\Casters\SettingTypeCaster;
 use Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
 
 
@@ -22,27 +16,24 @@ use Envorra\LaravelSettings\Traits\AliasesSnakeCaseAttributes;
  * @package Envorra\LaravelSettings\Models
  *
  * @property int          $id
+ * @property ?Type        $dataType
+ * @property ?Type        $data_type
  * @property ?SettingType $settingType
  * @property ?SettingType $setting_type
- * @property ?DataType    $dataType
- * @property ?DataType    $data_type
  * @property mixed        $owner
  * @property mixed        $value
- *
- * @mixin Builder
  */
-class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
+class Setting extends AbstractSettingModel
 {
-    use HasOwner;
     use AliasesSnakeCaseAttributes;
 
     /**
      * @inheritDoc
      */
     protected $casts = [
-        'data_type' => DataType::class,
-        'setting_type' => SettingType::class,
-        'value' => DynamicTypeCaster::class,
+        'data_type' => DataTypeCaster::class,
+        'setting_type' => SettingTypeCaster::class,
+        'value' => ValueCaster::class,
     ];
 
     /**
@@ -54,106 +45,4 @@ class Setting extends Model implements ModelOwnership, DynamicallyCastsTypes
         'data_type',
         'value',
     ];
-
-    /**
-     * Get a new model instance from an array.
-     *
-     * @param  array  $attributes
-     * @return ?Model
-     */
-    public static function modelFromArray(array $attributes): ?Model
-    {
-        try {
-            return (new Setting)->firstOrCreate($attributes);
-        } catch (QueryException) {
-            return null;
-        }
-    }
-
-    /**
-     * Get a new model instance from JSON.
-     *
-     * @param  string  $json
-     * @return ?Model
-     */
-    public static function modelFromJson(string $json): ?Model
-    {
-        $arrayModel = json_decode($json, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE || is_int(array_key_first($arrayModel))) {
-            return null;
-        }
-
-        return static::modelFromArray($arrayModel);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getDataType(): DataType
-    {
-        return $this->dataType ?? DataType::STRING;
-    }
-
-    /**
-     * Is this an App setting?
-     *
-     * @return bool
-     */
-    public function isAppSetting(): bool
-    {
-        return $this->isSettingType(SettingType::APP);
-    }
-
-    /**
-     * Is this a Global setting?
-     *
-     * @return bool
-     */
-    public function isGlobalSetting(): bool
-    {
-        return $this->isSettingType(SettingType::GLOBAL);
-    }
-
-    /**
-     * Is this a Model setting?
-     *
-     * @return bool
-     */
-    public function isModelSetting(): bool
-    {
-        return $this->isSettingType([
-            SettingType::MODEL,
-            SettingType::USER,
-        ]);
-    }
-
-    /**
-     * Check if this is the same SettingType as given.
-     *
-     * @param  SettingType|string|array  $type
-     * @return bool
-     */
-    public function isSettingType(SettingType|string|array $type): bool
-    {
-        return $this->settingType?->isIn(Arr::wrap($type)) ?? false;
-    }
-
-    /**
-     * Is this a User setting?
-     *
-     * @return bool
-     */
-    public function isUserSetting(): bool
-    {
-        return $this->isSettingType(SettingType::USER);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function newCollection(iterable $models = []): SettingsCollection
-    {
-        return new SettingsCollection($models);
-    }
 }

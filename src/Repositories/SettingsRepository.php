@@ -2,109 +2,49 @@
 
 namespace Envorra\LaravelSettings\Repositories;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Envorra\LaravelSettings\Enums\DataType;
 use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Support\Traits\ForwardsCalls;
-use Envorra\LaravelSettings\Enums\SettingType;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Envorra\TypeHandler\Contracts\Types\Type;
 use Envorra\LaravelSettings\Contracts\Repository;
-use Envorra\LaravelSettings\Collections\SettingsCollection;
+use Envorra\LaravelSettings\Helpers\ConfigHelper;
+use Envorra\LaravelSettings\Contracts\SettingType;
+use Envorra\LaravelSettings\Contracts\SettingOwner;
+use Envorra\LaravelSettings\Models\AbstractSettingModel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * SettingsRepository
  *
  * @package Envorra\LaravelSettings\Repositories
- * @mixin Setting
+ * @mixin Builder
  */
 class SettingsRepository implements Repository
 {
     use ForwardsCalls;
 
+    protected Builder $builder;
+
     /**
-     * @inheritDoc
+     * @param  SettingType|null   $scopeSettingType
+     * @param  SettingOwner|null  $scopeOwner
+     * @param  Type|null          $scopeDataType
      */
     public function __construct(
         protected ?SettingType $scopeSettingType = null,
-        protected Model|Authenticatable|null $scopeOwner = null,
-        protected ?DataType $scopeDataType = null,
-        protected ?Builder $query = null,
+        protected ?SettingOwner $scopeOwner = null,
+        protected ?Type $scopeDataType = null,
     ) {
+        $this->builder = $this->newQuery();
     }
 
     /**
      * @inheritDoc
      */
-    public static function app(
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null
-    ): static {
-        return static::instance(
-            scopeSettingType: SettingType::APP,
-            scopeDataType: $scopeDataType,
-            query: $query
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function global(
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null
-    ): static {
-        return static::instance(
-            scopeSettingType: SettingType::GLOBAL,
-            scopeDataType: $scopeDataType,
-            query: $query
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function instance(
-        ?SettingType $scopeSettingType = null,
-        Model|Authenticatable|null $scopeOwner = null,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null,
-    ): static {
-        return new static($scopeSettingType, $scopeOwner, $scopeDataType, $query);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function model(
-        Model $scopeOwner,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null
-    ): static {
-        return static::instance(
-            scopeSettingType: SettingType::MODEL,
-            scopeOwner: $scopeOwner,
-            scopeDataType: $scopeDataType,
-            query: $query
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function user(
-        Model|Authenticatable|null $scopeUser = null,
-        ?DataType $scopeDataType = null,
-        ?Builder $query = null
-    ): static {
-        return static::instance(
-            scopeSettingType: SettingType::USER,
-            scopeOwner: $scopeUser ?? Auth::user(),
-            scopeDataType: $scopeDataType,
-            query: $query
-        );
+    public static function __callStatic(string $name, array $arguments): mixed
+    {
+        return (new self)->$name(...$arguments);
     }
 
     /**
@@ -112,81 +52,24 @@ class SettingsRepository implements Repository
      */
     public function __call(string $name, array $arguments): mixed
     {
-        return $this->forwardCallTo($this->getModel(), $name, $arguments);
+        return $this->forwardCallTo($this->builder, $name, $arguments);
     }
 
     /**
      * @inheritDoc
      */
-    public function all(): SettingsCollection
+    public static function modelClass(): string
     {
-        return $this->normalizeCollection($this->query()->get());
+        return ConfigHelper::model();
     }
 
     /**
      * @inheritDoc
      */
-    public function allOfDataType(DataType $dataType): SettingsCollection
+    public static function model(): AbstractSettingModel
     {
-        return $this->normalizeCollection($this->query()->where('data_type', $dataType)->get());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function allOfSettingType(SettingType $settingType): SettingsCollection
-    {
-        return $this->normalizeCollection($this->query()->where('setting_type', $settingType)->get());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function allRelatedToModel(Model $model, array|SettingType $filterTypes = []): SettingsCollection
-    {
-        return $this->normalizeCollection(
-            $this->filterQuery(
-                query: $this->query()->whereMorphedTo('owner', $model),
-                filterTypes: $filterTypes
-            )->get()
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function find(string $key): ?Setting
-    {
-        $collection = new SettingsCollection($this->where('key', $key)->take(1)->get());
-        return $collection->first();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findOrFail(string $key): Setting
-    {
-        $collection = new SettingsCollection($this->where('key', $key)->take(1)->get());
-        return $collection->firstOrFail();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function get(string $key, mixed $default = null): mixed
-    {
-        return $this->find($key)?->value ?? $default;
-    }
-
-    /**
-     * Get the model.
-     *
-     * @return Setting
-     */
-    public function getModel(): Setting
-    {
-        $settingsModel = config('laravel_settings.settings_model', Setting::class);
-        return new $settingsModel();
+        $class = static::modelClass();
+        return new $class();
     }
 
     /**
@@ -194,21 +77,18 @@ class SettingsRepository implements Repository
      */
     public function newQuery(): Builder
     {
-        $this->query = $this->getModel()::query();
+        $model = static::model();
+        $query = $this->scopeSettingType?->apply($model::query(), $model) ?? $model::query();
 
-        if ($this->scopeSettingType) {
-            $this->query->where('setting_type', $this->scopeSettingType);
+        if(!is_null($this->scopeOwner)) {
+            $query->whereMorphedTo(ConfigHelper::ownerRelation(), $this->scopeOwner);
         }
 
-        if ($this->scopeOwner) {
-            $this->query->whereMorphedTo('owner', $this->scopeOwner);
+        if(!is_null($this->scopeDataType)) {
+            $query->where(ConfigHelper::dataTypeColumn(), $this->scopeDataType::type());
         }
 
-        if ($this->scopeDataType) {
-            $this->query->where('data_type', $this->scopeDataType);
-        }
-
-        return $this->query;
+        return $query;
     }
 
     /**
@@ -216,96 +96,69 @@ class SettingsRepository implements Repository
      */
     public function query(): Builder
     {
-        if (!$this->query) {
-            $this->newQuery();
-        }
-
-        return $this->query;
+        return $this->builder;
     }
 
     /**
      * @inheritDoc
      */
-    public function set(
-        string $key,
-        mixed $value,
-        ?string $description = null,
-        ?SettingType $settingType = null,
-        ?DataType $dataType = null,
-        ?Model $owner = null
-    ): ?Setting {
-
-        if ($setting = $this->find($key)) {
-            $setting->value = $value;
-            $setting->save();
-            return $setting;
-        }
-
-        $setting = new Setting(compact('key', 'value', 'description'));
-
-        $setting->data_type = $dataType ?? DataType::fromValue($value);
-        $setting->setting_type = $settingType ?? SettingType::make();
-
-        if ($owner) {
-            $setting->setOwner($owner);
-        }
-
-        $setting->save();
-
-        return $setting->fresh();
+    public function newInstance(): Repository
+    {
+        return new self();
     }
 
     /**
      * @inheritDoc
      */
-    public function where(string $field, mixed $operatorOrValue, mixed $valueOrNull = null): Builder
+    public function all(): Collection
     {
-        return $this->query()->where($field, $operatorOrValue, $valueOrNull);
+        return $this->newQuery()->get();
     }
 
     /**
      * @inheritDoc
      */
-    public function whereOwner(Model $owner): Builder
+    public function findOrFail(string $key): AbstractSettingModel
     {
-        return $this->query()->whereMorphedTo('owner', $owner);
-    }
-
-    /**
-     * Add where clauses to filter the query.
-     *
-     * @param  Builder            $query
-     * @param  array|SettingType  $filterTypes
-     * @return Builder
-     */
-    protected function filterQuery(Builder $query, array|SettingType $filterTypes = []): Builder
-    {
-        if (count($filterTypes)) {
-            $query->where(function ($subQuery) use ($filterTypes) {
-                $wheres = 1;
-                foreach (Arr::wrap($filterTypes) as $type) {
-                    $type = SettingType::make($type);
-                    $whereMethod = $wheres === 1 ? 'where' : 'orWhere';
-                    $subQuery->$whereMethod('setting_type', $type);
-                    $wheres++;
-                }
-            });
+        if(!is_null($found = $this->find($key))) {
+            return $found;
         }
 
-        return $query;
+        throw (new ModelNotFoundException)->setModel(static::modelClass());
     }
 
     /**
-     * Normalize the Collection to a SettingsCollection.
-     *
-     * @template TKey of array-key
-     * @param  iterable<TKey, Setting|array>  $iterable
-     * @return SettingsCollection
+     * @inheritDoc
      */
-    protected function normalizeCollection(iterable $iterable): SettingsCollection
+    public function find(string $key): ?AbstractSettingModel
     {
-        return new SettingsCollection($iterable);
+        return $this->whereKey($key)->first();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function whereKey(string $key): static
+    {
+        return $this->where(ConfigHelper::keyColumn(), $key);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function where(mixed $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): static
+    {
+        $this->builder->where($column, $operator, $value, $boolean);
+        return $this;
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public function get(string $key, mixed $default = null): mixed
+    {
+        $valueColumn = ConfigHelper::valueColumn();
+        return $this->find($key)?->$valueColumn ?? $default;
+    }
 }
