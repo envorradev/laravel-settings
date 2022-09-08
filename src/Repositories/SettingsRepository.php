@@ -13,6 +13,7 @@ use Envorra\LaravelSettings\Contracts\SettingType;
 use Envorra\LaravelSettings\Contracts\SettingOwner;
 use Envorra\LaravelSettings\Models\AbstractSettingModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Envorra\LaravelSettings\Resolvers\SettingTypeResolver;
 
 /**
  * SettingsRepository
@@ -36,7 +37,7 @@ class SettingsRepository implements Repository
         protected ?SettingOwner $scopeOwner = null,
         protected ?Type $scopeDataType = null,
     ) {
-        $this->builder = $this->newQuery();
+        $this->initQueryBuilder();
     }
 
     /**
@@ -52,6 +53,12 @@ class SettingsRepository implements Repository
      */
     public function __call(string $name, array $arguments): mixed
     {
+        $type = SettingTypeResolver::resolve($name);
+
+        if($type instanceof SettingType) {
+            return new self($type, ...$arguments);
+        }
+
         return $this->forwardCallTo($this->builder, $name, $arguments);
     }
 
@@ -70,6 +77,47 @@ class SettingsRepository implements Repository
     {
         $class = static::modelClass();
         return new $class();
+    }
+
+    /**
+     * @param  SettingOwner  $owner
+     * @return Repository
+     */
+    public function addOwnerScope(SettingOwner $owner): Repository
+    {
+        $this->scopeOwner = $owner;
+        $this->initQueryBuilder();
+        return $this;
+    }
+
+    /**
+     * @param  Type  $type
+     * @return Repository
+     */
+    public function addDataTypeScope(Type $type): Repository
+    {
+        $this->scopeDataType = $type;
+        $this->initQueryBuilder();
+        return $this;
+    }
+
+    /**
+     * @param  SettingType  $settingType
+     * @return Repository
+     */
+    public function addSettingTypeScope(SettingType $settingType): Repository
+    {
+        $this->scopeSettingType = $settingType;
+        $this->initQueryBuilder();
+        return $this;
+    }
+
+    /**
+     * @return void
+     */
+    protected function initQueryBuilder(): void
+    {
+        $this->builder = $this->newQuery();
     }
 
     /**
@@ -104,7 +152,7 @@ class SettingsRepository implements Repository
      */
     public function newInstance(): Repository
     {
-        return new self();
+        return new self($this->scopeSettingType, $this->scopeOwner, $this->scopeDataType);
     }
 
     /**
