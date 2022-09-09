@@ -5,12 +5,16 @@ namespace Envorra\LaravelSettings\Tests\Unit\Repositories;
 use ReflectionClass;
 use ReflectionException;
 use Envorra\LaravelSettings\Tests\TestCase;
+use Envorra\LaravelSettings\Models\Setting;
 use Envorra\TypeHandler\Contracts\Types\Type;
 use Envorra\LaravelSettings\Contracts\SettingType;
 use Envorra\LaravelSettings\Contracts\SettingOwner;
+use Envorra\TypeHandler\Types\Primitives\DoubleType;
 use Envorra\LaravelSettings\SettingTypes\AppSettingType;
+use Envorra\LaravelSettings\Models\AbstractSettingModel;
 use Envorra\LaravelSettings\SettingTypes\GlobalSettingType;
 use Envorra\LaravelSettings\Repositories\SettingsRepository;
+use Envorra\LaravelSettings\Tests\Environment\Models\UserUsingTrait;
 
 /**
  * @coversDefaultClass \Envorra\LaravelSettings\Repositories\SettingsRepository
@@ -20,28 +24,49 @@ class SettingsRepositoryTest extends TestCase
     /**
      * @test
      * @covers ::addDataTypeScope
+     * @throws ReflectionException
      */
     public function it_can_execute_addDataTypeScope_method(): void
     {
+        $repository = new SettingsRepository();
 
+        $this->assertPropertyEquals(null, 'scopeDataType', $repository);
+
+        $repository->addDataTypeScope(DoubleType::make());
+
+        $this->assertScopeDataType(DoubleType::make(), $repository);
     }
 
     /**
      * @test
      * @covers ::addOwnerScope
+     * @throws ReflectionException
      */
     public function it_can_execute_addOwnerScope_method(): void
     {
+        $repository = new SettingsRepository();
 
+        $this->assertPropertyEquals(null, 'scopeOwner', $repository);
+
+        $repository->addOwnerScope(UserUsingTrait::first());
+
+        $this->assertScopeOwner(UserUsingTrait::first(), $repository);
     }
 
     /**
      * @test
      * @covers ::addSettingTypeScope
+     * @throws ReflectionException
      */
     public function it_can_execute_addSettingTypeScope_method(): void
     {
+        $repository = new SettingsRepository();
 
+        $this->assertPropertyEquals(null, 'scopeSettingType', $repository);
+
+        $repository->addSettingTypeScope(new AppSettingType());
+
+        $this->assertScopeSettingType(new AppSettingType(), $repository);
     }
 
     /**
@@ -86,7 +111,7 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_execute_modelClass_method(): void
     {
-
+        $this->assertIsString(SettingsRepository::modelClass());
     }
 
     /**
@@ -95,7 +120,8 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_execute_model_method(): void
     {
-
+        $this->assertInstanceOf(AbstractSettingModel::class, SettingsRepository::model());
+        $this->assertInstanceOf(SettingsRepository::modelClass(), SettingsRepository::model());
     }
 
     /**
@@ -167,7 +193,7 @@ class SettingsRepositoryTest extends TestCase
      */
     public function it_can_instantiate(): void
     {
-
+        $this->assertInstanceOf(SettingsRepository::class, new SettingsRepository());
     }
 
     /**
