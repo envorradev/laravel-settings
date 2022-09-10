@@ -21,7 +21,8 @@
         "illuminate/contracts": "^9",
         "envorradev/type-handler": "*",
         "taylornetwork/class-scanner": "*",
-        "nikic/php-parser": "*"
+        "nikic/php-parser": "*",
+        "envorradev/file-class-resolver": "^0.1"
     },
     "require-dev": {
         "orchestra/testbench": "^7.6",

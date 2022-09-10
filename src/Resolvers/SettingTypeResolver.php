@@ -2,9 +2,8 @@
 
 namespace Envorra\LaravelSettings\Resolvers;
 
-use ReflectionClass;
 use DirectoryIterator;
-use ReflectionException;
+use Envorra\FileClassResolver\ClassResolver;
 use Envorra\LaravelSettings\Helpers\ConfigHelper;
 use Envorra\LaravelSettings\Contracts\SettingType;
 
@@ -146,20 +145,10 @@ class SettingTypeResolver
         /** @var DirectoryIterator $file */
         foreach ($directory as $file) {
             if ($file->isFile() && $file->isReadable()) {
-                $class = ClassResolver::resolve($file);
+                $class = ClassResolver::make($file);
 
-                try {
-                    $reflection = new ReflectionClass($class);
-
-                    if (!$reflection->isAbstract()) {
-                        $instance = new $class();
-
-                        if ($instance instanceof SettingType) {
-                            $this->add($instance);
-                        }
-                    }
-                } catch (ReflectionException) {
-                    // skip class
+                if($class instanceof SettingType) {
+                    $this->add($class);
                 }
             }
         }
