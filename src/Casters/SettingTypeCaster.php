@@ -18,7 +18,7 @@ class SettingTypeCaster implements Caster
      */
     public function get($model, string $key, mixed $value, array $attributes): mixed
     {
-        return SettingTypeResolver::resolve($value) ?? $value;
+        return SettingTypeResolver::resolve($value ?? '') ?? $value;
     }
 
     /**
@@ -26,7 +26,7 @@ class SettingTypeCaster implements Caster
      */
     public function set($model, string $key, mixed $value, array $attributes): string
     {
-        if($value instanceof SettingType) {
+        if ($value instanceof SettingType) {
             return $value->name();
         }
 

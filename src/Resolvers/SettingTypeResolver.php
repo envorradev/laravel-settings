@@ -147,7 +147,7 @@ class SettingTypeResolver
             if ($file->isFile() && $file->isReadable()) {
                 $class = ClassResolver::make($file);
 
-                if($class instanceof SettingType) {
+                if ($class instanceof SettingType) {
                     $this->add($class);
                 }
             }

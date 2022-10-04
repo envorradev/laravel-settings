@@ -2,7 +2,7 @@
 
 namespace Envorra\LaravelSettings\Contracts;
 
-use Envorra\TypeHandler\Contracts\Castables\Stringable;
+use Envorra\Castables\Stringable;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,10 +22,10 @@ interface SettingType extends Scope, Stringable
     /**
      * @return string
      */
-    public function settingTypeColumn(): string;
+    public function name(): string;
 
     /**
      * @return string
      */
-    public function name(): string;
+    public function settingTypeColumn(): string;
 }

@@ -4,8 +4,7 @@ namespace Envorra\LaravelSettings\Casters;
 
 use Envorra\TypeHandler\Contracts\Types\Type;
 use Envorra\LaravelSettings\Contracts\Caster;
-use Envorra\TypeHandler\Factories\TypeFactory;
-use Envorra\TypeHandler\Exceptions\TypeFactoryException;
+use Envorra\TypeHandler\Resolvers\TypeResolver;
 
 /**
  * DataTypeCaster
@@ -16,11 +15,10 @@ class DataTypeCaster implements Caster
 {
     /**
      * @inheritDoc
-     * @throws TypeFactoryException
      */
     public function get($model, string $key, mixed $value, array $attributes = []): mixed
     {
-        return TypeFactory::createFromType($value);
+        return TypeResolver::resolveType($value);
     }
 
     /**
@@ -28,7 +26,7 @@ class DataTypeCaster implements Caster
      */
     public function set($model, string $key, mixed $value, array $attributes = []): string
     {
-        if($value instanceof Type) {
+        if ($value instanceof Type) {
             return $value::type();
         }
 

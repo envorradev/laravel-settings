@@ -26,6 +26,29 @@ class ConfigHelper
     }
 
     /**
+     * @param  string  $name
+     * @param  array   $arguments
+     * @return string|null
+     */
+    public static function __callStatic(string $name, array $arguments): ?string
+    {
+        if (str_ends_with($name, 'Column')) {
+            return static::column(str_replace('Column', '', $name));
+        }
+        return null;
+    }
+
+    /**
+     * @param  string  $name
+     * @return string
+     */
+    public static function column(string $name): string
+    {
+        $name = Str::snake($name);
+        return static::map()[$name] ?? static::map()[Str::camel($name)] ?? $name;
+    }
+
+    /**
      * @param  string      $key
      * @param  mixed|null  $default
      * @return mixed
@@ -48,24 +71,6 @@ class ConfigHelper
     }
 
     /**
-     * @param  string  $name
-     * @return string
-     */
-    public static function column(string $name): string
-    {
-        $name = Str::snake($name);
-        return static::map()[$name] ?? static::map()[Str::camel($name)] ?? $name;
-    }
-
-    /**
-     * @return string
-     */
-    public static function ownerRelation(): string
-    {
-        return static::get('morph_to_relation_name', 'owner');
-    }
-
-    /**
      * @return string
      */
     public static function model(): string
@@ -74,15 +79,10 @@ class ConfigHelper
     }
 
     /**
-     * @param  string  $name
-     * @param  array   $arguments
-     * @return string|null
+     * @return string
      */
-    public static function __callStatic(string $name, array $arguments): ?string
+    public static function ownerRelation(): string
     {
-        if(str_ends_with($name, 'Column')) {
-            return static::column(str_replace('Column', '', $name));
-        }
-        return null;
+        return static::get('morph_to_relation_name', 'owner');
     }
 }

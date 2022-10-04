@@ -17,25 +17,21 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 interface Repository
 {
     /**
-     * @return Builder
-     */
-    public function query(): Builder;
-
-    /**
-     * @return Builder
-     */
-    public function newQuery(): Builder;
-    /**
-     * @return Repository
-     */
-    public function newInstance(): Repository;
-
-    /**
      * @param  string  $name
      * @param  array   $arguments
      * @return mixed
      */
     public static function __callStatic(string $name, array $arguments): mixed;
+
+    /**
+     * @return AbstractSettingModel
+     */
+    public static function settingsModel(): AbstractSettingModel;
+
+    /**
+     * @return class-string<AbstractSettingModel>
+     */
+    public static function settingsModelClass(): string;
 
     /**
      * @param  string  $name
@@ -45,19 +41,15 @@ interface Repository
     public function __call(string $name, array $arguments): mixed;
 
     /**
-     * @return class-string<AbstractSettingModel>
-     */
-    public static function modelClass(): string;
-
-    /**
-     * @return AbstractSettingModel
-     */
-    public static function model(): AbstractSettingModel;
-
-    /**
      * @return Collection
      */
     public function all(): Collection;
+
+    /**
+     * @param  string  $key
+     * @return AbstractSettingModel|null
+     */
+    public function find(string $key): ?AbstractSettingModel;
 
     /**
      * @param  string  $key
@@ -67,12 +59,6 @@ interface Repository
     public function findOrFail(string $key): AbstractSettingModel;
 
     /**
-     * @param  string  $key
-     * @return AbstractSettingModel|null
-     */
-    public function find(string $key): ?AbstractSettingModel;
-
-    /**
      * @param  string      $key
      * @param  mixed|null  $default
      * @return mixed
@@ -80,10 +66,19 @@ interface Repository
     public function get(string $key, mixed $default = null): mixed;
 
     /**
-     * @param  string  $key
-     * @return self
+     * @return Repository
      */
-    public function whereKey(string $key): self;
+    public function newInstance(): Repository;
+
+    /**
+     * @return Builder
+     */
+    public function newQuery(): Builder;
+
+    /**
+     * @return Builder
+     */
+    public function query(): Builder;
 
     /**
      * @param  mixed       $column
@@ -93,4 +88,10 @@ interface Repository
      * @return self
      */
     public function where(mixed $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): self;
+
+    /**
+     * @param  string  $key
+     * @return self
+     */
+    public function whereKey(string $key): self;
 }

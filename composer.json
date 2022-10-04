@@ -1,7 +1,7 @@
 {
     "name": "envorradev/laravel-settings",
     "description": "A package to manage global and model based settings",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "repositories": [
         {
             "type": "path",
@@ -9,7 +9,7 @@
         },
         {
             "type": "path",
-            "url": "../TaylorNetwork/class-scanner"
+            "url": "../class-finder"
         }
     ],
     "require": {
@@ -19,8 +19,10 @@
         "illuminate/auth": "^9",
         "illuminate/config": "^9",
         "illuminate/contracts": "^9",
-        "envorradev/type-handler": "*",
-        "taylornetwork/class-scanner": "*",
+        "envorradev/type-handler": "dev-master",
+        "envorradev/class-finder": "dev-main",
+        "envorradev/castables": "dev-master",
+        "envorradev/maps": "dev-master",
         "nikic/php-parser": "*",
         "envorradev/file-class-resolver": "^0.1"
     },

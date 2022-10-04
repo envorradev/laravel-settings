@@ -4,7 +4,6 @@ namespace Envorra\LaravelSettings\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Envorra\LaravelSettings\Models\Setting;
 use Illuminate\Support\Traits\ForwardsCalls;
 use Envorra\TypeHandler\Contracts\Types\Type;
 use Envorra\LaravelSettings\Contracts\Repository;
@@ -20,6 +19,11 @@ use Envorra\LaravelSettings\Resolvers\SettingTypeResolver;
  *
  * @package Envorra\LaravelSettings\Repositories
  * @mixin Builder
+ *
+ * @method self global()
+ * @method self app()
+ * @method self model()
+ * @method self user()
  */
 class SettingsRepository implements Repository
 {
@@ -51,21 +55,16 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function __call(string $name, array $arguments): mixed
+    public static function settingsModel(): AbstractSettingModel
     {
-        $type = SettingTypeResolver::resolve($name);
-
-        if($type instanceof SettingType) {
-            return new self($type, ...$arguments);
-        }
-
-        return $this->forwardCallTo($this->builder, $name, $arguments);
+        $class = static::settingsModelClass();
+        return new $class();
     }
 
     /**
      * @inheritDoc
      */
-    public static function modelClass(): string
+    public static function settingsModelClass(): string
     {
         return ConfigHelper::model();
     }
@@ -73,21 +72,15 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public static function model(): AbstractSettingModel
+    public function __call(string $name, array $arguments): mixed
     {
-        $class = static::modelClass();
-        return new $class();
-    }
+        $type = SettingTypeResolver::resolve($name);
 
-    /**
-     * @param  SettingOwner  $owner
-     * @return Repository
-     */
-    public function addOwnerScope(SettingOwner $owner): Repository
-    {
-        $this->scopeOwner = $owner;
-        $this->initQueryBuilder();
-        return $this;
+        if ($type instanceof SettingType) {
+            return new self($type, ...$arguments);
+        }
+
+        return $this->forwardCallTo($this->builder, $name, $arguments);
     }
 
     /**
@@ -97,6 +90,17 @@ class SettingsRepository implements Repository
     public function addDataTypeScope(Type $type): Repository
     {
         $this->scopeDataType = $type;
+        $this->initQueryBuilder();
+        return $this;
+    }
+
+    /**
+     * @param  SettingOwner  $owner
+     * @return Repository
+     */
+    public function addOwnerScope(SettingOwner $owner): Repository
+    {
+        $this->scopeOwner = $owner;
         $this->initQueryBuilder();
         return $this;
     }
@@ -113,11 +117,72 @@ class SettingsRepository implements Repository
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
-    protected function initQueryBuilder(): void
+    public function all(): Collection
     {
-        $this->builder = $this->newQuery();
+        return $this->newQuery()->get();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function find(string $key): ?AbstractSettingModel
+    {
+        return $this->whereKey($key)->first();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findOrFail(string $key): AbstractSettingModel
+    {
+        if (!is_null($found = $this->find($key))) {
+            return $found;
+        }
+
+        throw (new ModelNotFoundException)->setModel(static::settingsModelClass());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get(string $key, mixed $default = null): mixed
+    {
+        $valueColumn = ConfigHelper::valueColumn();
+        return $this->find($key)?->$valueColumn ?? $default;
+    }
+
+    /**
+     * @return Type|null
+     */
+    public function getScopeDataType(): ?Type
+    {
+        return $this->scopeDataType;
+    }
+
+    /**
+     * @return SettingOwner|null
+     */
+    public function getScopeOwner(): ?SettingOwner
+    {
+        return $this->scopeOwner;
+    }
+
+    /**
+     * @return SettingType|null
+     */
+    public function getScopeSettingType(): ?SettingType
+    {
+        return $this->scopeSettingType;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function newInstance(): Repository
+    {
+        return new self($this->scopeSettingType, $this->scopeOwner, $this->scopeDataType);
     }
 
     /**
@@ -125,14 +190,14 @@ class SettingsRepository implements Repository
      */
     public function newQuery(): Builder
     {
-        $model = static::model();
+        $model = static::settingsModel();
         $query = $this->scopeSettingType?->apply($model::query(), $model) ?? $model::query();
 
-        if(!is_null($this->scopeOwner)) {
+        if (!is_null($this->scopeOwner)) {
             $query->whereMorphedTo(ConfigHelper::ownerRelation(), $this->scopeOwner);
         }
 
-        if(!is_null($this->scopeDataType)) {
+        if (!is_null($this->scopeDataType)) {
             $query->where(ConfigHelper::dataTypeColumn(), $this->scopeDataType::type());
         }
 
@@ -150,37 +215,10 @@ class SettingsRepository implements Repository
     /**
      * @inheritDoc
      */
-    public function newInstance(): Repository
+    public function where(mixed $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): static
     {
-        return new self($this->scopeSettingType, $this->scopeOwner, $this->scopeDataType);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function all(): Collection
-    {
-        return $this->newQuery()->get();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findOrFail(string $key): AbstractSettingModel
-    {
-        if(!is_null($found = $this->find($key))) {
-            return $found;
-        }
-
-        throw (new ModelNotFoundException)->setModel(static::modelClass());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function find(string $key): ?AbstractSettingModel
-    {
-        return $this->whereKey($key)->first();
+        $this->builder->where($column, $operator, $value, $boolean);
+        return $this;
     }
 
     /**
@@ -192,21 +230,10 @@ class SettingsRepository implements Repository
     }
 
     /**
-     * @inheritDoc
+     * @return void
      */
-    public function where(mixed $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): static
+    protected function initQueryBuilder(): void
     {
-        $this->builder->where($column, $operator, $value, $boolean);
-        return $this;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function get(string $key, mixed $default = null): mixed
-    {
-        $valueColumn = ConfigHelper::valueColumn();
-        return $this->find($key)?->$valueColumn ?? $default;
+        $this->builder = $this->newQuery();
     }
 }

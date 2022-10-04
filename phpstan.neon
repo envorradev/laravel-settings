@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - src
+        - tests
+    level: 4
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#Static call to instance method [a-zA-Z0-9\\_]+::[a-zA-Z0-9]+\(\)#'
