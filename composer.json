@@ -23,7 +23,7 @@
         "envorradev/class-finder": "dev-main",
         "envorradev/castables": "dev-master",
         "envorradev/maps": "dev-master",
-        "nikic/php-parser": "*",
+        "nikic/php-parser": "^4",
         "envorradev/file-class-resolver": "^0.1"
     },
     "require-dev": {

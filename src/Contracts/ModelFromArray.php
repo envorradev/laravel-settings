@@ -13,7 +13,7 @@ interface ModelFromArray
 {
     /**
      * @param  array  $attributes
-     * @return Model|null
+     * @return Model
      */
-    public static function modelFromArray(array $attributes): ?Model;
+    public static function modelFromArray(array $attributes): Model;
 }

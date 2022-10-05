@@ -52,6 +52,7 @@ class ConfigHelper
      * @param  string      $key
      * @param  mixed|null  $default
      * @return mixed
+     * @noinspection PhpRedundantCatchClauseInspection
      */
     public static function get(string $key, mixed $default = null): mixed
     {

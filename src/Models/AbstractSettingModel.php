@@ -3,7 +3,6 @@
 namespace Envorra\LaravelSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
 use Envorra\TypeHandler\Contracts\Types\Type;
 use Envorra\LaravelSettings\Helpers\ConfigHelper;
@@ -25,13 +24,9 @@ abstract class AbstractSettingModel extends Model implements HasDataType, ModelF
     /**
      * @inheritDoc
      */
-    public static function modelFromArray(array $attributes): ?Model
+    public static function modelFromArray(array $attributes): Model
     {
-        try {
-            return static::firstOrCreate($attributes);
-        } catch (QueryException) {
-            return null;
-        }
+        return static::firstOrCreate($attributes);
     }
 
     /**
