@@ -2,16 +2,6 @@
     "name": "envorradev/laravel-settings",
     "description": "A package to manage global and model based settings",
     "minimum-stability": "stable",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../type-handler"
-        },
-        {
-            "type": "path",
-            "url": "../class-finder"
-        }
-    ],
     "require": {
         "php": "^8.1",
         "illuminate/support": "^9",
